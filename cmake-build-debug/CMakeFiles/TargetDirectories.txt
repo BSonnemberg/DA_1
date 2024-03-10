@@ -1,0 +1,3 @@
+C:/Users/gugui/OneDrive/Ambiente de Trabalho/2LEIC/DA/cmake-build-debug/CMakeFiles/DA.dir
+C:/Users/gugui/OneDrive/Ambiente de Trabalho/2LEIC/DA/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/gugui/OneDrive/Ambiente de Trabalho/2LEIC/DA/cmake-build-debug/CMakeFiles/rebuild_cache.dir
