@@ -1,9 +1,16 @@
 cmake_minimum_required(VERSION 3.27)
-project(DA)
+set(CMAKE_CXX_STANDARD 11)
+project(water-supply-analysis)
 
-set(CMAKE_CXX_STANDARD 14)
+set(H_FILES
+        src/Station.h
+        #...
+)
 
-add_executable(DA
-        main.cpp
-        src/def/menu.cpp
-        src/header/menu.h)
+set(CPP_FILES
+        #...
+        src/main.cpp
+)
+
+add_executable(water-supply-analysis
+        ${H_FILES} ${CPP_FILES})

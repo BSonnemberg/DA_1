@@ -1,0 +1,14 @@
+//
+// Created by Nuno Rios on 16/03/2024.
+//
+
+#ifndef WATER_SUPPLY_ANALYSIS_DELIVERYSITE_H
+#define WATER_SUPPLY_ANALYSIS_DELIVERYSITE_H
+
+
+class DeliverySite {
+
+};
+
+
+#endif //WATER_SUPPLY_ANALYSIS_DELIVERYSITE_H
