@@ -1,3 +1,0 @@
-/Users/nunorios/Documents/uni/da/proj-1/cmake-build-debug/CMakeFiles/water-supply-analysis.dir
-/Users/nunorios/Documents/uni/da/proj-1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/nunorios/Documents/uni/da/proj-1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
