@@ -1,13 +1,12 @@
 #ifndef CITY_H
 #define CITY_H
 
-#include <string>
+#include "NodeInfo.h"
 
-class City {
-    int id;
+// a.k.a. delivery sites
+class City : public NodeInfo {
     int demand;
     int population;
-    std::string code;
     std::string name;
 public:
     City(const int& id,
@@ -15,8 +14,6 @@ public:
          const std::string& name,
          const int& demand,
          const int& population);
-    int getId() const;
-    std::string getCode() const;
     std::string getName() const;
     int getDemand() const;
     int getPopulation() const;

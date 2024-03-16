@@ -1,15 +1,11 @@
 #ifndef STATION_H
 #define STATION_H
 
-#include <string>
+#include "NodeInfo.h"
 
-class Station {
-    int id;
-    std::string code;
+class Station : public NodeInfo {
 public:
-    Station(const int& id, const std::string& code);
-    int getId() const;
-    std::string getCode() const;
+    Station(const int& id, const std::string& code) : NodeInfo(id, code, PUMPING_STATION) {}
 };
 
 #endif

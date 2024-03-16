@@ -12,9 +12,9 @@ set(H_FILES
 set(CPP_FILES
         #...
         src/main.cpp
-        src/Station.cpp
         src/Reservoir.cpp
         src/City.cpp
+        src/NodeInfo.cpp
 )
 
 add_executable(water-supply-analysis

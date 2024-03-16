@@ -1,19 +1,9 @@
 #include "City.h"
 
-City::City(const int& id, const std::string& code, const std::string& name, const int& demand, const int& population) {
-    this->id = id;
-    this->code = code;
+City::City(const int& id, const std::string& code, const std::string& name, const int& demand, const int& population) : NodeInfo(id, code, DELIVERY_SITE) {
     this->name = name;
     this->demand = demand;
     this->population = population;
-}
-
-int City::getId() const {
-    return this->id;
-}
-
-std::string City::getCode() const {
-    return this->code;
 }
 
 std::string City::getName() const {
