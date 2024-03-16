@@ -9,12 +9,14 @@ class Edge;
 
 class Vertex {
     NodeInfo info;
-    // outgoing edges
     std::vector<Edge> adj;
     //...
+    bool removeEdgeTo(Vertex* v);
+    friend class Graph;
 public:
     explicit Vertex(NodeInfo info);
     const std::vector<Edge>& getAdj() const;
+    NodeInfo getInfo() const;
 };
 
 #endif

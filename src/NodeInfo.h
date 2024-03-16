@@ -19,8 +19,9 @@ protected:
     NodeInfo(const int& id, const std::string& code, const NodeType& type);
 public:
     int getId() const;
-    std::string getCode() const;
     NodeType getType() const;
+    std::string getCode() const;
+    bool operator==(const NodeInfo& i);
 };
 
 #endif

@@ -17,3 +17,7 @@ std::string NodeInfo::getCode() const {
 NodeType NodeInfo::getType() const {
     return this->type;
 }
+
+bool NodeInfo::operator==(const NodeInfo &i) {
+    return this->type == i.type && this->id == i.id;
+}

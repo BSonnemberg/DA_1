@@ -15,6 +15,7 @@ set(CPP_FILES
         src/NodeInfo.cpp
         src/Edge.cpp
         src/Vertex.cpp
+        src/Graph.cpp
 )
 
 add_executable(water-supply-analysis

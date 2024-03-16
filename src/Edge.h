@@ -8,6 +8,8 @@ class Edge {
     float weight;
 public:
     Edge(Vertex* dest, const float& weight);
+    Vertex* getDest() const;
+    float getWeight() const;
 };
 
 #endif
