@@ -11,7 +11,7 @@ public:
     Reservoir(const int& id,
               const std::string& code,
               const std::string& name,
-              const std::string& municipality,
+              const std::string& munic,
               const int& maxDelivery);
     std::string getName() const;
     std::string getMunicipality() const;

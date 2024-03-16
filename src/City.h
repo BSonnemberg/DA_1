@@ -13,7 +13,7 @@ public:
          const std::string& code,
          const std::string& name,
          const int& demand,
-         const int& population);
+         const int& pop);
     std::string getName() const;
     int getDemand() const;
     int getPopulation() const;

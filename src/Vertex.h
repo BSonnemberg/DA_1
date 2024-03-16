@@ -1,9 +1,12 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-#include "NodeInfo.h"
-#include "Edge.h"
 #include <vector>
+#include "Edge.h"
+
+#include "Station.h"
+#include "Reservoir.h"
+#include "City.h"
 
 class Edge;
 

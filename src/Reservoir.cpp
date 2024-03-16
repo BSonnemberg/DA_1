@@ -1,9 +1,9 @@
 #include "Reservoir.h"
 
-Reservoir::Reservoir(const int& id, const std::string& code, const std::string& name, const std::string& municipality, const int& maxDelivery)
+Reservoir::Reservoir(const int& id, const std::string& code, const std::string& name, const std::string& munic, const int& maxDelivery)
 : NodeInfo(id, code, WATER_RESERVOIR) {
     this->name = name;
-    this->municipality = municipality;
+    this->municipality = munic;
     this->maxDelivery = maxDelivery;
 }
 
