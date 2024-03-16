@@ -83,17 +83,65 @@ CMakeFiles/water-supply-analysis.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/water-supply-analysis.dir/src/main.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/nunorios/Documents/uni/da/proj-1/src/main.cpp -o CMakeFiles/water-supply-analysis.dir/src/main.cpp.s
 
+CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o: CMakeFiles/water-supply-analysis.dir/flags.make
+CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o: /Users/nunorios/Documents/uni/da/proj-1/src/Station.cpp
+CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o: CMakeFiles/water-supply-analysis.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/nunorios/Documents/uni/da/proj-1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o -MF CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o.d -o CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o -c /Users/nunorios/Documents/uni/da/proj-1/src/Station.cpp
+
+CMakeFiles/water-supply-analysis.dir/src/Station.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/water-supply-analysis.dir/src/Station.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/nunorios/Documents/uni/da/proj-1/src/Station.cpp > CMakeFiles/water-supply-analysis.dir/src/Station.cpp.i
+
+CMakeFiles/water-supply-analysis.dir/src/Station.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/water-supply-analysis.dir/src/Station.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/nunorios/Documents/uni/da/proj-1/src/Station.cpp -o CMakeFiles/water-supply-analysis.dir/src/Station.cpp.s
+
+CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o: CMakeFiles/water-supply-analysis.dir/flags.make
+CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o: /Users/nunorios/Documents/uni/da/proj-1/src/Reservoir.cpp
+CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o: CMakeFiles/water-supply-analysis.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/nunorios/Documents/uni/da/proj-1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o -MF CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o.d -o CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o -c /Users/nunorios/Documents/uni/da/proj-1/src/Reservoir.cpp
+
+CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/nunorios/Documents/uni/da/proj-1/src/Reservoir.cpp > CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.i
+
+CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/nunorios/Documents/uni/da/proj-1/src/Reservoir.cpp -o CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.s
+
+CMakeFiles/water-supply-analysis.dir/src/City.cpp.o: CMakeFiles/water-supply-analysis.dir/flags.make
+CMakeFiles/water-supply-analysis.dir/src/City.cpp.o: /Users/nunorios/Documents/uni/da/proj-1/src/City.cpp
+CMakeFiles/water-supply-analysis.dir/src/City.cpp.o: CMakeFiles/water-supply-analysis.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/nunorios/Documents/uni/da/proj-1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/water-supply-analysis.dir/src/City.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/water-supply-analysis.dir/src/City.cpp.o -MF CMakeFiles/water-supply-analysis.dir/src/City.cpp.o.d -o CMakeFiles/water-supply-analysis.dir/src/City.cpp.o -c /Users/nunorios/Documents/uni/da/proj-1/src/City.cpp
+
+CMakeFiles/water-supply-analysis.dir/src/City.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/water-supply-analysis.dir/src/City.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/nunorios/Documents/uni/da/proj-1/src/City.cpp > CMakeFiles/water-supply-analysis.dir/src/City.cpp.i
+
+CMakeFiles/water-supply-analysis.dir/src/City.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/water-supply-analysis.dir/src/City.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/nunorios/Documents/uni/da/proj-1/src/City.cpp -o CMakeFiles/water-supply-analysis.dir/src/City.cpp.s
+
 # Object files for target water-supply-analysis
 water__supply__analysis_OBJECTS = \
-"CMakeFiles/water-supply-analysis.dir/src/main.cpp.o"
+"CMakeFiles/water-supply-analysis.dir/src/main.cpp.o" \
+"CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o" \
+"CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o" \
+"CMakeFiles/water-supply-analysis.dir/src/City.cpp.o"
 
 # External object files for target water-supply-analysis
 water__supply__analysis_EXTERNAL_OBJECTS =
 
 water-supply-analysis: CMakeFiles/water-supply-analysis.dir/src/main.cpp.o
+water-supply-analysis: CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o
+water-supply-analysis: CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o
+water-supply-analysis: CMakeFiles/water-supply-analysis.dir/src/City.cpp.o
 water-supply-analysis: CMakeFiles/water-supply-analysis.dir/build.make
 water-supply-analysis: CMakeFiles/water-supply-analysis.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/nunorios/Documents/uni/da/proj-1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable water-supply-analysis"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/nunorios/Documents/uni/da/proj-1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable water-supply-analysis"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/water-supply-analysis.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -76,6 +76,21 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/nunorios/Documents/uni/da/proj-1/src/City.cpp">
+			<Option target="water-supply-analysis"/>
+		</Unit>
+		<Unit filename="/Users/nunorios/Documents/uni/da/proj-1/src/City.h">
+			<Option target="water-supply-analysis"/>
+		</Unit>
+		<Unit filename="/Users/nunorios/Documents/uni/da/proj-1/src/Reservoir.cpp">
+			<Option target="water-supply-analysis"/>
+		</Unit>
+		<Unit filename="/Users/nunorios/Documents/uni/da/proj-1/src/Reservoir.h">
+			<Option target="water-supply-analysis"/>
+		</Unit>
+		<Unit filename="/Users/nunorios/Documents/uni/da/proj-1/src/Station.cpp">
+			<Option target="water-supply-analysis"/>
+		</Unit>
 		<Unit filename="/Users/nunorios/Documents/uni/da/proj-1/src/Station.h">
 			<Option target="water-supply-analysis"/>
 		</Unit>

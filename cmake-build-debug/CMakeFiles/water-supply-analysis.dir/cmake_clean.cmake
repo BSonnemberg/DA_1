@@ -1,4 +1,10 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/water-supply-analysis.dir/src/City.cpp.o"
+  "CMakeFiles/water-supply-analysis.dir/src/City.cpp.o.d"
+  "CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o"
+  "CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o.d"
+  "CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o"
+  "CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o.d"
   "CMakeFiles/water-supply-analysis.dir/src/main.cpp.o"
   "CMakeFiles/water-supply-analysis.dir/src/main.cpp.o.d"
   "water-supply-analysis"

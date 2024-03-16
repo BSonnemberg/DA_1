@@ -7,9 +7,9 @@ class Station {
     int id;
     std::string code;
 public:
-    Station(int id, std::string code);
-    int getId();
-    std::string getCode();
+    Station(const int& id, const std::string& code);
+    int getId() const;
+    std::string getCode() const;
 };
 
 #endif

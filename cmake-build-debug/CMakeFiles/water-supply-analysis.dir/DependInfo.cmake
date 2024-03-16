@@ -8,6 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/Users/nunorios/Documents/uni/da/proj-1/src/City.cpp" "CMakeFiles/water-supply-analysis.dir/src/City.cpp.o" "gcc" "CMakeFiles/water-supply-analysis.dir/src/City.cpp.o.d"
+  "/Users/nunorios/Documents/uni/da/proj-1/src/Reservoir.cpp" "CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o" "gcc" "CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o.d"
+  "/Users/nunorios/Documents/uni/da/proj-1/src/Station.cpp" "CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o" "gcc" "CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o.d"
   "/Users/nunorios/Documents/uni/da/proj-1/src/main.cpp" "CMakeFiles/water-supply-analysis.dir/src/main.cpp.o" "gcc" "CMakeFiles/water-supply-analysis.dir/src/main.cpp.o.d"
   )
 

@@ -4,12 +4,17 @@ project(water-supply-analysis)
 
 set(H_FILES
         src/Station.h
+        src/Reservoir.h
+        src/City.h
         #...
 )
 
 set(CPP_FILES
         #...
         src/main.cpp
+        src/Station.cpp
+        src/Reservoir.cpp
+        src/City.cpp
 )
 
 add_executable(water-supply-analysis

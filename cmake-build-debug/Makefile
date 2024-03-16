@@ -129,6 +129,78 @@ water-supply-analysis/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/water-supply-analysis.dir/build.make CMakeFiles/water-supply-analysis.dir/build
 .PHONY : water-supply-analysis/fast
 
+src/City.o: src/City.cpp.o
+.PHONY : src/City.o
+
+# target to build an object file
+src/City.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/water-supply-analysis.dir/build.make CMakeFiles/water-supply-analysis.dir/src/City.cpp.o
+.PHONY : src/City.cpp.o
+
+src/City.i: src/City.cpp.i
+.PHONY : src/City.i
+
+# target to preprocess a source file
+src/City.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/water-supply-analysis.dir/build.make CMakeFiles/water-supply-analysis.dir/src/City.cpp.i
+.PHONY : src/City.cpp.i
+
+src/City.s: src/City.cpp.s
+.PHONY : src/City.s
+
+# target to generate assembly for a file
+src/City.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/water-supply-analysis.dir/build.make CMakeFiles/water-supply-analysis.dir/src/City.cpp.s
+.PHONY : src/City.cpp.s
+
+src/Reservoir.o: src/Reservoir.cpp.o
+.PHONY : src/Reservoir.o
+
+# target to build an object file
+src/Reservoir.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/water-supply-analysis.dir/build.make CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.o
+.PHONY : src/Reservoir.cpp.o
+
+src/Reservoir.i: src/Reservoir.cpp.i
+.PHONY : src/Reservoir.i
+
+# target to preprocess a source file
+src/Reservoir.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/water-supply-analysis.dir/build.make CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.i
+.PHONY : src/Reservoir.cpp.i
+
+src/Reservoir.s: src/Reservoir.cpp.s
+.PHONY : src/Reservoir.s
+
+# target to generate assembly for a file
+src/Reservoir.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/water-supply-analysis.dir/build.make CMakeFiles/water-supply-analysis.dir/src/Reservoir.cpp.s
+.PHONY : src/Reservoir.cpp.s
+
+src/Station.o: src/Station.cpp.o
+.PHONY : src/Station.o
+
+# target to build an object file
+src/Station.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/water-supply-analysis.dir/build.make CMakeFiles/water-supply-analysis.dir/src/Station.cpp.o
+.PHONY : src/Station.cpp.o
+
+src/Station.i: src/Station.cpp.i
+.PHONY : src/Station.i
+
+# target to preprocess a source file
+src/Station.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/water-supply-analysis.dir/build.make CMakeFiles/water-supply-analysis.dir/src/Station.cpp.i
+.PHONY : src/Station.cpp.i
+
+src/Station.s: src/Station.cpp.s
+.PHONY : src/Station.s
+
+# target to generate assembly for a file
+src/Station.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/water-supply-analysis.dir/build.make CMakeFiles/water-supply-analysis.dir/src/Station.cpp.s
+.PHONY : src/Station.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -162,6 +234,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... water-supply-analysis"
+	@echo "... src/City.o"
+	@echo "... src/City.i"
+	@echo "... src/City.s"
+	@echo "... src/Reservoir.o"
+	@echo "... src/Reservoir.i"
+	@echo "... src/Reservoir.s"
+	@echo "... src/Station.o"
+	@echo "... src/Station.i"
+	@echo "... src/Station.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
