@@ -7,9 +7,11 @@ class Graph {
     std::vector<Vertex*> nodes;
 public:
     ~Graph();
-    Vertex* findVertex(const NodeInfo& info) const;
     bool addVertex(const NodeInfo& info);
     bool removeVertex(const NodeInfo& info);
+    // find vertex based on the code of its NodeInfo
+    Vertex* findVertex(const std::string& code) const;
+    bool addEdge(const std::string& c1, const std::string& c2, float cap);
 };
 
 #endif

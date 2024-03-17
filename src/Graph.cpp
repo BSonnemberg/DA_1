@@ -7,15 +7,15 @@ Graph::~Graph() {
     }
 }
 
-Vertex* Graph::findVertex(const NodeInfo& info) const {
+Vertex* Graph::findVertex(const std::string& code) const {
     for (Vertex* v : this->nodes) {
-        if (v->getInfo() == info) return v;
+        if (v->getInfo().getCode() == code) return v;
     }
     return nullptr;
 }
 
 bool Graph::addVertex(const NodeInfo& info) {
-    if (findVertex(info) != nullptr) return false;
+    if (findVertex(info.getCode()) != nullptr) return false;
     this->nodes.push_back(new Vertex(info));
     return true;
 }
@@ -35,4 +35,12 @@ bool Graph::removeVertex(const NodeInfo& info) {
         }
     }
     return false;
+}
+
+bool Graph::addEdge(const std::string& c1, const std::string& c2, float w) {
+    Vertex* v1 = this->findVertex(c1);
+    Vertex* v2 = this->findVertex(c2);
+    if (v1 == nullptr || v2 == nullptr) return false;
+    v1->addEdgeTo(v2, w);
+    return true;
 }

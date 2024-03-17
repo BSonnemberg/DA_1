@@ -51,7 +51,10 @@ void DataLoader::loadPipes(Graph &g, const std::string &path) {
         std::getline(iss, dir, ',');
 
         // create edge
-        //...
+        g.addEdge(c1, c2, stof(cap));
+        if (dir == "1") { // bidirectional edge
+            g.addEdge(c2, c1, stof(cap));
+        }
     }
     stream.close();
 }

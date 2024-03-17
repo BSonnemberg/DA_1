@@ -2,6 +2,9 @@
 
 int main() {
     Graph g;
-    DataLoader::loadToGraph(g, "../dataset-large/");
+    if (!DataLoader::loadToGraph(g, "../dataset-large/")) {
+        printf("Error loading dataset!");
+        return 1;
+    }
     return 0;
 }

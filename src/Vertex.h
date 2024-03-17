@@ -14,6 +14,7 @@ class Vertex {
     NodeInfo info;
     std::vector<Edge> adj;
     //...
+    void addEdgeTo(Vertex* v, float cap);
     bool removeEdgeTo(Vertex* v);
     friend class Graph;
 public:

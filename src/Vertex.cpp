@@ -3,12 +3,16 @@
 
 Vertex::Vertex(NodeInfo info) : info(std::move(info)) {}
 
+NodeInfo Vertex::getInfo() const {
+    return this->info;
+}
+
 const std::vector<Edge>& Vertex::getAdj() const {
     return this->adj;
 }
 
-NodeInfo Vertex::getInfo() const {
-    return this->info;
+void Vertex::addEdgeTo(Vertex *v, float cap) {
+    this->adj.emplace_back(v,cap);
 }
 
 bool Vertex::removeEdgeTo(Vertex *v) {
