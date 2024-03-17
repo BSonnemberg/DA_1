@@ -9,6 +9,8 @@
  */
 class DataHandler {
     static void dfs(Graph& g, const NodeInfo& start, const NodeInfo& end);
+public:
+    static void maxFlow(Graph& g);
 };
 
 #endif

@@ -20,6 +20,7 @@ void DataLoader::loadStations(Graph& g, const std::string& path) {
 
     while (std::getline(stream, line)) {
 
+        if (line.back()=='\r') line.pop_back();
         std::istringstream iss(line);
         std::string id, code;
 
@@ -42,6 +43,7 @@ void DataLoader::loadPipes(Graph &g, const std::string &path) {
 
     while (std::getline(stream, line)) {
 
+        if (line.back()=='\r') line.pop_back();
         std::istringstream iss(line);
         std::string c1, c2, cap, dir;
 
@@ -67,6 +69,7 @@ void DataLoader::loadReservoirs(Graph& g, const std::string& path) {
 
     while (std::getline(stream, line)) {
 
+        if (line.back()=='\r') line.pop_back();
         std::istringstream iss(line);
         std::string id_, code, name, munic, max_;
 
@@ -94,6 +97,7 @@ void DataLoader::loadCities(Graph& g, const std::string& path) {
 
     while (std::getline(stream, line)) {
 
+        if (line.back()=='\r') line.pop_back();
         std::istringstream iss(line);
         std::string id_, code, name, demand_, pop_;
 
