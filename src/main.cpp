@@ -6,5 +6,6 @@ int main() {
         printf("Error loading dataset!");
         return 1;
     }
+    printf("Loaded dataset!");
     return 0;
 }

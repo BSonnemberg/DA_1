@@ -7,6 +7,8 @@ class Graph {
     std::vector<Vertex*> nodes;
 public:
     ~Graph();
+    Graph() = default;
+    Graph(const Graph& g);
     bool addVertex(const NodeInfo& info);
     bool removeVertex(const NodeInfo& info);
     // find vertex based on the code of its NodeInfo

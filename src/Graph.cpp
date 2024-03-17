@@ -7,6 +7,21 @@ Graph::~Graph() {
     }
 }
 
+Graph::Graph(const Graph &g) {
+    // copy nodes to new graph
+    for (auto v : g.nodes) {
+        this->nodes.push_back(new Vertex(v->getInfo()));
+    }
+    for (auto v : g.nodes) {
+        for (auto e : v->adj) {
+            // then copy the edges
+            std::string c1 = v->getInfo().getCode();
+            std::string c2 = e.getDest()->getInfo().getCode();
+            this->addEdge(c1, c2, e.getCapacity());
+        }
+    }
+}
+
 Vertex* Graph::findVertex(const std::string& code) const {
     for (Vertex* v : this->nodes) {
         if (v->getInfo().getCode() == code) return v;
