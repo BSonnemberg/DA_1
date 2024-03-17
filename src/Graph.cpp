@@ -22,6 +22,10 @@ Graph::Graph(const Graph &g) {
     }
 }
 
+const std::vector<Vertex*>& Graph::getNodes() const {
+    return this->nodes;
+}
+
 Vertex* Graph::findVertex(const std::string& code) const {
     for (Vertex* v : this->nodes) {
         if (v->getInfo().getCode() == code) return v;

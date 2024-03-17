@@ -5,10 +5,12 @@
 
 class Graph {
     std::vector<Vertex*> nodes;
+    friend class DataHandler;
 public:
     ~Graph();
     Graph() = default;
     Graph(const Graph& g);
+    const std::vector<Vertex*>& getNodes() const;
     bool addVertex(const NodeInfo& info);
     bool removeVertex(const NodeInfo& info);
     // find vertex based on the code of its NodeInfo

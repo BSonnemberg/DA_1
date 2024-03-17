@@ -13,10 +13,12 @@ class Edge;
 class Vertex {
     NodeInfo info;
     std::vector<Edge> adj;
+    bool visited = false;
     //...
     void addEdgeTo(Vertex* v, float cap);
     bool removeEdgeTo(Vertex* v);
     friend class Graph;
+    friend class DataHandler;
 public:
     explicit Vertex(NodeInfo info);
     const std::vector<Edge>& getAdj() const;

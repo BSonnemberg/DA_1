@@ -17,6 +17,7 @@ set(CPP_FILES
         src/Vertex.cpp
         src/Graph.cpp
         src/DataLoader.cpp
+        src/DataHandler.cpp
 )
 
 add_executable(water-supply-analysis
