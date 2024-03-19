@@ -13,7 +13,8 @@ class Edge;
 class Vertex {
     NodeInfo info;
     std::vector<Edge> adj;
-    bool visited = false;
+    Vertex* parent = nullptr;
+    int bottleneck;
     //...
     void addEdgeTo(Vertex* v, float cap);
     bool removeEdgeTo(Vertex* v);

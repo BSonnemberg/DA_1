@@ -1,9 +1,8 @@
 #include "NodeInfo.h"
 
-NodeInfo::NodeInfo(const int &id, const std::string &code, const NodeType& type) {
+NodeInfo::NodeInfo(const int &id, const std::string &code) {
     this->id = id;
     this->code = code;
-    this->type = type;
 }
 
 int NodeInfo::getId() const {
@@ -15,9 +14,11 @@ std::string NodeInfo::getCode() const {
 }
 
 NodeType NodeInfo::getType() const {
-    return this->type;
+    if (code[0] == 'S') return PUMPING_STATION;
+    if (code[0] == 'R') return WATER_RESERVOIR;
+    return DELIVERY_SITE;
 }
 
-bool NodeInfo::operator==(const NodeInfo &i) {
-    return this->type == i.type && this->id == i.id;
+bool NodeInfo::operator==(const NodeInfo &i) const {
+    return this->code == i.code;
 }

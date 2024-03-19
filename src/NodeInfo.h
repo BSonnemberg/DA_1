@@ -14,14 +14,13 @@ class NodeInfo {
     // rather unique to the underlying subclass
     int id;
     std::string code;
-    NodeType type;
 protected:
-    NodeInfo(const int& id, const std::string& code, const NodeType& type);
+    NodeInfo(const int& id, const std::string& code);
 public:
     int getId() const;
     NodeType getType() const;
     std::string getCode() const;
-    bool operator==(const NodeInfo& i);
+    bool operator==(const NodeInfo& i) const;
 };
 
 #endif
