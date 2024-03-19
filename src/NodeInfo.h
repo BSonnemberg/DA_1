@@ -14,9 +14,8 @@ class NodeInfo {
     // rather unique to the underlying subclass
     int id;
     std::string code;
-protected:
-    NodeInfo(const int& id, const std::string& code);
 public:
+    NodeInfo(const int& id, const std::string& code);
     int getId() const;
     NodeType getType() const;
     std::string getCode() const;

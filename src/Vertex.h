@@ -13,16 +13,17 @@ class Edge;
 class Vertex {
     NodeInfo* info;
     std::vector<Edge> adj;
-    Vertex* parent = nullptr;
+    Edge* path = nullptr;
     int bottleneck;
     //...
-    void addEdgeTo(Vertex* v, float cap);
-    bool removeEdgeTo(Vertex* v);
+    void addEdgeTo(Vertex* v, const int& cap);
+    bool removeEdgeTo(const Vertex* v);
     friend class Graph;
+    friend class DataLoader;
     friend class DataHandler;
 public:
     ~Vertex();
-    explicit Vertex(NodeInfo* info);
+    explicit Vertex(const NodeInfo& info);
     const std::vector<Edge>& getAdj() const;
     NodeInfo* getInfo() const;
 };

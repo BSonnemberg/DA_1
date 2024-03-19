@@ -8,8 +8,9 @@
  * and manage the water supply network graph
  */
 class DataHandler {
+    static bool findAugmPath(Graph& g, Vertex* src, Vertex* dest);
 public:
-    static bool findAugmPath(Graph &g, Vertex* src, Vertex* dest);
+    static void edmondsKarp(Graph& g);
 };
 
 #endif

@@ -6,17 +6,17 @@
 class Graph {
     std::vector<Vertex*> nodes;
     friend class DataHandler;
-    friend class main;
 public:
     ~Graph();
     Graph() = default;
     Graph(const Graph& g);
     const std::vector<Vertex*>& getNodes() const;
-    bool addVertex(NodeInfo* info);
+    Vertex* addVertex(const NodeInfo& info);
     bool removeVertex(const NodeInfo& info);
     // find vertex based on the code of its NodeInfo
     Vertex* findVertex(const std::string& code) const;
-    bool addEdge(const std::string& c1, const std::string& c2, float cap);
+    Vertex* findVertex(const NodeInfo& info) const;
+    bool addEdge(const NodeInfo& i1, const NodeInfo& i2, const int& cap);
 };
 
 #endif

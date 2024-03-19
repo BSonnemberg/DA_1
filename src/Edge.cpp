@@ -1,19 +1,27 @@
 #include "Edge.h"
 
-Edge::Edge(Vertex *dest, const float& cap) {
+Edge::Edge(Vertex* orig, Vertex *dest, const int& cap) {
+    this->orig = orig;
     this->dest = dest;
     this->capacity = cap;
-    this->flow = 0;
+}
+
+Vertex *Edge::getOrigin() const {
+    return this->orig;
 }
 
 Vertex *Edge::getDest() const {
     return this->dest;
 }
 
-float Edge::getCapacity() const {
+int Edge::getCapacity() const {
     return this->capacity;
 }
 
-bool Edge::isAtCapacity() const {
-    return this->flow == this->capacity;
+Edge* Edge::getReverse() const {
+    for (Edge e : dest->getAdj()) {
+        if (e.getDest() == orig) return &e;
+    }
+    return nullptr;
 }
+
