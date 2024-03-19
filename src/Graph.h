@@ -6,12 +6,13 @@
 class Graph {
     std::vector<Vertex*> nodes;
     friend class DataHandler;
+    friend class main;
 public:
     ~Graph();
     Graph() = default;
     Graph(const Graph& g);
     const std::vector<Vertex*>& getNodes() const;
-    bool addVertex(const NodeInfo& info);
+    bool addVertex(NodeInfo* info);
     bool removeVertex(const NodeInfo& info);
     // find vertex based on the code of its NodeInfo
     Vertex* findVertex(const std::string& code) const;

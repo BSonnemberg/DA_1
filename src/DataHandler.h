@@ -8,7 +8,8 @@
  * and manage the water supply network graph
  */
 class DataHandler {
-    bool findAugmPath(Graph &g, Vertex* src, Vertex* dest);
+public:
+    static bool findAugmPath(Graph &g, Vertex* src, Vertex* dest);
 };
 
 #endif

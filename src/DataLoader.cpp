@@ -29,7 +29,7 @@ void DataLoader::loadStations(Graph& g, const std::string& path) {
         std::getline(iss, code, ',');
 
         // create object
-        Station station(stoi(id), code);
+        auto* station = new Station(stoi(id), code);
         g.addVertex(station);
     }
     stream.close();
@@ -83,7 +83,7 @@ void DataLoader::loadReservoirs(Graph& g, const std::string& path) {
         int max = stoi(max_);
 
         // create obj and add it to graph
-        Reservoir res(id, code, name, munic, max);
+        auto* res = new Reservoir(id, code, name, munic, max);
         g.addVertex(res);
     }
     stream.close();
@@ -112,7 +112,7 @@ void DataLoader::loadCities(Graph& g, const std::string& path) {
         int pop = stoi(pop_);
 
         // create object
-        City city(id, code, name, demand, pop);
+        City* city = new City(id, code, name, demand, pop);
         g.addVertex(city);
     }
     stream.close();
