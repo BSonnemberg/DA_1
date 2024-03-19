@@ -1,9 +1,14 @@
 #include "Vertex.h"
-#include <utility>
 
-Vertex::Vertex(NodeInfo info) : info(std::move(info)) {}
+Vertex::~Vertex() {
+    delete this->info;
+}
 
-NodeInfo Vertex::getInfo() const {
+Vertex::Vertex(NodeInfo* info) {
+    this->info = info;
+}
+
+NodeInfo* Vertex::getInfo() const {
     return this->info;
 }
 

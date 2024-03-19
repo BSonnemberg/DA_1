@@ -11,7 +11,7 @@
 class Edge;
 
 class Vertex {
-    NodeInfo info;
+    NodeInfo* info;
     std::vector<Edge> adj;
     Vertex* parent = nullptr;
     int bottleneck;
@@ -21,9 +21,10 @@ class Vertex {
     friend class Graph;
     friend class DataHandler;
 public:
-    explicit Vertex(NodeInfo info);
+    ~Vertex();
+    explicit Vertex(NodeInfo* info);
     const std::vector<Edge>& getAdj() const;
-    NodeInfo getInfo() const;
+    NodeInfo* getInfo() const;
 };
 
 #endif

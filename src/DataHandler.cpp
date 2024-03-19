@@ -1,24 +1,6 @@
 #include "DataHandler.h"
 #include <queue>
 
-// return true if a path was found
-
-// 1. start by setting visited=false?? and parent to nullptr
-
-// 2. start the queueing process
-
-// 3. for every edge, if there's remaining flow and !visited? (aka parent is nullptr (!))
-// then set parent, and have a minimum value for each vertex that is set aswell
-
-// 3X. (besides that, we need to make sure that we don't exceed the max delivery of the source)
-// maybe have another property of vertex that saves its source? and from then always check
-
-// 4. if the target vertex is found, break, else add edge dest aka v2 to queue
-
-// theres no need to store the source for each node
-// only exception for the max delovery is that when we find a source node we min it with the current min
-
-
 bool DataHandler::findAugmPath(Graph &g, Vertex* src, Vertex* dest) {
 
     std::vector<Vertex*> res;
@@ -44,7 +26,7 @@ bool DataHandler::findAugmPath(Graph &g, Vertex* src, Vertex* dest) {
 
         NodeType t = v->getInfo().getType();
         if (t == NodeType::WATER_RESERVOIR) {
-            // check if max delivery
+            auto* r = static_cast<Reservoir*>(v->getInfo());
             continue;
         }
 
