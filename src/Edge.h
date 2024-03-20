@@ -2,14 +2,12 @@
 #define EDGE_H
 
 #include "Vertex.h"
-class Vertex;
 
 // Edges represent pipelines
 class Edge {
-    Vertex* orig;
-    Vertex* dest;
-    int flow, capacity;
-    // get reverse edge, if present
+    Vertex *orig, *dest;
+    int capacity, flow;
+    // find reverse edge, if present
     Edge* getReverse() const;
     friend class DataHandler;
 public:
@@ -17,6 +15,7 @@ public:
     Vertex* getOrigin() const;
     Vertex* getDest() const;
     int getCapacity() const;
+    int getFlow() const;
 };
 
 #endif

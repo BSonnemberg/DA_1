@@ -3,11 +3,11 @@
 
 int main() {
     Graph g;
-    if (!DataLoader::loadToGraph(g, "../dataset-small/")) {
+    if (!DataLoader::loadToGraph(g, "../dataset-large/")) {
         printf("Error loading dataset!");
         return 1;
     }
     printf("Loaded dataset!\n");
-    printf("Achieved max flow of > %d\n", DataHandler::edmondsKarp(g));
+    printf("%d", DataHandler::edmondsKarp(g));
     return 0;
 }

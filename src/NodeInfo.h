@@ -1,7 +1,6 @@
 #ifndef NODEINFO_H
 #define NODEINFO_H
 
-#include <memory>
 #include <string>
 
 enum NodeType {
@@ -16,6 +15,7 @@ class NodeInfo {
     int id;
     std::string code;
 public:
+    virtual ~NodeInfo() = default;
     NodeInfo(const int& id, const std::string& code);
     int getId() const;
     NodeType getType() const;

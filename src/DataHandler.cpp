@@ -16,8 +16,6 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
         const Vertex* v = q.front();
         q.pop();
 
-        printf("AT VERTEX >>> %s\n", v->getInfo()->getCode().c_str());
-
         for (Edge* e : v->getAdj()) {
 
             // r > residual capacity
@@ -25,11 +23,6 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
             if (r <= 0) continue;
 
             if (e->getDest() == src) continue;
-
-            if (e->getCapacity() == 0) {
-                printf("At RESIDUAL edge from %s > %s\n", e->getOrigin()->getInfo()->getCode().c_str(), e->getDest()->getInfo()->getCode().c_str());
-            }
-            else printf("At edge from %s > %s\n", e->getOrigin()->getInfo()->getCode().c_str(), e->getDest()->getInfo()->getCode().c_str());
 
             // node is unvisited
             Vertex* v2 = e->getDest();
@@ -42,7 +35,6 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
             // target found
             if (v2 == sink) return true;
         }
-        printf("-----\n");
     }
     return false;
 }
@@ -50,48 +42,43 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
 int DataHandler::edmondsKarp(Graph& g) {
 
     int maxFlow = 0;
-    Graph g2(g); // residual graph
+    Vertex* src = g.nodes[0];
+    Vertex* sink = g.nodes[1];
 
-    // create master and sink nodes
-    auto* src = new NodeInfo(-1, "R_MASTER");
-    auto* sink = new NodeInfo(-2, "C_MASTER");
+    while (findAugmPath(g, src, sink)) {
 
-    Vertex* srcVtx = g2.addVertex(src);
-    Vertex* sinkVtx = g2.addVertex(sink);
+        // bottleneck of the sink represents
+        // the min residual capacity of the path
+        const int bneck = sink->bneck;
 
-    // connect master nodes and original nodes
-    for (Vertex* v : g2.nodes) {
-        if (v->getInfo()->getType() == WATER_RESERVOIR && v != srcVtx) {
-            const auto* r = static_cast<Reservoir*>(v->getInfo());
-            srcVtx->addEdgeTo(v, r->getMaxDelivery());
-        }
-        else if (v->getInfo()->getType() == DELIVERY_SITE) {
-            v->addEdgeTo(sinkVtx, INT_MAX);
-        }
-    }
+        for (Vertex* v = sink; v!=src; v=v->path->orig) {
 
-    while (findAugmPath(g2, srcVtx, sinkVtx)) {
-
-        Vertex* v = sinkVtx;
-        int bneck = sinkVtx->bneck;
-
-        while (v != srcVtx) {
-
-            // update flow
-            v->path->flow += bneck;
+            v->path->flow += bneck; // update flow
 
             Edge* res = v->path->getReverse();
-            if (res != nullptr) {
-                // update residual edge
-                res->flow += bneck;
-            } else {
+            if (res != nullptr) res->flow += bneck;
+            else {
                 // create residual edge
-                v->addEdgeTo(v->path->getOrigin(), 0, -bneck);
+                v->addEdgeTo(v->path->orig, 0, -bneck);
             }
-            v = v->path->getOrigin();
         }
         maxFlow += bneck;
-        printf("\n+++++++++++++++++++\n\n");
+    }
+
+    // clean up graph
+    for (Vertex* v : g.nodes) {
+        for (auto it = v->adj.begin(); it != v->adj.end();) {
+            Edge* e = *it;
+            // remove residual edge
+            if (e->capacity == 0) {
+                v->adj.erase(it);
+                delete e;
+            }
+            else {
+                e->flow = 0;
+                ++it;
+            }
+        }
     }
     return maxFlow;
 }

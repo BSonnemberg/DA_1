@@ -2,11 +2,9 @@
 #define VERTEX_H
 
 #include <vector>
-
 #include "Reservoir.h"
 #include "Station.h"
 #include "City.h"
-#include "Edge.h"
 
 class Edge;
 

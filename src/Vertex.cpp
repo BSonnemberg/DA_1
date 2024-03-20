@@ -1,4 +1,5 @@
 #include "Vertex.h"
+#include "Edge.h"
 
 Vertex::Vertex(NodeInfo* info) {
     this->info = info;
