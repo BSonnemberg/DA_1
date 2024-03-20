@@ -14,9 +14,9 @@ std::string NodeInfo::getCode() const {
 }
 
 NodeType NodeInfo::getType() const {
-    if (code[0] == 'S') return PUMPING_STATION;
     if (code[0] == 'R') return WATER_RESERVOIR;
-    return DELIVERY_SITE;
+    if (code[0] == 'C') return DELIVERY_SITE;
+    return PUMPING_STATION;
 }
 
 bool NodeInfo::operator==(const NodeInfo &i) const {

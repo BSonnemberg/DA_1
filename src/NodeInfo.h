@@ -1,6 +1,7 @@
 #ifndef NODEINFO_H
 #define NODEINFO_H
 
+#include <memory>
 #include <string>
 
 enum NodeType {

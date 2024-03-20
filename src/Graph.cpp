@@ -10,14 +10,16 @@ Graph::~Graph() {
 Graph::Graph(const Graph &g) {
     for (const Vertex* v : g.nodes) {
         // copy nodes to new graph
-        this->nodes.push_back(new Vertex(*v->getInfo()));
+        //auto* info = new NodeInfo(*v->getInfo());
+        // ERROR WHEN HANDLING MEMORY
+        this->nodes.push_back(new Vertex(v->getInfo()));
     }
     // then copy the edges
     for (const Vertex* v : g.nodes) {
-        for (auto e : v->adj) {
+        for (const auto* e : v->adj) {
             const NodeInfo* i1 = v->getInfo();
-            const NodeInfo* i2 = e.getDest()->getInfo();
-            this->addEdge(*i1, *i2, e.getCapacity());
+            const NodeInfo* i2 = e->getDest()->getInfo();
+            this->addEdge(*i1, *i2, e->getCapacity());
         }
     }
 }
@@ -37,8 +39,8 @@ Vertex* Graph::findVertex(const std::string& code) const {
     return nullptr;
 }
 
-Vertex* Graph::addVertex(const NodeInfo& info) {
-    if (findVertex(info.getCode()) != nullptr) return nullptr;
+Vertex* Graph::addVertex(NodeInfo* info) {
+    if (findVertex(info->getCode()) != nullptr) return nullptr;
     auto* vtx = new Vertex(info);
     this->nodes.push_back(vtx);
     return vtx;
