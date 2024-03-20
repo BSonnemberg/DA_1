@@ -4,6 +4,7 @@
 Vertex::Vertex(NodeInfo* info) {
     this->info = info;
     this->bneck = INT_MAX;
+    this->inFlow = 0;
 }
 
 Vertex::~Vertex() {
@@ -15,6 +16,10 @@ Vertex::~Vertex() {
 
 NodeInfo* Vertex::getInfo() const {
     return this->info;
+}
+
+int Vertex::getIncomingFlow() const {
+    return this->inFlow;
 }
 
 const std::vector<Edge*>& Vertex::getAdj() const {

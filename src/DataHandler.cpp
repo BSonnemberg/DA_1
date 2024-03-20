@@ -61,7 +61,8 @@ int DataHandler::edmondsKarp(Graph& g) {
     Vertex* sink = g.nodes[1];
 
     // reset flow for all edges
-    for (const Vertex* v : g.nodes) {
+    for (Vertex* v : g.nodes) {
+        v->inFlow = 0;
         for (Edge* e : v->adj) {
             e->flow = 0;
         }
@@ -97,7 +98,11 @@ int DataHandler::edmondsKarp(Graph& g) {
                 v->adj.erase(it);
                 delete e;
             }
-            else ++it;
+            else {
+                // update incoming flow for each vtx
+                e->dest->inFlow += e->flow;
+                ++it;
+            }
         }
     }
     return maxFlow;

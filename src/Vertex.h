@@ -13,6 +13,8 @@ class Vertex {
     std::vector<Edge*> adj;
     Edge* path = nullptr;
     int bneck;
+    // all incoming flow
+    int inFlow;
     //...
     void addEdgeTo(Vertex* v, const int& cap, const int& flow=0);
     bool removeEdgeTo(const Vertex* v);
@@ -24,6 +26,7 @@ public:
     explicit Vertex(NodeInfo* info);
     const std::vector<Edge*>& getAdj() const;
     NodeInfo* getInfo() const;
+    int getIncomingFlow() const;
 };
 
 #endif
