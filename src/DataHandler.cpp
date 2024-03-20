@@ -1,10 +1,17 @@
 #include "DataHandler.h"
 #include <queue>
 
+/**
+ * Find an augmenting path from a source to a sink node
+ * @param g target graph
+ * @param src source node
+ * @param sink sink node
+ * @return whether a path was found
+ */
 bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
 
     std::queue<Vertex*> q;
-    for (auto* v : g.nodes) {
+    for (Vertex* v : g.nodes) {
         v->path = nullptr;
         v->bneck = INT_MAX;
     }
@@ -13,37 +20,52 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
     // start bfs search
     while (!q.empty()) {
 
-        const Vertex* v = q.front();
+        Vertex* v = q.front();
         q.pop();
 
-        for (Edge* e : v->getAdj()) {
+        for (Edge* e : v->adj) {
 
-            // r > residual capacity
+            // optimize by ignoring all residual
+            // edges going to master source
+            if (e->dest == src) continue;
+
+            // residual capacity
             int r = e->capacity - e->flow;
             if (r <= 0) continue;
 
-            if (e->getDest() == src) continue;
-
             // node is unvisited
-            Vertex* v2 = e->getDest();
+            Vertex* v2 = e->dest;
             if (v2->path == nullptr) {
                 v2->bneck = std::min(v->bneck, r);
                 v2->path = e;
                 q.push(v2);
             }
 
-            // target found
             if (v2 == sink) return true;
         }
     }
     return false;
 }
 
+/**
+ * Perform the edmonds-karp algorithm to find the
+ * maximum flow of the water supply network
+ *
+ * @param g target graph
+ * @return max flow of the graph
+ */
 int DataHandler::edmondsKarp(Graph& g) {
 
     int maxFlow = 0;
     Vertex* src = g.nodes[0];
     Vertex* sink = g.nodes[1];
+
+    // reset flow for all edges
+    for (const Vertex* v : g.nodes) {
+        for (Edge* e : v->adj) {
+            e->flow = 0;
+        }
+    }
 
     while (findAugmPath(g, src, sink)) {
 
@@ -53,7 +75,8 @@ int DataHandler::edmondsKarp(Graph& g) {
 
         for (Vertex* v = sink; v!=src; v=v->path->orig) {
 
-            v->path->flow += bneck; // update flow
+            // update flow
+            v->path->flow += bneck;
 
             Edge* res = v->path->getReverse();
             if (res != nullptr) res->flow += bneck;
@@ -68,16 +91,13 @@ int DataHandler::edmondsKarp(Graph& g) {
     // clean up graph
     for (Vertex* v : g.nodes) {
         for (auto it = v->adj.begin(); it != v->adj.end();) {
-            Edge* e = *it;
+            const Edge* e = *it;
             // remove residual edge
             if (e->capacity == 0) {
                 v->adj.erase(it);
                 delete e;
             }
-            else {
-                e->flow = 0;
-                ++it;
-            }
+            else ++it;
         }
     }
     return maxFlow;
