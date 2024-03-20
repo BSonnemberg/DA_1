@@ -107,3 +107,27 @@ int DataHandler::edmondsKarp(Graph& g) {
     }
     return maxFlow;
 }
+
+/**
+ * Get cities whose water needs are not met
+ * (make sure to run Edmonds-karp first)
+ * @param g target graph
+ * @return list of undersupplied cities
+ */
+std::vector<City*> DataHandler::undersuppliedCities(Graph& g) {
+
+    std::vector<City*> res;
+    // assuming edmonds karp was run before this
+    // and inFlow values are updated
+
+    for (const Vertex* v : g.nodes) {
+        NodeInfo* info = v->getInfo();
+        if (info->getType() == DELIVERY_SITE && info->getId() != -2) {
+            // downcast back to City
+            auto* c = dynamic_cast<City*>(info);
+            if (c == nullptr) continue;
+            if (v->inFlow < c->getDemand()) res.push_back(c);
+        }
+    }
+    return res;
+}

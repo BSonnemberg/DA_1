@@ -42,6 +42,7 @@ Vertex* Graph::addVertex(NodeInfo* info) {
     // connect master source to vertex
     if (info->getType() == WATER_RESERVOIR) {
         const auto* r = dynamic_cast<Reservoir*>(info);
+        if (r == nullptr) return nullptr;
         nodes[0]->addEdgeTo(vtx, r->getMaxDelivery());
     }
 
