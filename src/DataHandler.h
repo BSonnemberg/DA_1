@@ -11,7 +11,7 @@ class DataHandler {
     static bool findAugmPath(Graph& g, Vertex* src, Vertex* sink);
 public:
     static int edmondsKarp(Graph& g);
-    static std::vector<City*> undersuppliedCities(Graph& g);
+    static std::vector<std::pair<City*, int>> undersuppliedCities(Graph& g);
 };
 
 #endif

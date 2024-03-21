@@ -112,11 +112,11 @@ int DataHandler::edmondsKarp(Graph& g) {
  * Get cities whose water needs are not met
  * (make sure to run Edmonds-karp first)
  * @param g target graph
- * @return list of undersupplied cities
+ * @return undersupplied cities + current supply
  */
-std::vector<City*> DataHandler::undersuppliedCities(Graph& g) {
+std::vector<std::pair<City*, int>> DataHandler::undersuppliedCities(Graph& g) {
 
-    std::vector<City*> res;
+    std::vector<std::pair<City*, int>> res;
     // assuming edmonds karp was run before this
     // and inFlow values are updated
 
@@ -125,8 +125,9 @@ std::vector<City*> DataHandler::undersuppliedCities(Graph& g) {
         if (info->getType() == DELIVERY_SITE && info->getId() != -2) {
             // downcast back to City
             auto* c = dynamic_cast<City*>(info);
-            if (c == nullptr) continue;
-            if (v->inFlow < c->getDemand()) res.push_back(c);
+            if (c != nullptr && v->inFlow < c->getDemand()) {
+                res.emplace_back(c,v->inFlow);
+            }
         }
     }
     return res;
