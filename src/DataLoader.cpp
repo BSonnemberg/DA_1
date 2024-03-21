@@ -56,7 +56,7 @@ void DataLoader::loadPipes(Graph &g, const std::string &path) {
         Vertex* v1 = g.findVertex(c1);
         Vertex* v2 = g.findVertex(c2);
         v1->addEdgeTo(v2, stoi(cap));
-        if (dir == "1") { // bidirectional edge
+        if (dir == "0") { // bidirectional edge
             v2->addEdgeTo(v1, stoi(cap));
         }
     }

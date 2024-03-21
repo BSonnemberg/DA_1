@@ -80,7 +80,7 @@ int DataHandler::edmondsKarp(Graph& g) {
             v->path->flow += bneck;
 
             Edge* res = v->path->getReverse();
-            if (res != nullptr) res->flow += bneck;
+            if (res != nullptr) res->flow -= bneck;
             else {
                 // create residual edge
                 v->addEdgeTo(v->path->orig, 0, -bneck);

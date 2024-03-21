@@ -8,6 +8,9 @@ int main() {
         return 1;
     }
     printf("Loaded dataset!\n");
-    printf("Max flow > %d", DataHandler::edmondsKarp(g));
+    printf("Max flow > %d\n\n", DataHandler::edmondsKarp(g));
+    for (City* c : DataHandler::undersuppliedCities(g)) {
+        printf("> %s is undersupplied!\n", c->getName().c_str());
+    }
     return 0;
 }
