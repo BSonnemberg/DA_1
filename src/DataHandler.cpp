@@ -23,7 +23,7 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
         Vertex* v = q.front();
         q.pop();
 
-        for (Edge* e : v->adj) {
+        for (Edge* e : v->out) {
 
             // optimize by ignoring all residual
             // edges going to master source
@@ -62,8 +62,8 @@ int DataHandler::edmondsKarp(Graph& g) {
 
     // reset flow for all edges
     for (Vertex* v : g.nodes) {
-        v->inFlow = 0;
-        for (Edge* e : v->adj) {
+        v->flow = 0;
+        for (Edge* e : v->out) {
             e->flow = 0;
         }
     }
@@ -91,16 +91,16 @@ int DataHandler::edmondsKarp(Graph& g) {
 
     // clean up graph
     for (Vertex* v : g.nodes) {
-        for (auto it = v->adj.begin(); it != v->adj.end();) {
+        for (auto it = v->out.begin(); it != v->out.end();) {
             const Edge* e = *it;
             // remove residual edge
             if (e->capacity == 0) {
-                v->adj.erase(it);
+                v->out.erase(it);
                 delete e;
             }
             else {
                 // update incoming flow for each vtx
-                e->dest->inFlow += e->flow;
+                e->dest->flow += e->flow;
                 ++it;
             }
         }
@@ -125,8 +125,8 @@ std::vector<std::pair<City*, int>> DataHandler::undersuppliedCities(Graph& g) {
         if (info->getType() == DELIVERY_SITE && info->getId() != -2) {
             // downcast back to City
             auto* c = dynamic_cast<City*>(info);
-            if (c != nullptr && v->inFlow < c->getDemand()) {
-                res.emplace_back(c,v->inFlow);
+            if (c != nullptr && v->flow < c->getDemand()) {
+                res.emplace_back(c,v->flow);
             }
         }
     }

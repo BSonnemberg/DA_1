@@ -1,10 +1,23 @@
 #include "Graph.h"
 
+Graph::Graph(const Graph& g) {
+    for (Vertex* v : g.nodes) {
+        this->nodes.push_back(new Vertex(v->info));
+    }
+    for (Vertex* v : g.nodes) {
+        for (Edge* e : v->out) {
+            Vertex* src = this->findVertex(*v->getInfo());
+            Vertex* dest = this->findVertex(*e->getDest()->getInfo());
+            src->addEdgeTo(dest, e->getCapacity(), e->getFlow());
+        }
+    }
+}
+
 Graph::Graph() {
     // create master source and sink nodes, that will
     // stay permanently attached to the graph
-    auto* src = new NodeInfo(-1, "R_MASTER");
-    auto* sink = new NodeInfo(-2, "C_MASTER");
+    auto src = std::make_shared<NodeInfo>(-1, "R_MASTER");
+    auto sink = std::make_shared<NodeInfo>(-2, "C_MASTER");
     this->nodes.push_back(new Vertex(src));
     this->nodes.push_back(new Vertex(sink));
 }
@@ -31,7 +44,7 @@ Vertex* Graph::findVertex(const std::string& code) const {
     return nullptr;
 }
 
-Vertex* Graph::addVertex(NodeInfo* info) {
+Vertex* Graph::addVertex(const NodeInfoPtr& info) {
 
     if (findVertex(info->getCode()) != nullptr) {
         return nullptr;
@@ -41,7 +54,7 @@ Vertex* Graph::addVertex(NodeInfo* info) {
 
     // connect master source to vertex
     if (info->getType() == WATER_RESERVOIR) {
-        const auto* r = dynamic_cast<Reservoir*>(info);
+        const auto* r = dynamic_cast<Reservoir*>(info.get());
         if (r == nullptr) return nullptr;
         nodes[0]->addEdgeTo(vtx, r->getMaxDelivery());
     }
@@ -55,7 +68,7 @@ Vertex* Graph::addVertex(NodeInfo* info) {
 
 bool Graph::removeVertex(const NodeInfo& info) {
     for (auto it = nodes.begin(); it != nodes.end(); ++it) {
-        const Vertex* v = *it;
+        Vertex* v = *it;
         // found target
         if (*v->getInfo() == info) {
             nodes.erase(it);

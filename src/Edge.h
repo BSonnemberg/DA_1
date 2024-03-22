@@ -5,8 +5,10 @@
 
 // Edges represent pipelines
 class Edge {
-    Vertex *orig, *dest;
-    int capacity, flow;
+    Vertex* orig;
+    Vertex* dest;
+    int capacity;
+    int flow;
     // find reverse edge, if present
     Edge* getReverse() const;
     friend class DataHandler;

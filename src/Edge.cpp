@@ -24,7 +24,7 @@ int Edge::getFlow() const {
 }
 
 Edge* Edge::getReverse() const {
-    for (Edge* e : dest->getAdj()) {
+    for (Edge* e : dest->getOutEdges()) {
         if (e->getDest() == orig) {
             return e;
         }

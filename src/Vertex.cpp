@@ -1,40 +1,55 @@
 #include "Vertex.h"
 #include "Edge.h"
 
-Vertex::Vertex(NodeInfo* info) {
+Vertex::Vertex(const NodeInfoPtr& info) {
     this->info = info;
     this->bneck = INT_MAX;
-    this->inFlow = 0;
+    this->path = nullptr;
+    this->flow = 0;
 }
 
 Vertex::~Vertex() {
-    for (const auto* edge : adj) {
+    for (const auto* edge : out) {
         delete edge;
     }
-    delete this->info;
 }
 
 NodeInfo* Vertex::getInfo() const {
-    return this->info;
+    return this->info.get();
 }
 
-int Vertex::getIncomingFlow() const {
-    return this->inFlow;
+// flow passing through, run Edmonds-Karp first
+int Vertex::getFlow() const {
+    return this->flow;
 }
 
-const std::vector<Edge*>& Vertex::getAdj() const {
-    return this->adj;
+const std::vector<Edge*>& Vertex::getOutEdges() const {
+    return this->out;
+}
+
+const std::vector<Edge*>& Vertex::getInEdges() const {
+    return this->in;
 }
 
 void Vertex::addEdgeTo(Vertex *v, const int& cap, const int& flow) {
-    this->adj.emplace_back(new Edge(this,v,cap,flow));
+    auto* e = new Edge(this, v, cap, flow);
+    this->out.push_back(e);
+    v->in.push_back(e);
 }
 
-bool Vertex::removeEdgeTo(const Vertex* v) {
-    for (auto it = adj.begin(); it != adj.end(); ++it) {
-        const Edge* e = *it;
+bool Vertex::removeEdgeTo(Vertex* v) {
+    for (auto a = out.begin(); a != out.end(); ++a) {
+        const Edge* e = *a;
+        // find outgoing edge
         if (e->getDest() == v) {
-            adj.erase(it);
+            out.erase(a);
+            // find incoming edge
+            for (auto b = v->in.begin(); b != v->in.end(); ++b) {
+                if (*b == e) {
+                    v->in.erase(b);
+                    break;
+                }
+            }
             delete e;
             return true;
         }

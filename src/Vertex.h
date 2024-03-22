@@ -8,25 +8,33 @@
 
 class Edge;
 
+/**
+ * NodeInfo is immutable - to avoid allocating memory
+ * for it when copying a graph, a sharedptr is used
+ */
+typedef std::shared_ptr<NodeInfo> NodeInfoPtr;
+
 class Vertex {
-    NodeInfo* info;
-    std::vector<Edge*> adj;
-    Edge* path = nullptr;
+    NodeInfoPtr info;
+    std::vector<Edge*> out;
+    std::vector<Edge*> in;
+    // utilities
+    Edge* path;
     int bneck;
-    // all incoming flow
-    int inFlow;
+    int flow;
     //...
     void addEdgeTo(Vertex* v, const int& cap, const int& flow=0);
-    bool removeEdgeTo(const Vertex* v);
+    bool removeEdgeTo(Vertex* v);
     friend class Graph;
     friend class DataLoader;
     friend class DataHandler;
 public:
     ~Vertex();
-    explicit Vertex(NodeInfo* info);
-    const std::vector<Edge*>& getAdj() const;
+    explicit Vertex(const NodeInfoPtr& info);
+    const std::vector<Edge*>& getOutEdges() const;
+    const std::vector<Edge*>& getInEdges() const;
     NodeInfo* getInfo() const;
-    int getIncomingFlow() const;
+    int getFlow() const;
 };
 
 #endif

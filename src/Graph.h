@@ -7,10 +7,11 @@ class Graph {
     std::vector<Vertex*> nodes;
     friend class DataHandler;
 public:
-    Graph();
     ~Graph();
+    Graph();
+    Graph(const Graph& g);
     const std::vector<Vertex*>& getNodes() const;
-    Vertex* addVertex(NodeInfo* info);
+    Vertex* addVertex(const NodeInfoPtr& info);
     bool removeVertex(const NodeInfo& info);
     // find vertex based on the code of its NodeInfo
     Vertex* findVertex(const std::string& code) const;
