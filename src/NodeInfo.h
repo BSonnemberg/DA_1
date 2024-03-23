@@ -2,6 +2,7 @@
 #define NODEINFO_H
 
 #include <string>
+#include <vector>
 
 enum NodeType {
     WATER_RESERVOIR,

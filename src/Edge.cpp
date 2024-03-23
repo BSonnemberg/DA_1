@@ -1,6 +1,6 @@
 #include "Edge.h"
 
-Edge::Edge(Vertex* orig, Vertex* dest, const int& cap, const int& flow) {
+Edge::Edge(Vertex* orig, Vertex* dest, const int& cap, const int& flow = 0) {
     this->orig = orig;
     this->dest = dest;
     this->capacity = cap;
