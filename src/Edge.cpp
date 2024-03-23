@@ -1,6 +1,6 @@
 #include "Edge.h"
 
-Edge::Edge(Vertex* orig, Vertex* dest, const int& cap, const int& flow) {
+Edge::Edge(Vertex* orig, Vertex* dest, const int& cap, const int& flow = 0) {
     this->orig = orig;
     this->dest = dest;
     this->capacity = cap;
@@ -24,7 +24,7 @@ int Edge::getFlow() const {
 }
 
 Edge* Edge::getReverse() const {
-    for (Edge* e : dest->getAdj()) {
+    for (Edge* e : dest->getOutEdges()) {
         if (e->getDest() == orig) {
             return e;
         }
