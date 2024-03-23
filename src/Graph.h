@@ -11,12 +11,12 @@ public:
     Graph();
     Graph(const Graph& g);
     const std::vector<Vertex*>& getNodes() const;
-    Vertex* addVertex(const NodeInfoPtr& info);
+    Vertex* addVertex(NodeInfo* info);
     bool removeVertex(const NodeInfo& info);
     // find vertex based on the code of its NodeInfo
     Vertex* findVertex(const std::string& code) const;
     Vertex* findVertex(const NodeInfo& info) const;
-    bool addEdge(const NodeInfo& i1, const NodeInfo& i2, const int& cap) const;
+    bool addEdge(const std::string& c1, const std::string& c2, const int& cap) const;
 };
 
 #endif

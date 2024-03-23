@@ -1,23 +1,10 @@
 #include "Graph.h"
 
-Graph::Graph(const Graph& g) {
-    for (Vertex* v : g.nodes) {
-        this->nodes.push_back(new Vertex(v->info));
-    }
-    for (Vertex* v : g.nodes) {
-        for (Edge* e : v->out) {
-            Vertex* src = this->findVertex(*v->getInfo());
-            Vertex* dest = this->findVertex(*e->getDest()->getInfo());
-            src->addEdgeTo(dest, e->getCapacity(), e->getFlow());
-        }
-    }
-}
-
 Graph::Graph() {
     // create master source and sink nodes, that will
     // stay permanently attached to the graph
-    auto src = std::make_shared<NodeInfo>(-1, "R_MASTER");
-    auto sink = std::make_shared<NodeInfo>(-2, "C_MASTER");
+    auto* src = new NodeInfo(-1, "R_MASTER");
+    auto* sink = new NodeInfo(-2, "C_MASTER");
     this->nodes.push_back(new Vertex(src));
     this->nodes.push_back(new Vertex(sink));
 }
@@ -44,7 +31,7 @@ Vertex* Graph::findVertex(const std::string& code) const {
     return nullptr;
 }
 
-Vertex* Graph::addVertex(const NodeInfoPtr& info) {
+Vertex* Graph::addVertex(NodeInfo* info) {
 
     if (findVertex(info->getCode()) != nullptr) {
         return nullptr;
@@ -54,7 +41,7 @@ Vertex* Graph::addVertex(const NodeInfoPtr& info) {
 
     // connect master source to vertex
     if (info->getType() == WATER_RESERVOIR) {
-        const auto* r = dynamic_cast<Reservoir*>(info.get());
+        const auto* r = dynamic_cast<Reservoir*>(info);
         if (r == nullptr) return nullptr;
         nodes[0]->addEdgeTo(vtx, r->getMaxDelivery());
     }
@@ -83,9 +70,9 @@ bool Graph::removeVertex(const NodeInfo& info) {
     return false;
 }
 
-bool Graph::addEdge(const NodeInfo &i1, const NodeInfo &i2, const int &cap) const {
-    Vertex* v1 = this->findVertex(i1);
-    Vertex* v2 = this->findVertex(i2);
+bool Graph::addEdge(const std::string &c1, const std::string &c2, const int &cap) const {
+    Vertex* v1 = this->findVertex(c1);
+    Vertex* v2 = this->findVertex(c2);
     if (v1 == nullptr || v2 == nullptr) return false;
     v1->addEdgeTo(v2, cap);
     return true;

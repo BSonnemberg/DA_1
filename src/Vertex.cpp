@@ -37,7 +37,7 @@ const std::vector<Edge*>& Vertex::getInEdges() const {
     return this->in;
 }
 
-void Vertex::addEdgeTo(Vertex *v, const int& cap, const int& flow = 0) {
+void Vertex::addEdgeTo(Vertex *v, const int& cap, const int& flow) {
     auto* e = new Edge(this, v, cap, flow);
     this->out.push_back(e);
     v->in.push_back(e);

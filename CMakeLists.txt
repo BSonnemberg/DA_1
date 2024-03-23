@@ -13,8 +13,8 @@ set(CPP_FILES
         src/Reservoir.cpp
         src/City.cpp
         src/NodeInfo.cpp
-        src/Edge.cpp
         src/Vertex.cpp
+        src/Edge.cpp
         src/Graph.cpp
         src/DataLoader.cpp
         src/DataHandler.cpp

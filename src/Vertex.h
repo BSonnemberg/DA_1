@@ -13,8 +13,11 @@ class Vertex {
     std::vector<Edge*> in;
     Edge* path;
     int minFlow;
-    void addEdgeTo(Vertex* v, const int& cap, const int& flow);
+    // utility methods
+    void addEdgeTo(Vertex* v, const int& cap, const int& flow=0);
     bool removeEdgeTo(Vertex* v);
+    friend class Graph;
+    friend class DataHandler;
 public:
     ~Vertex();
     explicit Vertex(const Vertex* v);

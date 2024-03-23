@@ -13,7 +13,7 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
     std::queue<Vertex*> q;
     for (Vertex* v : g.nodes) {
         v->path = nullptr;
-        v->bneck = INT_MAX;
+        v->minFlow = INT_MAX;
     }
     q.push(src);
 
@@ -36,7 +36,7 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
             // node is unvisited
             Vertex* v2 = e->dest;
             if (v2->path == nullptr) {
-                v2->bneck = std::min(v->bneck, r);
+                v2->minFlow = std::min(v->minFlow, r);
                 v2->path = e;
                 q.push(v2);
             }
@@ -62,7 +62,7 @@ int DataHandler::edmondsKarp(Graph& g) {
 
     // reset flow for all edges
     for (Vertex* v : g.nodes) {
-        v->flow = 0;
+        //v->flow = 0;
         for (Edge* e : v->out) {
             e->flow = 0;
         }
@@ -72,7 +72,7 @@ int DataHandler::edmondsKarp(Graph& g) {
 
         // bottleneck of the sink represents
         // the min residual capacity of the path
-        const int bneck = sink->bneck;
+        const int bneck = sink->minFlow;
 
         for (Vertex* v = sink; v!=src; v=v->path->orig) {
 
@@ -100,7 +100,7 @@ int DataHandler::edmondsKarp(Graph& g) {
             }
             else {
                 // update incoming flow for each vtx
-                e->dest->flow += e->flow;
+                //e->dest->flow += e->flow;
                 ++it;
             }
         }
@@ -120,15 +120,15 @@ std::vector<std::pair<City*, int>> DataHandler::undersuppliedCities(Graph& g) {
     // assuming edmonds karp was run before this
     // and inFlow values are updated
 
-    for (const Vertex* v : g.nodes) {
-        NodeInfo* info = v->getInfo();
-        if (info->getType() == DELIVERY_SITE && info->getId() != -2) {
-            // downcast back to City
-            auto* c = dynamic_cast<City*>(info);
-            if (c != nullptr && v->flow < c->getDemand()) {
-                res.emplace_back(c,v->flow);
-            }
-        }
-    }
+    // for (const Vertex* v : g.nodes) {
+    //     NodeInfo* info = v->getInfo();
+    //     if (info->getType() == DELIVERY_SITE && info->getId() != -2) {
+    //         // downcast back to City
+    //         auto* c = dynamic_cast<City*>(info);
+    //         if (c != nullptr && v->flow < c->getDemand()) {
+    //             res.emplace_back(c,v->flow);
+    //         }
+    //     }
+    // }
     return res;
 }
