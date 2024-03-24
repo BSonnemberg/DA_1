@@ -1,16 +1,29 @@
 #include "Graph.h"
 
 Graph::Graph() {
-    // create master source and sink nodes, that will
-    // stay permanently attached to the graph
+    // master nodes stay permanently attached to the graph
     auto* src = new NodeInfo(-1, "R_MASTER");
     auto* sink = new NodeInfo(-2, "C_MASTER");
     this->nodes.push_back(new Vertex(src));
     this->nodes.push_back(new Vertex(sink));
 }
 
+Graph::Graph(const Graph& g) {
+    // copy nodes
+    for (const Vertex* v : g.nodes) {
+        this->nodes.push_back(new Vertex(v));
+    }
+    // copy edges
+    for (const Vertex* v : g.nodes) {
+        for (const Edge* e : v->out) {
+            Vertex* s = findVertex(*v->getInfo());
+            Vertex* d = findVertex(*e->getDest()->getInfo());
+            s->addEdgeTo(d, e->getCapacity(), e->getFlow());
+        }
+    }
+}
+
 Graph::~Graph() {
-    // free mem. allocated to vertices
     for (const Vertex* v : this->nodes) {
         delete v;
     }
@@ -33,20 +46,22 @@ Vertex* Graph::findVertex(const std::string& code) const {
 
 Vertex* Graph::addVertex(NodeInfo* info) {
 
+    if (info == nullptr) return nullptr;
     if (findVertex(info->getCode()) != nullptr) {
         return nullptr;
     }
-    auto* vtx = new Vertex(info);
+
+    Vertex* vtx = new Vertex(info);
     this->nodes.push_back(vtx);
 
-    // connect master source to vertex
+    // connect master src to reservoir
     if (info->getType() == WATER_RESERVOIR) {
         const auto* r = dynamic_cast<Reservoir*>(info);
         if (r == nullptr) return nullptr;
         nodes[0]->addEdgeTo(vtx, r->getMaxDelivery());
     }
 
-    // connect vertex to master sink
+    // connect city to master sink
     else if (info->getType() == DELIVERY_SITE) {
         vtx->addEdgeTo(nodes[1], INT_MAX);
     }
@@ -70,7 +85,7 @@ bool Graph::removeVertex(const NodeInfo& info) {
     return false;
 }
 
-bool Graph::addEdge(const std::string &c1, const std::string &c2, const int &cap) const {
+bool Graph::addEdge(const std::string& c1, const std::string& c2, const int& cap) {
     Vertex* v1 = this->findVertex(c1);
     Vertex* v2 = this->findVertex(c2);
     if (v1 == nullptr || v2 == nullptr) return false;

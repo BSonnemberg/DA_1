@@ -16,7 +16,7 @@ public:
     // find vertex based on the code of its NodeInfo
     Vertex* findVertex(const std::string& code) const;
     Vertex* findVertex(const NodeInfo& info) const;
-    bool addEdge(const std::string& c1, const std::string& c2, const int& cap) const;
+    bool addEdge(const std::string& c1, const std::string& c2, const int& cap);
 };
 
 #endif

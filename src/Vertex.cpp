@@ -11,7 +11,7 @@ Vertex::Vertex(const Vertex* v) {
     this->info = v->info;
     this->path = v->path;
     this->minFlow = v->minFlow;
-    *info.second++; // new copy
+    (*info.second)++; // new copy
 }
 
 Vertex::~Vertex() {
@@ -22,7 +22,7 @@ Vertex::~Vertex() {
         delete info.first;
         delete info.second;
     }
-    else *info.second--;
+    else (*info.second)--;
 }
 
 NodeInfo* Vertex::getInfo() const {

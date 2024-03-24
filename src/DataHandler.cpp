@@ -4,18 +4,18 @@
 /**
  * Find an augmenting path from a source to a sink node
  * @param g target graph
- * @param src source node
- * @param sink sink node
+ * @param s source node
+ * @param t sink node
  * @return whether a path was found
  */
-bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
+bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
 
     std::queue<Vertex*> q;
     for (Vertex* v : g.nodes) {
         v->path = nullptr;
         v->minFlow = INT_MAX;
     }
-    q.push(src);
+    q.push(s);
 
     // start bfs search
     while (!q.empty()) {
@@ -27,7 +27,7 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
 
             // optimize by ignoring all residual
             // edges going to master source
-            if (e->dest == src) continue;
+            if (e->dest == s) continue;
 
             // residual capacity
             int r = e->capacity - e->flow;
@@ -41,7 +41,7 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* src, Vertex* sink) {
                 q.push(v2);
             }
 
-            if (v2 == sink) return true;
+            if (v2 == t) return true;
         }
     }
     return false;
@@ -98,37 +98,8 @@ int DataHandler::edmondsKarp(Graph& g) {
                 v->out.erase(it);
                 delete e;
             }
-            else {
-                // update incoming flow for each vtx
-                //e->dest->flow += e->flow;
-                ++it;
-            }
+            else ++it;
         }
     }
     return maxFlow;
-}
-
-/**
- * Get cities whose water needs are not met
- * (make sure to run Edmonds-karp first)
- * @param g target graph
- * @return undersupplied cities + current supply
- */
-std::vector<std::pair<City*, int>> DataHandler::undersuppliedCities(Graph& g) {
-
-    std::vector<std::pair<City*, int>> res;
-    // assuming edmonds karp was run before this
-    // and inFlow values are updated
-
-    // for (const Vertex* v : g.nodes) {
-    //     NodeInfo* info = v->getInfo();
-    //     if (info->getType() == DELIVERY_SITE && info->getId() != -2) {
-    //         // downcast back to City
-    //         auto* c = dynamic_cast<City*>(info);
-    //         if (c != nullptr && v->flow < c->getDemand()) {
-    //             res.emplace_back(c,v->flow);
-    //         }
-    //     }
-    // }
-    return res;
 }

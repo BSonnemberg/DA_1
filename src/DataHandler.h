@@ -8,10 +8,9 @@
  * and manage the water supply network graph
  */
 class DataHandler {
-    static bool findAugmPath(Graph& g, Vertex* src, Vertex* sink);
+    static bool findAugmPath(Graph& g, Vertex* s, Vertex* t);
 public:
     static int edmondsKarp(Graph& g);
-    static std::vector<std::pair<City*, int>> undersuppliedCities(Graph& g);
 };
 
 #endif
