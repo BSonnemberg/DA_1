@@ -54,20 +54,19 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
  * @param g target graph
  * @return max flow of the graph
  */
-int DataHandler::edmondsKarp(Graph& g, bool s) {
+int DataHandler::edmondsKarp(Graph& g) {
 
     int maxFlow = 0;
     Vertex* src = g.nodes[0];
     Vertex* sink = g.nodes[1];
+
     // reset flow for all edges
-    if (s) {
-        for (Vertex* v : g.nodes) {
-            for (Edge* e : v->out) {
-                e->setFlow(0);
-                //e->destroyResidual();
-            }
+    for (Vertex* v : g.nodes) {
+        for (Edge* e : v->out) {
+            e->setFlow(0);
         }
     }
+
     while (findAugmPath(g, src, sink)) {
 
         // bottleneck of the sink represents
@@ -95,44 +94,4 @@ int DataHandler::edmondsKarp(Graph& g, bool s) {
         }
     }
     return maxFlow;
-}
-
-void DataHandler::removeEdgeCascade(Edge* e, int flow) {
-
-    e->setFlow(e->getFlow() - flow);
-
-    if (e->getDest()->out.empty()) {
-        // end of cascade
-        return;
-    }
-
-    for (Edge* e2 : e->getDest()->out) {
-        // remove max flow possible from each
-        // edge until 'flow' value is reached
-        int aux = std::min(e2->getFlow(), flow);
-        removeEdgeCascade(e2, aux);
-        if ((flow -= aux) == 0) return;
-    }
-}
-
-int DataHandler::removeNodeCascade(Graph& g, Vertex* v) {
-    int a=0;
-    for (Edge* e : v->out) {
-        if (e->getFlow() > 0) {
-            a+= e->getFlow();
-            removeEdgeCascade(e, e->getFlow());
-        }
-        v->removeOutEdge(e);
-    }
-    printf("Total flow removed > %d\n", a);
-    /////
-     for (Vertex* v : g.nodes) {
-         for (Edge* e : v->out) {
-             if (e->getFlow() > 0) {
-                 // put back residual edge
-                 e->createResidual();
-             }
-         }
-     }
-    return a;
 }
