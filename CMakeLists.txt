@@ -3,7 +3,15 @@ set(CMAKE_CXX_STANDARD 11)
 project(water-supply-analysis)
 
 set(H_FILES
+        src/Reservoir.h
         src/Station.h
+        src/City.h
+        src/NodeInfo.h
+        src/Vertex.h
+        src/Edge.h
+        src/Graph.h
+        src/DataLoader.h
+        src/DataHandler.h
         #...
 )
 

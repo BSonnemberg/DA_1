@@ -8,16 +8,20 @@ class Edge {
     Vertex* orig;
     Vertex* dest;
     int capacity;
-    int flow;
-    // find reverse edge, if present
-    Edge* getReverse() const;
-    friend class DataHandler;
+    int flow = 0;
+    Edge* residual = nullptr;
 public:
-    Edge(Vertex* orig, Vertex* dest, const int& cap, const int& flow);
+    ~Edge();
+    Edge(Vertex* orig, Vertex* dest, const int& cap);
     Vertex* getOrigin() const;
     Vertex* getDest() const;
     int getCapacity() const;
     int getFlow() const;
+    void setFlow(const int& flow);
+    // handle residual counterpart
+    Edge* getResidual() const;
+    Edge* createResidual();
+    void destroyResidual();
 };
 
 #endif

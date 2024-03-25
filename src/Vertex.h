@@ -13,10 +13,6 @@ class Vertex {
     std::vector<Edge*> in;
     Edge* path;
     int minFlow;
-    // utility methods
-    void addEdgeTo(Vertex* v, const int& cap, const int& flow=0);
-    bool removeEdgeTo(Vertex* v);
-    friend class Graph;
     friend class DataHandler;
 public:
     ~Vertex();
@@ -25,6 +21,10 @@ public:
     NodeInfo* getInfo() const;
     const std::vector<Edge*>& getOutEdges() const;
     const std::vector<Edge*>& getInEdges() const;
+    // utility methods
+    Edge* addEdgeTo(Vertex* dest, const int& cap);
+    bool removeEdgeTo(Vertex* v);
+    bool removeOutEdge(const Edge* e);
 };
 
 #endif

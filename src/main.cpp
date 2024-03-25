@@ -8,6 +8,13 @@ int main() {
         return 1;
     }
     printf("Loaded dataset!\n");
-    printf("Max flow > %d", DataHandler::edmondsKarp(g));
+    printf("Original max flow > %d\n", DataHandler::edmondsKarp(g));
+
+    Graph g2(g);
+    g.removeVertex(NodeInfo(6, "R_6"));
+
+    printf("Max flow after removal > %d\n", DataHandler::edmondsKarp(g));
+    printf("Max flow after removal of copy > %d\n", 24163-DataHandler::removeNodeCascade(g2, g2.findVertex("R_6")));
+    printf("Max flow after removal > %d\n", DataHandler::edmondsKarp(g2, false));
     return 0;
 }

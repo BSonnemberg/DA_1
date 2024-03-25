@@ -9,16 +9,16 @@ Graph::Graph() {
 }
 
 Graph::Graph(const Graph& g) {
-    // copy nodes
     for (const Vertex* v : g.nodes) {
         this->nodes.push_back(new Vertex(v));
     }
-    // copy edges
     for (const Vertex* v : g.nodes) {
-        for (const Edge* e : v->out) {
+        for (const Edge* e : v->getOutEdges()) {
+            // copy edges
             Vertex* s = findVertex(*v->getInfo());
             Vertex* d = findVertex(*e->getDest()->getInfo());
-            s->addEdgeTo(d, e->getCapacity(), e->getFlow());
+            Edge* newEdge = s->addEdgeTo(d, e->getCapacity());
+            newEdge->setFlow(e->getFlow());
         }
     }
 }
@@ -48,22 +48,23 @@ Vertex* Graph::addVertex(NodeInfo* info) {
 
     if (info == nullptr) return nullptr;
     if (findVertex(info->getCode()) != nullptr) {
+        // vertex already exists
         return nullptr;
     }
 
-    Vertex* vtx = new Vertex(info);
+    auto* vtx = new Vertex(info);
     this->nodes.push_back(vtx);
 
-    // connect master src to reservoir
     if (info->getType() == WATER_RESERVOIR) {
+        // connect to master src
         const auto* r = dynamic_cast<Reservoir*>(info);
-        if (r == nullptr) return nullptr;
         nodes[0]->addEdgeTo(vtx, r->getMaxDelivery());
     }
 
-    // connect city to master sink
     else if (info->getType() == DELIVERY_SITE) {
-        vtx->addEdgeTo(nodes[1], INT_MAX);
+        // connect to master sink
+        const auto* c = dynamic_cast<City*>(info);
+        vtx->addEdgeTo(nodes[1], c->getDemand());
     }
     return vtx;
 }
@@ -74,6 +75,10 @@ bool Graph::removeVertex(const NodeInfo& info) {
         // found target
         if (*v->getInfo() == info) {
             nodes.erase(it);
+            for (Edge* e : v->getOutEdges()) {
+                // remove edge from target > ...
+                v->removeOutEdge(e);
+            }
             for (Vertex* u : this->nodes) {
                 // remove edges > to target
                 u->removeEdgeTo(v);
@@ -85,7 +90,8 @@ bool Graph::removeVertex(const NodeInfo& info) {
     return false;
 }
 
-bool Graph::addEdge(const std::string& c1, const std::string& c2, const int& cap) {
+bool Graph::addEdge(const std::string& c1, const std::string& c2, const int& cap) const {
+    if (cap <= 0) return false; // invalid capacity
     Vertex* v1 = this->findVertex(c1);
     Vertex* v2 = this->findVertex(c2);
     if (v1 == nullptr || v2 == nullptr) return false;
