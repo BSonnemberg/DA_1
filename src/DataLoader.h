@@ -17,7 +17,7 @@ public:
      * @param path dataset path
      * @return whether successful
      */
-    static bool loadToGraph(Graph& g, const std::string& path);
+    static bool loadToGraph(Graph& g, std::string path);
 };
 
 #endif

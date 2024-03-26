@@ -8,11 +8,11 @@
  * and manage the water supply network graph
  */
 class DataHandler {
+    static int edmondsKarp(Graph& g, Vertex* src, Vertex* sink);
     static bool findAugmPath(Graph& g, Vertex* s, Vertex* t);
-public:
-    static int edmondsKarp(Graph& g, bool s=true);
     static void removeEdgeCascade(Edge* e, int flow);
-    static int removeNodeCascade(Graph& g, Vertex* v);
+public:
+    static int getMaxFlow(Graph& g);
 };
 
 #endif

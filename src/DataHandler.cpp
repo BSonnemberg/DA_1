@@ -52,46 +52,54 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
  * maximum flow of the water supply network
  *
  * @param g target graph
- * @return max flow of the graph
+ * @param src source node
+ * @param sink sink node
+ * @return max flow between source and sink
  */
-int DataHandler::edmondsKarp(Graph& g, bool s) {
+int DataHandler::edmondsKarp(Graph& g, Vertex* src, Vertex* sink) {
 
     int maxFlow = 0;
-    Vertex* src = g.nodes[0];
-    Vertex* sink = g.nodes[1];
-    // reset flow for all edges
-    if (s) {
-        for (Vertex* v : g.nodes) {
-            for (Edge* e : v->out) {
-                e->setFlow(0);
-                //e->destroyResidual();
-            }
-        }
-    }
-    int a=0;
+
     while (findAugmPath(g, src, sink)) {
-a++;
+
         // bottleneck of the sink represents
         // the min residual capacity of the path
         const int bneck = sink->minFlow;
 
         for (Vertex* v = sink; v!=src; v=v->path->getOrigin()) {
 
-            // update flow
-            v->path->setFlow(v->path->getFlow() + bneck);
+            // creates residual edge if not present
+            v->path->createResidual();
 
-            Edge* res = v->path->getReverse();
-            if (res == nullptr) {
-                // create residual edge
-                v->path->createResidual();
-            }
+            // update flow (reverse edge is auto-updated)
+            v->path->setFlow(v->path->getFlow() + bneck);
         }
         maxFlow += bneck;
     }
-    printf("\nWENT THROUGH %d AUGMENTING PATHS\n", a);
+    return maxFlow;
+}
+
+/**
+ * Find the maximum flow of the water supply network
+ * @param g target graph
+ * @return max flow of the graph
+ */
+int DataHandler::getMaxFlow(Graph &g) {
+
+    Vertex* src = g.nodes[0];
+    Vertex* sink = g.nodes[1];
+
+    // reset flow for all edges
+    for (const Vertex* v : g.nodes) {
+        for (Edge* e : v->out) {
+            e->setFlow(0);
+        }
+    }
+
+    int maxFlow = edmondsKarp(g, src, sink);
 
     // clean up graph
-    for (Vertex* v : g.nodes) {
+    for (const Vertex* v : g.nodes) {
         for (Edge* e : v->getOutEdges()) {
             e->destroyResidual();
         }
@@ -99,6 +107,13 @@ a++;
     return maxFlow;
 }
 
+/**
+ * Simulates broken pipe by removing flow going through
+ * it in cascade until sink of the graph is reached
+ *
+ * @param e target edge
+ * @param flow flow to be removed
+ */
 void DataHandler::removeEdgeCascade(Edge* e, int flow) {
 
     e->setFlow(e->getFlow() - flow);
@@ -109,34 +124,8 @@ void DataHandler::removeEdgeCascade(Edge* e, int flow) {
     }
 
     for (Edge* e2 : e->getDest()->out) {
-        // remove max flow possible from each
-        // edge until 'flow' value is reached
-        int aux = std::min(e2->getFlow(), flow);
-        removeEdgeCascade(e2, aux);
-        if ((flow -= aux) == 0) return;
+        int k = std::min(e2->getFlow(), flow);
+        removeEdgeCascade(e2, k);
+        if ((flow -= k) == 0) return;
     }
-}
-
-int DataHandler::removeNodeCascade(Graph& g, Vertex* v) {
-    int a=0;
-    for (Edge* e : v->out) {
-        if (e->getFlow() > 0) {
-            if (e->getCapacity() == 0) printf("AAAAAAAAAA");
-            a+= e->getFlow();
-            removeEdgeCascade(e, e->getFlow());
-        }
-    }
-    g.removeVertex(*v->getInfo());
-    // for (Edge* e : v->out) {
-    //     v->removeOutEdge(e);
-    // }
-    printf("Total flow removed > %d\n", a);
-    /////
-     for (Vertex* v : g.nodes) {
-         for (Edge* e : v->out) {
-             // put back residual edge
-             e->createResidual();
-         }
-     }
-    return a;
 }
