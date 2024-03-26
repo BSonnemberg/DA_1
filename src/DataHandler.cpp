@@ -68,8 +68,9 @@ int DataHandler::edmondsKarp(Graph& g, bool s) {
             }
         }
     }
+    int a=0;
     while (findAugmPath(g, src, sink)) {
-
+a++;
         // bottleneck of the sink represents
         // the min residual capacity of the path
         const int bneck = sink->minFlow;
@@ -79,7 +80,7 @@ int DataHandler::edmondsKarp(Graph& g, bool s) {
             // update flow
             v->path->setFlow(v->path->getFlow() + bneck);
 
-            Edge* res = v->path->getResidual();
+            Edge* res = v->path->getReverse();
             if (res == nullptr) {
                 // create residual edge
                 v->path->createResidual();
@@ -87,6 +88,7 @@ int DataHandler::edmondsKarp(Graph& g, bool s) {
         }
         maxFlow += bneck;
     }
+    printf("\nWENT THROUGH %d AUGMENTING PATHS\n", a);
 
     // clean up graph
     for (Vertex* v : g.nodes) {
@@ -119,19 +121,21 @@ int DataHandler::removeNodeCascade(Graph& g, Vertex* v) {
     int a=0;
     for (Edge* e : v->out) {
         if (e->getFlow() > 0) {
+            if (e->getCapacity() == 0) printf("AAAAAAAAAA");
             a+= e->getFlow();
             removeEdgeCascade(e, e->getFlow());
         }
-        v->removeOutEdge(e);
     }
+    g.removeVertex(*v->getInfo());
+    // for (Edge* e : v->out) {
+    //     v->removeOutEdge(e);
+    // }
     printf("Total flow removed > %d\n", a);
     /////
      for (Vertex* v : g.nodes) {
          for (Edge* e : v->out) {
-             if (e->getFlow() > 0) {
-                 // put back residual edge
-                 e->createResidual();
-             }
+             // put back residual edge
+             e->createResidual();
          }
      }
     return a;
