@@ -116,6 +116,7 @@ int DataHandler::getMaxFlow(Graph &g) {
  */
 void DataHandler::shrinkEdge(Edge* e, int flow, const int& fw) {
 
+    if (flow == 0) return;
     e->setFlow(e->getFlow() - flow);
 
     // next set of edges in cascade
@@ -132,17 +133,15 @@ void DataHandler::shrinkEdge(Edge* e, int flow, const int& fw) {
         if (flow == 0) {
             return;
         }
-
         if (e2->getFlow() == 0) {
             continue;
         }
 
-        Vertex* v = e2->getOrigin();
-        if (fw) v = e2->getDest();
+        Vertex* v = fw? e2->getDest() : e2->getOrigin();
 
-        // cascade nodes must be unvisited
+        // nodes must be unvisited
         if (v->path == nullptr) {
-            v->path = e2; // mark as visited
+            v->path = e2;
             const int t = std::min(flow, e2->getFlow());
             shrinkEdge(e2, t, fw);
             flow -= t;
@@ -152,7 +151,7 @@ void DataHandler::shrinkEdge(Edge* e, int flow, const int& fw) {
 
 /**
  * Remove an edge from a graph in cascade form
- * and calculate the flow added post removal
+ * and calculate change in flow post removal
  *
  * @param g target graph
  * @param e target edge
@@ -175,12 +174,12 @@ int DataHandler::removeEdgeCascade(Graph& g, Edge* e) {
             e2->createResidual();
         }
     }
-    return edmondsKarp(g, g.nodes[0], g.nodes[1]);
+    return -flow +edmondsKarp(g, g.nodes[0], g.nodes[1]);
 }
 
 /**
  * Remove a node from a graph using a cascade method
- * and calculate the flow added after its removal
+ * and calculate the change in flow post removal
  *
  * @param g target graph
  * @param v target node
@@ -191,7 +190,10 @@ int DataHandler::removeNodeCascade(Graph& g, Vertex* v) {
     if (v->out.empty()) return 0;
     v->path = v->out[0]; // mark as visited
 
+    int flow = 0; // flow to be removed
+
     for (Edge* out : v->out) {
+        flow += out->getFlow();
         shrinkEdge(out, out->getFlow(), true);
     }
     for (Edge* in : v->in) {
@@ -202,9 +204,9 @@ int DataHandler::removeNodeCascade(Graph& g, Vertex* v) {
 
     // put back residual edges
     for (const Vertex* v2 : g.nodes) {
-        for (Edge* e : v->out) {
+        for (Edge* e : v2->out) {
             e->createResidual();
         }
     }
-    return edmondsKarp(g, g.nodes[0], g.nodes[1]);
+    return -flow +edmondsKarp(g, g.nodes[0], g.nodes[1]);
 }
