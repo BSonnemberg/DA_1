@@ -139,12 +139,11 @@ void DataHandler::shrinkEdge(Edge* e, int flow, const int& fw) {
 
         Vertex* v = fw? e2->getDest() : e2->getOrigin();
 
-        // nodes must be unvisited
+        // nodes must be unvisited?
         if (v->path == nullptr) {
-            v->path = e2;
-            const int t = std::min(flow, e2->getFlow());
-            shrinkEdge(e2, t, fw);
-            flow -= t;
+            int k = std::min(flow, e2->getFlow());
+            shrinkEdge(e2, k, fw);
+            flow -= k;
         }
     }
 }
@@ -170,8 +169,8 @@ int DataHandler::removeEdgeCascade(Graph& g, Edge* e) {
 
     // put back residual edges
     for (const Vertex* v : g.nodes) {
-        for (Edge* e2 : v->out) {
-            e2->createResidual();
+        for (Edge* tmp : v->out) {
+            tmp->createResidual();
         }
     }
     return -flow +edmondsKarp(g, g.nodes[0], g.nodes[1]);
@@ -204,8 +203,8 @@ int DataHandler::removeNodeCascade(Graph& g, Vertex* v) {
 
     // put back residual edges
     for (const Vertex* v2 : g.nodes) {
-        for (Edge* e : v2->out) {
-            e->createResidual();
+        for (Edge* tmp : v2->out) {
+            tmp->createResidual();
         }
     }
     return -flow +edmondsKarp(g, g.nodes[0], g.nodes[1]);
