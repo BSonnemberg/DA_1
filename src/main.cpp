@@ -9,5 +9,4 @@ int main() {
     }
     printf("Loaded dataset!\n");
     printf("Max flow > %d", DataHandler::getMaxFlow(g));
-    return 0;
 }

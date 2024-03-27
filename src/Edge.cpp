@@ -39,7 +39,7 @@ void Edge::setFlow(const int& flow) {
 }
 
 Edge* Edge::createResidual() {
-    if (residual == nullptr) {
+    if (this->residual == nullptr) {
         residual = dest->addEdgeTo(orig, 0);
         residual->residual = this;
         residual->flow = -flow;

@@ -1,5 +1,6 @@
 #include "DataHandler.h"
 #include <queue>
+using namespace std;
 
 /**
  * Find an augmenting path from a source to a sink node
@@ -10,7 +11,7 @@
  */
 bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
 
-    std::queue<Vertex*> q;
+    queue<Vertex*> q;
     for (Vertex* v : g.nodes) {
         v->path = nullptr;
         v->minFlow = INT_MAX;
@@ -36,7 +37,7 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
             // node is unvisited
             Vertex* v2 = e->getDest();
             if (v2->path == nullptr) {
-                v2->minFlow = std::min(v->minFlow, r);
+                v2->minFlow = min(v->minFlow, r);
                 v2->path = e;
                 q.push(v2);
             }
@@ -99,7 +100,8 @@ int DataHandler::getMaxFlow(Graph &g) {
     int maxFlow = edmondsKarp(g, src, sink);
 
     // clean up graph
-    for (const Vertex* v : g.nodes) {
+    for (Vertex* v : g.nodes) {
+        v->path = nullptr;
         for (Edge* e : v->getOutEdges()) {
             e->destroyResidual();
         }
@@ -108,24 +110,40 @@ int DataHandler::getMaxFlow(Graph &g) {
 }
 
 /**
- * Simulates broken pipe by removing flow going through
- * it in cascade until sink of the graph is reached
- *
+ * Simulate a broken pipe by shrinking edge flow in cascade
  * @param e target edge
- * @param flow flow to be removed
+ * @param flow how much to remove/ shrink
+ * @param fw whether cascade moves forward v. backwards
  */
-void DataHandler::removeEdgeCascade(Edge* e, int flow) {
+void DataHandler::shrinkEdge(Edge* e, int flow, const int& fw) {
 
     e->setFlow(e->getFlow() - flow);
 
-    if (e->getDest()->out.empty()) {
+    // get next set of edges in cascade
+    vector<Edge*> next = e->getOrigin()->in;
+    if (fw) next = e->getDest()->out;
+
+    if (next.empty()) {
         // end of cascade
         return;
     }
 
-    for (Edge* e2 : e->getDest()->out) {
-        int k = std::min(e2->getFlow(), flow);
-        removeEdgeCascade(e2, k);
-        if ((flow -= k) == 0) return;
+    for (Edge* e2 : next) {
+
+        if (flow == 0) return;
+        if (e2->getFlow() == 0) continue;
+
+        // make sure target node is unvisited
+        if (fw) {
+            if (e2->getDest()->path != nullptr) continue;
+            e2->getDest()->path = e2;
+        } else {
+            if (e2->getOrigin()->path != nullptr) continue;
+            e2->getOrigin()->path = e2;
+        }
+
+        int z = min(e2->getFlow(), flow);
+        shrinkEdge(e2, z, fw);
+        flow -= z;
     }
 }
