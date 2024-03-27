@@ -13,7 +13,8 @@ class DataHandler {
     static void shrinkEdge(Edge* e, int flow, const int& fw);
 public:
     static int getMaxFlow(Graph& g);
-    static int removeEdg(Graph& g, Vertex* v);
+    static int removeEdgeCascade(Graph& g, Edge* e);
+    static int removeNodeCascade(Graph& g, Vertex* v);
 };
 
 #endif
