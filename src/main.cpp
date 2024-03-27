@@ -8,6 +8,5 @@ int main() {
         return 1;
     }
     printf("Loaded dataset!\n");
-    printf("Max flow > %d", DataHandler::edmondsKarp(g));
-    return 0;
+    printf("Max flow > %d", DataHandler::getMaxFlow(g));
 }

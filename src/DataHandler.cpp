@@ -52,20 +52,13 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
  * maximum flow of the water supply network
  *
  * @param g target graph
- * @return max flow of the graph
+ * @param src source node
+ * @param sink sink node
+ * @return max flow between source and sink
  */
-int DataHandler::edmondsKarp(Graph& g) {
+int DataHandler::edmondsKarp(Graph& g, Vertex* src, Vertex* sink) {
 
     int maxFlow = 0;
-    Vertex* src = g.nodes[0];
-    Vertex* sink = g.nodes[1];
-
-    // reset flow for all edges
-    for (Vertex* v : g.nodes) {
-        for (Edge* e : v->out) {
-            e->setFlow(0);
-        }
-    }
 
     while (findAugmPath(g, src, sink)) {
 
@@ -75,23 +68,143 @@ int DataHandler::edmondsKarp(Graph& g) {
 
         for (Vertex* v = sink; v!=src; v=v->path->getOrigin()) {
 
-            // update flow
-            v->path->setFlow(v->path->getFlow() + bneck);
+            // creates residual edge if not present
+            v->path->createResidual();
 
-            Edge* res = v->path->getResidual();
-            if (res == nullptr) {
-                // create residual edge
-                v->path->createResidual();
-            }
+            // update flow (reverse edge is auto-updated)
+            v->path->setFlow(v->path->getFlow() + bneck);
         }
         maxFlow += bneck;
     }
+    return maxFlow;
+}
+
+/**
+ * Find the maximum flow of the water supply network
+ * @param g target graph
+ * @return max flow of the graph
+ */
+int DataHandler::getMaxFlow(Graph &g) {
+
+    Vertex* src = g.nodes[0];
+    Vertex* sink = g.nodes[1];
+
+    // reset flow for all edges
+    for (const Vertex* v : g.nodes) {
+        for (Edge* e : v->out) {
+            e->setFlow(0);
+        }
+    }
+
+    int maxFlow = edmondsKarp(g, src, sink);
 
     // clean up graph
     for (Vertex* v : g.nodes) {
+        v->path = nullptr;
         for (Edge* e : v->getOutEdges()) {
             e->destroyResidual();
         }
     }
     return maxFlow;
+}
+
+/**
+ * Shrink the flow of an edge in cascade form
+ * @param e target edge
+ * @param flow how much flow to remove
+ * @param fw whether cascade moves forward v. backwards
+ */
+void DataHandler::shrinkEdge(Edge* e, int flow, const int& fw) {
+
+    e->setFlow(e->getFlow() - flow);
+
+    // next set of edges in cascade
+    std::vector<Edge*> next = e->getOrigin()->in;
+    if (fw) next = e->getDest()->out;
+
+    if (next.empty()) {
+        // end of cascade
+        return;
+    }
+
+    for (Edge* e2 : next) {
+
+        if (flow == 0) {
+            return;
+        }
+
+        if (e2->getFlow() == 0) {
+            continue;
+        }
+
+        Vertex* v = e2->getOrigin();
+        if (fw) v = e2->getDest();
+
+        // cascade nodes must be unvisited
+        if (v->path == nullptr) {
+            v->path = e2; // mark as visited
+            const int t = std::min(flow, e2->getFlow());
+            shrinkEdge(e2, t, fw);
+            flow -= t;
+        }
+    }
+}
+
+/**
+ * Remove an edge from a graph in cascade form
+ * and calculate the flow added post removal
+ *
+ * @param g target graph
+ * @param e target edge
+ * @return added flow post removal
+ */
+int DataHandler::removeEdgeCascade(Graph& g, Edge* e) {
+
+    int flow = e->getFlow();
+
+    // remove flow in cascade form
+    shrinkEdge(e, flow, true);
+    e->setFlow(flow);
+    shrinkEdge(e, flow, false);
+
+    e->getOrigin()->removeOutEdge(e);
+
+    // put back residual edges
+    for (const Vertex* v : g.nodes) {
+        for (Edge* e2 : v->out) {
+            e2->createResidual();
+        }
+    }
+    return edmondsKarp(g, g.nodes[0], g.nodes[1]);
+}
+
+/**
+ * Remove a node from a graph using a cascade method
+ * and calculate the flow added after its removal
+ *
+ * @param g target graph
+ * @param v target node
+ * @return added flow post removal
+ */
+int DataHandler::removeNodeCascade(Graph& g, Vertex* v) {
+
+    if (v->out.empty()) return 0;
+    v->path = v->out[0]; // mark as visited
+
+    for (Edge* out : v->out) {
+        shrinkEdge(out, out->getFlow(), true);
+    }
+    for (Edge* in : v->in) {
+        shrinkEdge(in, in->getFlow(), false);
+    }
+
+    g.removeVertex(*v->getInfo());
+
+    // put back residual edges
+    for (const Vertex* v2 : g.nodes) {
+        for (Edge* e : v->out) {
+            e->createResidual();
+        }
+    }
+    return edmondsKarp(g, g.nodes[0], g.nodes[1]);
 }

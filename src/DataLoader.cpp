@@ -1,6 +1,13 @@
 #include "DataLoader.h"
 
-bool DataLoader::loadToGraph(Graph& g, const std::string& path) {
+bool DataLoader::loadToGraph(Graph& g, std::string path) {
+
+    // check if path exists
+    std::ifstream stream(path);
+    if (!stream) return false;
+
+    if (path.back()!='/') path.push_back('/');
+
     try {
         loadReservoirs(g, path);
         loadCities(g, path);

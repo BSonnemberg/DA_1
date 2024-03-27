@@ -26,7 +26,7 @@ int Edge::getFlow() const {
     return this->flow;
 }
 
-Edge* Edge::getResidual() const {
+Edge* Edge::getReverse() const {
     return this->residual;
 }
 
@@ -39,19 +39,17 @@ void Edge::setFlow(const int& flow) {
 }
 
 Edge* Edge::createResidual() {
-    if (this->capacity == 0) {
-        // already a residual edge
-        return nullptr;
-    }
     if (this->residual == nullptr) {
         residual = dest->addEdgeTo(orig, 0);
+        residual->residual = this;
         residual->flow = -flow;
     }
     return residual;
 }
 
 void Edge::destroyResidual() {
-    this->dest->removeOutEdge(residual);
-    this->residual = nullptr;
+    if (this->capacity > 0) {
+        this->dest->removeOutEdge(residual);
+        this->residual = nullptr;
+    }
 }
-
