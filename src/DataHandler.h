@@ -13,6 +13,7 @@ class DataHandler {
 public:
     static int edmondsKarp(Graph& g);
     static int drainNode(Graph& g, Vertex* v);
+    static int drainEdge(Graph& g, Edge* e);
 };
 
 #endif

@@ -173,3 +173,49 @@ int DataHandler::drainNode(Graph& g, Vertex* v) {
     return drained;
 }
 
+/**
+ * Drain an edge by removing flow going through it from the network
+ * @param g target graph
+ * @param e edge to be drained
+ * @return amount that was drained
+ */
+int DataHandler::drainEdge(Graph& g, Edge* e) {
+
+    if (e == nullptr) {
+        return 0;
+    }
+
+    int drained = 0;
+    Vertex* start = e->getDest();
+    Vertex* end = g.getNodes()[1];
+
+    for (int i=0; i<2; i++) {
+
+        // first drain from e.dest -> sink
+        while (findDrainPath(g, start, end)) {
+
+            int bneck = std::min(e->getFlow(), end->minFlow);
+            const Vertex* v2 = end;
+
+            while (v2 != start) {
+                v2->path->setFlow(v2->path->getFlow() - bneck);
+                v2 = v2->path->getOrigin();
+            }
+
+            drained += bneck;
+            if (drained == e->getFlow()) {
+                break;
+            }
+        }
+
+        // then drain from src -> e.origin
+        if (i == 0) {
+            start = g.getNodes()[0];
+            end = e->getOrigin();
+            drained = 0;
+        }
+    }
+    e->setFlow(0);
+    return drained;
+}
+
