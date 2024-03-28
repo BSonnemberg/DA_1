@@ -9,9 +9,8 @@
  */
 class DataHandler {
     static bool findAugmPath(Graph& g, Vertex* s, Vertex* t);
-    static int edmondsKarp(Graph& g, Vertex* src, Vertex* sink);
 public:
-    static int getMaxFlow(Graph& g);
+    static int edmondsKarp(Graph& g);
 };
 
 #endif

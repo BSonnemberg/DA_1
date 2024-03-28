@@ -11,7 +11,7 @@
 bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
 
     std::queue<Vertex*> q;
-    for (Vertex* v : g.nodes) {
+    for (Vertex* v : g.getNodes()) {
         v->path = nullptr;
         v->minFlow = INT_MAX;
     }
@@ -52,55 +52,32 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
  * maximum flow of the water supply network
  *
  * @param g target graph
- * @param src source node
- * @param sink sink node
  * @return max flow between source and sink
  */
-int DataHandler::edmondsKarp(Graph& g, Vertex* src, Vertex* sink) {
+int DataHandler::edmondsKarp(Graph& g) {
 
     int maxFlow = 0;
+    Vertex* src = g.getNodes()[0];
+    Vertex* sink = g.getNodes()[1];
 
     while (findAugmPath(g, src, sink)) {
 
-        // bottleneck of the sink represents
-        // the min residual capacity of the path
+        // min residual capacity of the path
         const int bneck = sink->minFlow;
 
-        for (Vertex* v = sink; v!=src; v=v->path->getOrigin()) {
+        for (Vertex* v=sink; v!=src; v=v->path->getOrigin()) {
 
-            // creates residual edge if not present
-            v->path->createResidual();
-
-            // update flow (reverse edge is auto-updated)
+            // update flow
             v->path->setFlow(v->path->getFlow() + bneck);
+
+            // create residual edge if absent
+            v->path->createResidual();
         }
         maxFlow += bneck;
     }
-    return maxFlow;
-}
-
-/**
- * Find the maximum flow of the water supply network
- * @param g target graph
- * @return max flow of the graph
- */
-int DataHandler::getMaxFlow(Graph &g) {
-
-    Vertex* src = g.nodes[0];
-    Vertex* sink = g.nodes[1];
-
-    // reset flow for all edges
-    for (const Vertex* v : g.nodes) {
-        for (Edge* e : v->out) {
-            e->setFlow(0);
-        }
-    }
-
-    int maxFlow = edmondsKarp(g, src, sink);
 
     // clean up graph
-    for (Vertex* v : g.nodes) {
-        v->path = nullptr;
+    for (Vertex* v : g.getNodes()) {
         for (Edge* e : v->getOutEdges()) {
             e->destroyResidual();
         }

@@ -5,15 +5,18 @@
 
 class Graph {
     std::vector<Vertex*> nodes;
+    Vertex* addVertex(NodeInfo* i);
 public:
-    Graph();
     ~Graph();
+    Graph();
+    Graph(const Graph& g);
     const std::vector<Vertex*>& getNodes() const;
-    Vertex* addVertex(NodeInfo* info);
-    bool removeVertex(const NodeInfo& info);
     Vertex* findVertex(const std::string& code) const;
     Vertex* findVertex(const NodeInfo& info) const;
-    bool addEdge(const std::string& c1, const std::string& c2, const int& cap) const;
+    Vertex* addVertex(Reservoir* i);
+    Vertex* addVertex(Station* i);
+    Vertex* addVertex(City* i);
+    bool removeVertex(const NodeInfo& info);
 };
 
 #endif
