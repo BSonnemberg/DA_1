@@ -84,3 +84,49 @@ int DataHandler::edmondsKarp(Graph& g) {
     }
     return maxFlow;
 }
+
+/**
+ * Find a path from source to sink where flow can be drained
+ * @param g target graph
+ * @param s source node
+ * @param t sink node
+ * @return whether a path was found
+ */
+bool DataHandler::findDrainPath(Graph& g, Vertex* s, Vertex* t) {
+
+    std::queue<Vertex*> q;
+    for(Vertex* v : g.getNodes()) {
+        v->path = nullptr;
+        v->minFlow = INT_MAX;
+    }
+    q.push(s);
+
+    while (!q.empty()) {
+
+        Vertex* v = q.front();
+        q.pop();
+
+        for (Edge* e : v->out) {
+
+            // only non-residual, non-empty paths
+            if (e->getFlow() <= 0) {
+                continue;
+            }
+
+            Vertex* v2 = e->getDest();
+            if (v2->path == nullptr) {
+                v2->minFlow = std::min(v->minFlow, e->getFlow());
+                v2->path = e;
+                q.push(v2);
+            }
+
+            if (v2 == t) {
+                // found target
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+

@@ -9,6 +9,7 @@
  */
 class DataHandler {
     static bool findAugmPath(Graph& g, Vertex* s, Vertex* t);
+    static bool findDrainPath(Graph& g, Vertex* s, Vertex* t);
 public:
     static int edmondsKarp(Graph& g);
 };
