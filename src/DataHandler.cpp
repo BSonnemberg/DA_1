@@ -129,4 +129,47 @@ bool DataHandler::findDrainPath(Graph& g, Vertex* s, Vertex* t) {
     return false;
 }
 
+/**
+ * Drain a node by removing flow passing through it from the network
+ * @param g target graph
+ * @param v node to be drained
+ * @return amount that was drained
+ */
+int DataHandler::drainNode(Graph& g, Vertex* v) {
+
+    if (v == nullptr) {
+        return 0;
+    }
+
+    int drained = 0;
+    Vertex* src = g.getNodes()[0];
+    Vertex* sink = g.getNodes()[1];
+
+    // drain from v -> sink
+    while (findDrainPath(g, v, sink)) {
+
+        // bneck -> min flow of path
+        const int bneck = sink->minFlow;
+        const Vertex* v2 = sink;
+
+        while (v2 != v) {
+            v2->path->setFlow(v2->path->getFlow() - bneck);
+            v2 = v2->path->getOrigin();
+        }
+        drained += bneck;
+    }
+
+    // drain from src -> v
+    while (findDrainPath(g, src, v)) {
+
+        const int bneck = v->minFlow;
+        const Vertex* v2 = v;
+
+        while (v2 != src) {
+            v2->path->setFlow(v2->path->getFlow() - bneck);
+            v2 = v2->path->getOrigin();
+        }
+    }
+    return drained;
+}
 

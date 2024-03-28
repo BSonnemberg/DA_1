@@ -12,6 +12,7 @@ class DataHandler {
     static bool findDrainPath(Graph& g, Vertex* s, Vertex* t);
 public:
     static int edmondsKarp(Graph& g);
+    static int drainNode(Graph& g, Vertex* v);
 };
 
 #endif
