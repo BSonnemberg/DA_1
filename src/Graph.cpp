@@ -8,21 +8,6 @@ Graph::Graph() {
     this->nodes.push_back(new Vertex(sink));
 }
 
-Graph::Graph(const Graph& g) {
-    for (const Vertex* v : g.nodes) {
-        this->nodes.push_back(new Vertex(v));
-    }
-    for (const Vertex* v : g.nodes) {
-        for (const Edge* e : v->getOutEdges()) {
-            // copy edges
-            Vertex* s = findVertex(*v->getInfo());
-            Vertex* d = findVertex(*e->getDest()->getInfo());
-            Edge* newEdge = s->addEdgeTo(d, e->getCapacity());
-            newEdge->setFlow(e->getFlow());
-        }
-    }
-}
-
 Graph::~Graph() {
     for (const Vertex* v : this->nodes) {
         delete v;

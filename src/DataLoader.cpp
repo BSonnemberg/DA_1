@@ -1,12 +1,10 @@
 #include "DataLoader.h"
 
-bool DataLoader::loadToGraph(Graph& g, std::string path) {
+bool DataLoader::loadToGraph(Graph& g, const std::string& path) {
 
     // check if path exists
     std::ifstream stream(path);
     if (!stream) return false;
-
-    if (path.back()!='/') path.push_back('/');
 
     try {
         loadReservoirs(g, path);
@@ -22,7 +20,7 @@ bool DataLoader::loadToGraph(Graph& g, std::string path) {
 void DataLoader::loadStations(Graph& g, const std::string& path) {
 
     std::string line;
-    std::ifstream stream(path+"Stations.csv");
+    std::ifstream stream(path+"/Stations.csv");
     std::getline(stream , line);
 
     while (std::getline(stream, line)) {
@@ -45,7 +43,7 @@ void DataLoader::loadStations(Graph& g, const std::string& path) {
 void DataLoader::loadPipes(Graph &g, const std::string &path) {
 
     std::string line;
-    std::ifstream stream(path+"Pipes.csv");
+    std::ifstream stream(path+"/Pipes.csv");
     std::getline(stream , line);
 
     while (std::getline(stream, line)) {
@@ -71,7 +69,7 @@ void DataLoader::loadPipes(Graph &g, const std::string &path) {
 void DataLoader::loadReservoirs(Graph& g, const std::string& path) {
 
     std::string line;
-    std::ifstream stream(path+"Reservoir.csv");
+    std::ifstream stream(path+"/Reservoir.csv");
     std::getline(stream , line);
 
     while (std::getline(stream, line)) {
@@ -99,7 +97,7 @@ void DataLoader::loadReservoirs(Graph& g, const std::string& path) {
 void DataLoader::loadCities(Graph& g, const std::string& path) {
 
     std::string line;
-    std::ifstream stream(path+"Cities.csv");
+    std::ifstream stream(path+"/Cities.csv");
     std::getline(stream , line);
 
     while (std::getline(stream, line)) {

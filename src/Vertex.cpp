@@ -2,7 +2,8 @@
 #include "Edge.h"
 
 Vertex::Vertex(NodeInfo* info) {
-    this->info = {info, new int(1)};
+    this->info = info;
+    this->copies = new int(0);
     this->minFlow = INT_MAX;
     this->path = nullptr;
 }
@@ -12,21 +13,23 @@ Vertex::Vertex(const Vertex* v) {
     this->minFlow = INT_MAX;
     this->path = nullptr;
     // register new copy
-    (*info.second)++;
+    this->copies = v->copies;
+    (*this->copies)++;
 }
 
 Vertex::~Vertex() {
-    for (const auto* edge : out) {
+    for (const Edge* edge : out) {
         delete edge;
     }
-    if (--(*info.second) == 0) {
-        delete info.first;
-        delete info.second;
+    if ((*this->copies)-- == 0) {
+        // free if no copies active
+        delete this->info;
+        delete this->copies;
     }
 }
 
 NodeInfo* Vertex::getInfo() const {
-    return this->info.first;
+    return this->info;
 }
 
 const std::vector<Edge*>& Vertex::getOutEdges() const {
@@ -37,19 +40,36 @@ const std::vector<Edge*>& Vertex::getInEdges() const {
     return this->in;
 }
 
-Edge* Vertex::addEdgeTo(Vertex* dest, const int& cap) {
-    auto* e = new Edge(this, dest, cap);
+Edge* Vertex::addEdgeTo(Vertex* to, const int& weight) {
+    if (to == nullptr) {
+        return nullptr;
+    }
+    Edge* e = new Edge(this, to, weight);
     out.push_back(e);
-    if (cap > 0) {
-        // residual edges are not added as INcoming
-        // edges to the destination - not necessary
-        dest->in.push_back(e);
+    // residual edges aren't marked as incoming edges
+    if (weight > 0) {
+        to->in.push_back(e);
     }
     return e;
 }
 
-bool Vertex::removeOutEdge(const Edge* e) {
-    if (e == nullptr) return false;
+bool Vertex::removeEdgeTo(const Vertex* v, const bool& freeMem) {
+    if (v == nullptr) {
+        return false;
+    }
+    for (const Edge* e : this->out) {
+        // targets non-residual edges only
+        if (e->getDest() == v && e->getCapacity() > 0) {
+            return removeOutEdge(e, freeMem);
+        }
+    }
+    return false;
+}
+
+bool Vertex::removeOutEdge(const Edge* e, const bool& freeMem) {
+    if (e == nullptr) {
+        return false;
+    }
     for (auto it = out.begin(); it != out.end(); ++it) {
         if (*it == e) {
             out.erase(it);
@@ -61,27 +81,7 @@ bool Vertex::removeOutEdge(const Edge* e) {
                     break;
                 }
             }
-            delete e;
-            return true;
-        }
-    }
-    return false;
-}
-
-bool Vertex::removeEdgeTo(Vertex* v) {
-    for (auto it = out.begin(); it != out.end(); ++it) {
-        const Edge* e = *it;
-        // found target (non-residual only)
-        if (e->getDest() == v && e->getCapacity() > 0) {
-            out.erase(it);
-            // find incoming edge
-            for (auto it2 = v->in.begin(); it2 != v->in.end(); ++it2) {
-                if (*it2 == e) {
-                    v->in.erase(it2);
-                    break;
-                }
-            }
-            delete e;
+            if (freeMem) delete e;
             return true;
         }
     }

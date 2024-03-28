@@ -10,11 +10,8 @@
 class DataHandler {
     static bool findAugmPath(Graph& g, Vertex* s, Vertex* t);
     static int edmondsKarp(Graph& g, Vertex* src, Vertex* sink);
-    static void shrinkEdge(Edge* e, int flow, const int& fw);
 public:
     static int getMaxFlow(Graph& g);
-    static int removeEdgeCascade(Graph& g, Edge* e);
-    static int removeNodeCascade(Graph& g, Vertex* v);
 };
 
 #endif

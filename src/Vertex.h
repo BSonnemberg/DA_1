@@ -8,23 +8,26 @@
 class Edge;
 
 class Vertex {
-    std::pair<NodeInfo*, int*> info;
+    NodeInfo* info;
     std::vector<Edge*> out;
     std::vector<Edge*> in;
+    // keep track of copies of this Vertex to know
+    // when to dealloc. memory for NodeInfo
+    int* copies;
     Edge* path;
     int minFlow;
-    friend class DataHandler;
 public:
     ~Vertex();
-    explicit Vertex(const Vertex* v);
-    explicit Vertex(NodeInfo* info);
+    Vertex(NodeInfo* info);
+    Vertex(const Vertex* v);
     NodeInfo* getInfo() const;
     const std::vector<Edge*>& getOutEdges() const;
     const std::vector<Edge*>& getInEdges() const;
     // utility methods
-    Edge* addEdgeTo(Vertex* dest, const int& cap);
-    bool removeEdgeTo(Vertex* v);
-    bool removeOutEdge(const Edge* e);
+    Edge* addEdgeTo(Vertex* to, const int& weight);
+    bool removeEdgeTo(const Vertex* v, const bool& freeMem = true);
+    bool removeOutEdge(const Edge* e, const bool& freeMem = true);
+    friend class DataHandler;
 };
 
 #endif

@@ -7,7 +7,7 @@ Edge::Edge(Vertex* orig, Vertex* dest, const int& cap) {
 }
 
 Edge::~Edge() {
-    destroyResidual();
+    this->destroyResidual();
 }
 
 Vertex* Edge::getOrigin() const {
@@ -30,26 +30,25 @@ Edge* Edge::getReverse() const {
     return this->residual;
 }
 
-// auto-updates flow of residual edge too
 void Edge::setFlow(const int& flow) {
     this->flow = flow;
-    if (residual != nullptr) {
-        residual->flow = -flow;
+    // residual edge is also updated
+    if (this->residual != nullptr) {
+        this->residual->flow = -flow;
     }
 }
 
-Edge* Edge::createResidual() {
+void Edge::createResidual() {
     if (this->residual == nullptr) {
         residual = dest->addEdgeTo(orig, 0);
         residual->residual = this;
         residual->flow = -flow;
     }
-    return residual;
 }
 
 void Edge::destroyResidual() {
     if (this->capacity > 0) {
-        this->dest->removeOutEdge(residual);
+        dest->removeOutEdge(residual);
         this->residual = nullptr;
     }
 }

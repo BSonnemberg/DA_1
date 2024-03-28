@@ -20,7 +20,7 @@ public:
     void setFlow(const int& flow);
     // handle residual counterpart
     Edge* getReverse() const;
-    Edge* createResidual();
+    void createResidual();
     void destroyResidual();
 };
 
