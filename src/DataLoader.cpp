@@ -8,8 +8,8 @@ bool DataLoader::loadToGraph(Graph& g, const std::string& path) {
 
     try {
         loadReservoirs(g, path);
-        loadCities(g, path);
         loadStations(g, path);
+        loadCities(g, path);
         loadPipes(g, path);
     } catch (const std::exception& e) {
         return false;
