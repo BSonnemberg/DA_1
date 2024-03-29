@@ -225,7 +225,7 @@ int DataHandler::drainEdge(Graph& g, Edge* e) {
  * @param g target graph
  * @return file name
  */
-std::string DataHandler::printSupplyToFile(Graph& g) {
+std::string DataHandler::printSupplyToFile(const Graph& g) {
 
     std::time_t t = std::time(0); // get time
     std::tm* now = std::localtime(&t);
@@ -263,4 +263,61 @@ std::string DataHandler::printSupplyToFile(Graph& g) {
     }
     out.close();
     return file;
+}
+
+/**
+ * Compute metrics to evalute performance of the water supply network
+ * @param g target graph
+ */
+SupplyMetrics DataHandler::computeSupplyMetrics(const Graph& g) {
+
+    SupplyMetrics res{};
+    auto cities = g.getCities();
+
+    for (auto p : cities) {
+
+        const int demand = p.second->getDemand();
+        const int supply = p.first->out[0]->getFlow();
+        const int diff = demand - supply;
+
+        // update metrics
+        if (supply < demand) {
+            res.undersuppliedNo++;
+        }
+        if (diff > res.maxDiff) {
+            res.maxDiff = diff;
+            res.maxDiffCity = p.second;
+        }
+
+        res.citiesNo++;
+        res.averageDiff += diff;
+        res.averageDemandMet += (double)supply / demand;
+    }
+
+    // calculate variance
+    int noPipes = 0;
+    double avgDiffPipes = 0;
+
+    for (const Vertex* v : g.getNodes()) {
+        for (const Edge* e : v->out) {
+            // find average first
+            avgDiffPipes += (double)e->getFlow()/e->getCapacity();
+            noPipes++;
+        }
+    }
+    avgDiffPipes /= noPipes;
+
+    for (const Vertex* v : g.getNodes()) {
+        for (const Edge* e : v->out) {
+            // start building up to the formula
+            double ratio = (double)e->getFlow() / e->getCapacity();
+            double x = ratio - avgDiffPipes;
+            res.varianceRatio += x*x;
+        }
+    }
+
+    res.averageDemandMet /= res.citiesNo;
+    res.averageDiff /= res.citiesNo;
+    res.varianceRatio /= noPipes;
+    return res;
 }
