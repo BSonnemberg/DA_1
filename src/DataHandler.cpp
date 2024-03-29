@@ -1,4 +1,5 @@
 #include "DataHandler.h"
+#include <fstream>
 #include <queue>
 
 /**
@@ -219,3 +220,47 @@ int DataHandler::drainEdge(Graph& g, Edge* e) {
     return drained;
 }
 
+/**
+ * Print water network supply status to a file
+ * @param g target graph
+ * @return file name
+ */
+std::string DataHandler::printSupplyToFile(Graph& g) {
+
+    std::time_t t = std::time(0); // get time
+    std::tm* now = std::localtime(&t);
+
+    std::string y = std::to_string(-100+now->tm_year);
+    std::string m = std::to_string(now->tm_mon);
+    std::string d = std::to_string(now->tm_mday);
+
+    std::string h = std::to_string(now->tm_hour);
+    std::string min = std::to_string(now->tm_min);
+    std::string s = std::to_string(now->tm_sec);
+
+    if (m.size() == 1) m = "0" + m;
+    if (h.size() == 1) h = "0" + h;
+    if (min.size() == 1) min = "0" + min;
+    if (s.size() == 1) s = "0" + s;
+
+    std::string file = "log-"+y+"-"+m+"-"+d+"-"+h+":"+min+":"+s+".txt";
+
+    std::ofstream out("../"+file);
+    out << "Code / Name / Supply / Demand / % of demand met\n";
+    out << "----------------------------------------------\n";
+    out << std::fixed << std::setprecision(1);
+
+    for (auto p : g.getCities()) {
+
+        City* c = p.second;
+        double supply = p.first->out[0]->getFlow();
+
+        out << c->getCode() << " / ";
+        out << c->getName() << " / ";
+        out << (int) supply << " / ";
+        out << c->getDemand() << " / ";
+        out << 100 * (supply / c->getDemand()) << "%\n";
+    }
+    out.close();
+    return file;
+}
