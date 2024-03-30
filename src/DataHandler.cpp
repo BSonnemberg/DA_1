@@ -314,3 +314,13 @@ Metrics DataHandler::computeMetrics(const Graph& g) {
     res.pipeVariance /= noPipes;
     return res;
 }
+
+/**
+ * Balance network load by forcing flow to be
+ * rerouted to different pipes using heuristics
+ * @param g target graph
+ */
+void DataHandler::balanceNetwork(Graph& g) {
+
+}
+

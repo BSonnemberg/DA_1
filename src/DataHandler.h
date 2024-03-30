@@ -21,8 +21,10 @@ class DataHandler {
     static bool findDrainPath(Graph& g, Vertex* s, Vertex* t);
 public:
     static int edmondsKarp(Graph& g);
+    static void balanceNetwork(Graph& g);
     static int drainNode(Graph& g, Vertex* v);
     static int drainEdge(Graph& g, Edge* e);
+    // metrics/ logging
     static std::string printToFile(const Graph& g);
     static Metrics computeMetrics(const Graph& g);
 };
