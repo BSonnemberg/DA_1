@@ -3,14 +3,13 @@
 
 #include "Graph.h"
 
-struct SupplyMetrics {
-    double varianceRatio;
-    double averageDemandMet;
-    double averageDiff;
-    int undersuppliedNo;
-    int citiesNo;
-    int maxDiff;
-    City* maxDiffCity;
+struct Metrics {
+    // pipe metrics
+    double pipeVariance;
+    double avgPipeRatio;
+    int maxPipeDiff;
+    // city metrics
+    double avgDemandMet;
 };
 
 /**
@@ -24,8 +23,8 @@ public:
     static int edmondsKarp(Graph& g);
     static int drainNode(Graph& g, Vertex* v);
     static int drainEdge(Graph& g, Edge* e);
-    static std::string printSupplyToFile(const Graph& g);
-    static SupplyMetrics computeSupplyMetrics(const Graph& g);
+    static std::string printToFile(const Graph& g);
+    static Metrics computeMetrics(const Graph& g);
 };
 
 #endif
