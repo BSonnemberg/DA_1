@@ -16,7 +16,6 @@ set(H_FILES
 )
 
 set(CPP_FILES
-        #...
         src/main.cpp
         src/Reservoir.cpp
         src/City.cpp
@@ -26,6 +25,7 @@ set(CPP_FILES
         src/Graph.cpp
         src/DataLoader.cpp
         src/DataHandler.cpp
+        #...
 )
 
 add_executable(water-supply-analysis
