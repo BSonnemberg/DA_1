@@ -18,8 +18,6 @@ scannable& scannable::operator>>(input_data& in) {
         perror("Error reading user input from stdin");
         return *this;
     }
-
-    in.keyboard_state = request_kbstate();
     in.buffer_size = bytes_read;
 
     if (bytes_read < REALLOC_THRESHOLD*buffer_limit) {
@@ -58,4 +56,6 @@ scannable &scannable::operator>>(int &ch) {
 }
 
 // set new limit for the max buffer size
-void scannable::limit(int n) { buffer_limit = n; }
+void scannable::limit(const int& n) {
+    buffer_limit = n;
+}

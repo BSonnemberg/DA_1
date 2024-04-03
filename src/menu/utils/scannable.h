@@ -4,7 +4,7 @@
 class scannable {
     static int buffer_limit;
 public:
-    static void limit(int n);
+    static void limit(const int& n);
     scannable& operator>>(input_data& in);
     scannable& operator>>(std::string& str);
     scannable& operator>>(uint8_t& ch);

@@ -29,4 +29,6 @@ set(CPP_FILES
 )
 
 add_executable(water-supply-analysis
-        ${H_FILES} ${CPP_FILES})
+        ${H_FILES}
+        ${CPP_FILES}
+        src/menu/utils)

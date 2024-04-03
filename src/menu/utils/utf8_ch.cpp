@@ -4,8 +4,8 @@
  * \brief Get pth byte of a utf8 code
  * <p> valid range for p: [0; 3]
  */
-const uint8_t& utf8_ch::operator[](int p) const {
-    if (p<0 || p>3) return UINT8_MAX; // invalid arg
+uint8_t utf8_ch::operator[](const int& p) const {
+    if (p<0 || p>3) return UINT8_MAX;
     return bytes[p];
 }
 

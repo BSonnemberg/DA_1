@@ -1,5 +1,4 @@
 #pragma once
-#include "bridge.h"
 #include "utf8_ch.h"
 #include <string>
 
@@ -10,7 +9,6 @@
 class input_data {
     uint8_t* buffer;
     int buffer_size;
-    uint8_t keyboard_state;
     friend class scannable;
 public:
     using value_type = utf8_ch;
@@ -38,5 +36,4 @@ public:
     input_data();
     ~input_data();
     std::string to_string() const;
-    bool has_modifier(const uint8_t& mod) const;
 };

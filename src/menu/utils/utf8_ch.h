@@ -19,7 +19,7 @@ public:
     operator char() const;
     operator uint8_t() const;
 public:
-    const uint8_t& operator[](int p) const;
+    uint8_t operator[](const int& p) const;
     bool operator==(const utf8_ch& other) const;
     friend std::ostream& operator<<(std::ostream& os, const utf8_ch& ch);
 };
