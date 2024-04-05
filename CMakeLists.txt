@@ -2,6 +2,18 @@ cmake_minimum_required(VERSION 3.27)
 set(CMAKE_CXX_STANDARD 11)
 project(water-supply-analysis)
 
+set(UTILS
+        src/menu/utils/color.h
+        src/menu/utils/printable.h
+        src/menu/utils/printable.cpp
+        src/menu/utils/scannable.h
+        src/menu/utils/scannable.cpp
+        src/menu/utils/termutils.h
+        src/menu/utils/termutils.cpp
+        src/menu/utils/textbox.h
+        src/menu/utils/textbox.cpp
+)
+
 set(H_FILES
         src/Reservoir.h
         src/Station.h
@@ -12,7 +24,6 @@ set(H_FILES
         src/Graph.h
         src/DataLoader.h
         src/DataHandler.h
-        #...
 )
 
 set(CPP_FILES
@@ -25,10 +36,9 @@ set(CPP_FILES
         src/Graph.cpp
         src/DataLoader.cpp
         src/DataHandler.cpp
-        #...
 )
 
 add_executable(water-supply-analysis
+        ${UTILS}
         ${H_FILES}
-        ${CPP_FILES}
-        src/menu/utils)
+        ${CPP_FILES})

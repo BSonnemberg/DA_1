@@ -1,2 +1,0 @@
-# note: this folder (@src/menu/utils) was imported from an ongoing personal project
-to aid in the creation of the user interface for the water-supply-analysis university assignment

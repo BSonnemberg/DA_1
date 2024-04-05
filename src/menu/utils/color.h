@@ -1,5 +1,6 @@
 #pragma once
 
+// foreground only
 // 8 bit colors
 #define BLACK "\x1B[0;30m"
 #define RED "\x1B[0;31m"
@@ -32,6 +33,3 @@
  ids -> https://user-images.githubusercontent.com/995050/47952855-ecb12480-df75-11e8-89d4-ac26c50e80b9.png*/
 #define BGROUND(color_id) ("\x1B[48;5;" + std::to_string(color_id) + "m")
 #define FGROUND(color_id) ("\x1B[38;5;" + std::to_string(color_id) + "m")
-
-// set color based on an rgb value; limited terminal support (not supported in macOS)
-#define RGB(r, g, b) ("\x1B[38;2;" + std::to_string(r) + ";" + std::to_string(g) + ";" + std::to_string(b) + "m")
