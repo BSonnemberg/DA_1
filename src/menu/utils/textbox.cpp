@@ -105,13 +105,14 @@ void textbox::show_text(const std::string& txt, const bool& center) const {
     const int p = size - n - 2;
 
     // now add the text
-    if (!p) {
+    if (p < 0) {
+        set_cursor(x+1, y);
         print << txt.substr(0, n+p);
     }
     else {
         if (center) {
             // center text
-            double mid = (2*x + size) / 2.0;
+            double mid = (x + x + size) / 2.0;
             set_cursor(mid - n/2, y);
         }
         else {
@@ -120,4 +121,8 @@ void textbox::show_text(const std::string& txt, const bool& center) const {
         print << txt;
     }
     print << RESET;
+}
+
+void textbox::resize(const int &newSize) {
+    this->size = newSize;
 }

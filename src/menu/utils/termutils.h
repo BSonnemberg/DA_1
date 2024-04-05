@@ -40,4 +40,10 @@ void show_cursor();
  */
 void set_cursor(const int &x, const int &y);
 
+/**
+ * Print n empty lines
+ * @param n number of lines
+ */
+void empty_line(const int& n);
+
 #endif

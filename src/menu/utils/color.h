@@ -1,5 +1,7 @@
 #pragma once
 
+#define GRAY "\x1B[38;5;248m"
+
 // foreground only
 // 8 bit colors
 #define BLACK "\x1B[0;30m"

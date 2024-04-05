@@ -24,6 +24,8 @@ set(H_FILES
         src/Graph.h
         src/DataLoader.h
         src/DataHandler.h
+        src/menu/Menu.h
+        src/menu/DatasetMenu.h
 )
 
 set(CPP_FILES
@@ -36,6 +38,8 @@ set(CPP_FILES
         src/Graph.cpp
         src/DataLoader.cpp
         src/DataHandler.cpp
+        src/menu/MenuHandler.cpp
+        src/menu/DatasetMenu.cpp
 )
 
 add_executable(water-supply-analysis

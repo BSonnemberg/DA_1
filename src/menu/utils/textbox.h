@@ -13,8 +13,6 @@ class textbox {
     int y;
     int size;
     std::string color;
-    std::string text_a;
-    std::string text_b;
     std::string input;
     void show_input() const;
 public:
@@ -24,7 +22,10 @@ public:
             const std::string& text_a,
             const std::string& text_b,
             const std::string& color = FGROUND(238) + BGROUND(248));
+    std::string text_a;
+    std::string text_b;
     result take_over();
+    void resize(const int& newSize);
     void clear() const;
     void show() const;
     /**
