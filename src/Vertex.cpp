@@ -40,6 +40,15 @@ const std::vector<Edge*>& Vertex::getInEdges() const {
     return this->in;
 }
 
+bool Vertex::addOutEdge(Edge* e) {
+    for (const Edge* out : out) {
+        if (out == e) return false;
+    }
+    out.push_back(e);
+    e->getDest()->in.push_back(e);
+    return true;
+}
+
 Edge* Vertex::addEdgeTo(Vertex* to, const int& weight) {
     if (to == nullptr) {
         return nullptr;

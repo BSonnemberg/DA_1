@@ -10,8 +10,6 @@ set(UTILS
         src/menu/utils/scannable.cpp
         src/menu/utils/termutils.h
         src/menu/utils/termutils.cpp
-        src/menu/utils/textbox.h
-        src/menu/utils/textbox.cpp
 )
 
 set(H_FILES
@@ -24,8 +22,6 @@ set(H_FILES
         src/Graph.h
         src/DataLoader.h
         src/DataHandler.h
-        src/menu/Menu.h
-        src/menu/DatasetMenu.h
 )
 
 set(CPP_FILES
@@ -38,8 +34,6 @@ set(CPP_FILES
         src/Graph.cpp
         src/DataLoader.cpp
         src/DataHandler.cpp
-        src/menu/MenuHandler.cpp
-        src/menu/DatasetMenu.cpp
 )
 
 add_executable(water-supply-analysis

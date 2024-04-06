@@ -24,6 +24,7 @@ public:
     const std::vector<Edge*>& getOutEdges() const;
     const std::vector<Edge*>& getInEdges() const;
     // utility methods
+    bool addOutEdge(Edge* e);
     Edge* addEdgeTo(Vertex* to, const int& weight);
     bool removeEdgeTo(const Vertex* v, const bool& freeMem = true);
     bool removeOutEdge(const Edge* e, const bool& freeMem = true);

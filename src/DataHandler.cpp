@@ -316,11 +316,90 @@ Metrics DataHandler::computeMetrics(const Graph& g) {
 }
 
 /**
+ * Runs an iteration of a heuristics-based algorithm
+ * for balancing flow of a water supply network graph
+ * @param g target graph
+ */
+void DataHandler::balanceNetworkIter(Graph& g) {
+
+    constexpr double lowerBound = 0.5;
+    constexpr double upperBound = 0.84;
+    constexpr double midBound = (lowerBound+upperBound)/2.0;
+
+    for (const Vertex* v : g.getNodes()) {
+        for (Edge* e : v->getOutEdges()) {
+
+            const double flow = e->getFlow();
+            const double ratio = flow / e->getCapacity();
+
+            // find high flow pipes
+            if (ratio > upperBound) {
+
+                // temporarily remove edge
+                e->getOrigin()->removeOutEdge(e, false);
+
+                Vertex* s = e->getOrigin();
+                Vertex* t = e->getDest();
+
+                if (findAugmPath(g, s, t)) {
+
+                    int totalNodes = 1;
+                    double avgRatio = 0;
+                    const Vertex* current = t;
+
+                    while (current != s) {
+                        const Edge* tmp = current->path;
+                        // find avg flow/capacity ratio of path
+                        // to check if it's "underutilized"
+                        const double f = tmp->getFlow();
+                        avgRatio += f / tmp->getCapacity();
+                        current = current->path->getOrigin();
+                        totalNodes++;
+                    }
+
+                    avgRatio /= totalNodes;
+
+                    // found underutilized path
+                    if (avgRatio < lowerBound) {
+
+                        const int a = e->getFlow() - midBound*e->getCapacity();
+                        const int delta = std::min(t->minFlow, a);
+
+                        current = t;
+                        while (current != s) {
+                            // redirect flow
+                            Edge* aux = current->path;
+                            aux->setFlow(aux->getFlow() + delta);
+                            current = current->path->getOrigin();
+                        }
+                        e->setFlow(e->getFlow() - delta);
+                    }
+                }
+                e->getOrigin()->addOutEdge(e);
+            }
+        }
+    }
+}
+
+/**
  * Balance network load by forcing flow to be
  * rerouted to different pipes using heuristics
  * @param g target graph
  */
-void DataHandler::balanceNetwork(Graph& g) {
+Metrics DataHandler::balanceNetwork(Graph& g) {
 
+    // minimum improvement per iteration
+    // to continue balancing process
+    constexpr double minStep = 0.003;
+
+    Metrics metrics = computeMetrics(g);
+    double delta = minStep;
+
+    while (delta > 0 && delta >= minStep) {
+        balanceNetworkIter(g);
+        double prev = metrics.pipeVariance;
+        metrics = computeMetrics(g);
+        delta = prev - metrics.pipeVariance;
+    }
+    return metrics;
 }
-

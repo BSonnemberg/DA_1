@@ -4,11 +4,9 @@
 #include "Graph.h"
 
 struct Metrics {
-    // pipe metrics
+    int maxPipeDiff;
     double pipeVariance;
     double avgPipeRatio;
-    int maxPipeDiff;
-    // city metrics
     double avgDemandMet;
 };
 
@@ -19,14 +17,14 @@ struct Metrics {
 class DataHandler {
     static bool findAugmPath(Graph& g, Vertex* s, Vertex* t);
     static bool findDrainPath(Graph& g, Vertex* s, Vertex* t);
+    static void balanceNetworkIter(Graph& g);
 public:
     static int edmondsKarp(Graph& g);
-    static void balanceNetwork(Graph& g);
     static int drainNode(Graph& g, Vertex* v);
     static int drainEdge(Graph& g, Edge* e);
-    // metrics/ logging
-    static std::string printToFile(const Graph& g);
+    static Metrics balanceNetwork(Graph& g);
     static Metrics computeMetrics(const Graph& g);
+    static std::string printToFile(const Graph& g);
 };
 
 #endif
