@@ -1,0 +1,27 @@
+\doxysection{City.\+h}
+\hypertarget{_city_8h_source}{}\label{_city_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CITY\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CITY\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}NodeInfo.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ a.k.a.\ delivery\ sites}}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_city}{City}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_node_info}{NodeInfo}}\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{int}\ demand;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{int}\ population;}
+\DoxyCodeLine{00010\ \ \ \ \ std::string\ name;}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{class_city}{City}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ \textcolor{keywordtype}{id},}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ code,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ name,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ demand,}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ pop);}
+\DoxyCodeLine{00017\ \ \ \ \ std::string\ getName()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ getDemand()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{int}\ getPopulation()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

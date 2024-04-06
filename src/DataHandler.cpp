@@ -3,10 +3,11 @@
 #include <queue>
 
 /**
- * Find an augmenting path from a source to a sink node
+ * @brief Find an augmenting path from a source to a sink node
  * @param g target graph
  * @param s source node
  * @param t sink node
+ * @re O(E)
  * @return whether a path was found
  */
 bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
@@ -49,10 +50,11 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
 }
 
 /**
- * Perform the edmonds-karp algorithm to find the
+ * @brief Perform the edmonds-karp algorithm to find the
  * maximum flow of the water supply network
  *
  * @param g target graph
+ * @complexity O(V * E^2)
  * @return max flow between source and sink
  */
 int DataHandler::edmondsKarp(Graph& g) {
@@ -87,10 +89,11 @@ int DataHandler::edmondsKarp(Graph& g) {
 }
 
 /**
- * Find a path from source to sink where flow can be drained
+ * @brief Find a path from source to sink where flow can be drained
  * @param g target graph
  * @param s source node
  * @param t sink node
+ * @complexity O(E)
  * @return whether a path was found
  */
 bool DataHandler::findDrainPath(Graph& g, Vertex* s, Vertex* t) {
@@ -131,9 +134,10 @@ bool DataHandler::findDrainPath(Graph& g, Vertex* s, Vertex* t) {
 }
 
 /**
- * Drain a node by removing flow passing through it from the network
+ * @brief Drain a node by removing flow passing through it from the network
  * @param g target graph
  * @param v node to be drained
+ * @complexity O(2*E*V)
  * @return amount that was drained
  */
 int DataHandler::drainNode(Graph& g, Vertex* v) {
@@ -175,9 +179,10 @@ int DataHandler::drainNode(Graph& g, Vertex* v) {
 }
 
 /**
- * Drain an edge by removing flow going through it from the network
+ * @brief Drain an edge by removing flow going through it from the network
  * @param g target graph
  * @param e edge to be drained
+ * @complexity O(2*E*V)
  * @return amount that was drained
  */
 int DataHandler::drainEdge(Graph& g, Edge* e) {
@@ -221,7 +226,8 @@ int DataHandler::drainEdge(Graph& g, Edge* e) {
 }
 
 /**
- * Print water network supply status to a file
+ * @brief Print water network supply status to a file
+ * @complexity O(c), c -> no. of cities in the graph
  * @param g target graph
  * @return file name
  */
@@ -266,7 +272,8 @@ std::string DataHandler::printToFile(const Graph& g) {
 }
 
 /**
- * Compute metrics to evalute performance of the water supply network
+ * @brief Compute metrics to evaluate performance of the water supply network
+ * @complexity O(2*c + 2*E), c -> no. of cities in the graph
  * @param g target graph
  */
 Metrics DataHandler::computeMetrics(const Graph& g) {
@@ -316,8 +323,9 @@ Metrics DataHandler::computeMetrics(const Graph& g) {
 }
 
 /**
- * Runs an iteration of a heuristics-based algorithm
+ * @brief Runs an iteration of a heuristics-based algorithm
  * for balancing flow of a water supply network graph
+ * @complexity O(E^2 * 2*V)
  * @param g target graph
  */
 void DataHandler::balanceNetworkIter(Graph& g) {
@@ -382,9 +390,14 @@ void DataHandler::balanceNetworkIter(Graph& g) {
 }
 
 /**
- * Balance network load by forcing flow to be
+ * @brief Balance network load by forcing flow to be
  * rerouted to different pipes using heuristics
+ *
+ * @complexity best case: O(E^2 * 2*V);
+ * worst case: impossible to predict
+ *
  * @param g target graph
+ * @return metrics after balance
  */
 Metrics DataHandler::balanceNetwork(Graph& g) {
 
