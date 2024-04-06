@@ -1,0 +1,160 @@
+\doxysection{Data\+Handler Class Reference}
+\hypertarget{class_data_handler}{}\label{class_data_handler}\index{DataHandler@{DataHandler}}
+
+
+{\ttfamily \#include $<$Data\+Handler.\+h$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{class_data_handler_ae7f8fc761816c9805563eb9d57bf9eb2}{edmonds\+Karp}} (\mbox{\hyperlink{class_graph}{Graph}} \&g)
+\begin{DoxyCompactList}\small\item\em Perform the edmonds-\/karp algorithm to find the maximum flow of the water supply network. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{class_data_handler_a678d6f242ada088ff17b310db5fdb072}{drain\+Node}} (\mbox{\hyperlink{class_graph}{Graph}} \&g, \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}v)
+\begin{DoxyCompactList}\small\item\em Drain a node by removing flow passing through it from the network. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{class_data_handler_a50d248bb57bfe0360141b0f50c815220}{drain\+Edge}} (\mbox{\hyperlink{class_graph}{Graph}} \&g, \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*}e)
+\begin{DoxyCompactList}\small\item\em Drain an edge by removing flow going through it from the network. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_metrics}{Metrics}} \mbox{\hyperlink{class_data_handler_a962e8f90e2632db6086c253881134dee}{balance\+Network}} (\mbox{\hyperlink{class_graph}{Graph}} \&g)
+\begin{DoxyCompactList}\small\item\em Balance network load by forcing flow to be rerouted to different pipes using heuristics. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{struct_metrics}{Metrics}} \mbox{\hyperlink{class_data_handler_ab3dfcaf5e251dacc8dc8f0edd39217d8}{compute\+Metrics}} (const \mbox{\hyperlink{class_graph}{Graph}} \&g)
+\begin{DoxyCompactList}\small\item\em Compute metrics to evaluate performance of the water supply network. \end{DoxyCompactList}\item 
+static std\+::string \mbox{\hyperlink{class_data_handler_a580cce6c703af3a5e22736b8a7d611a5}{print\+To\+File}} (const \mbox{\hyperlink{class_graph}{Graph}} \&g)
+\begin{DoxyCompactList}\small\item\em Print water network supply status to a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Provides a bundle of functions to analyze and manage the water supply network graph 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_data_handler_a962e8f90e2632db6086c253881134dee}\label{class_data_handler_a962e8f90e2632db6086c253881134dee} 
+\index{DataHandler@{DataHandler}!balanceNetwork@{balanceNetwork}}
+\index{balanceNetwork@{balanceNetwork}!DataHandler@{DataHandler}}
+\doxysubsubsection{\texorpdfstring{balanceNetwork()}{balanceNetwork()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_metrics}{Metrics}} Data\+Handler\+::balance\+Network (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \&}]{g }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Balance network load by forcing flow to be rerouted to different pipes using heuristics. 
+
+\begin{DoxyRemark}{Remarks}
+best case\+: O(\+E\texorpdfstring{$^\wedge$}{\string^}2 \texorpdfstring{$\ast$}{*} 2\texorpdfstring{$\ast$}{*}\+V); worst case\+: impossible to predict
+\end{DoxyRemark}
+
+\begin{DoxyParams}{Parameters}
+{\em g} & target graph \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+metrics after balance 
+\end{DoxyReturn}
+\Hypertarget{class_data_handler_ab3dfcaf5e251dacc8dc8f0edd39217d8}\label{class_data_handler_ab3dfcaf5e251dacc8dc8f0edd39217d8} 
+\index{DataHandler@{DataHandler}!computeMetrics@{computeMetrics}}
+\index{computeMetrics@{computeMetrics}!DataHandler@{DataHandler}}
+\doxysubsubsection{\texorpdfstring{computeMetrics()}{computeMetrics()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_metrics}{Metrics}} Data\+Handler\+::compute\+Metrics (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_graph}{Graph}} \&}]{g }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Compute metrics to evaluate performance of the water supply network. 
+
+\begin{DoxyRemark}{Remarks}
+function is O(2\texorpdfstring{$\ast$}{*}c + 2\texorpdfstring{$\ast$}{*}E), c -\/\texorpdfstring{$>$}{>} no. of cities in the graph 
+\end{DoxyRemark}
+
+\begin{DoxyParams}{Parameters}
+{\em g} & target graph \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_data_handler_a50d248bb57bfe0360141b0f50c815220}\label{class_data_handler_a50d248bb57bfe0360141b0f50c815220} 
+\index{DataHandler@{DataHandler}!drainEdge@{drainEdge}}
+\index{drainEdge@{drainEdge}!DataHandler@{DataHandler}}
+\doxysubsubsection{\texorpdfstring{drainEdge()}{drainEdge()}}
+{\footnotesize\ttfamily int Data\+Handler\+::drain\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \&}]{g,  }\item[{\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Drain an edge by removing flow going through it from the network. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & target graph \\
+\hline
+{\em e} & edge to be drained \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+function is O(2\texorpdfstring{$\ast$}{*}\+E\texorpdfstring{$\ast$}{*}\+V) 
+\end{DoxyRemark}
+\begin{DoxyReturn}{Returns}
+amount that was drained 
+\end{DoxyReturn}
+\Hypertarget{class_data_handler_a678d6f242ada088ff17b310db5fdb072}\label{class_data_handler_a678d6f242ada088ff17b310db5fdb072} 
+\index{DataHandler@{DataHandler}!drainNode@{drainNode}}
+\index{drainNode@{drainNode}!DataHandler@{DataHandler}}
+\doxysubsubsection{\texorpdfstring{drainNode()}{drainNode()}}
+{\footnotesize\ttfamily int Data\+Handler\+::drain\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \&}]{g,  }\item[{\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Drain a node by removing flow passing through it from the network. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & target graph \\
+\hline
+{\em v} & node to be drained \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+function is O(2\texorpdfstring{$\ast$}{*}\+E\texorpdfstring{$\ast$}{*}\+V) 
+\end{DoxyRemark}
+\begin{DoxyReturn}{Returns}
+amount that was drained 
+\end{DoxyReturn}
+\Hypertarget{class_data_handler_ae7f8fc761816c9805563eb9d57bf9eb2}\label{class_data_handler_ae7f8fc761816c9805563eb9d57bf9eb2} 
+\index{DataHandler@{DataHandler}!edmondsKarp@{edmondsKarp}}
+\index{edmondsKarp@{edmondsKarp}!DataHandler@{DataHandler}}
+\doxysubsubsection{\texorpdfstring{edmondsKarp()}{edmondsKarp()}}
+{\footnotesize\ttfamily int Data\+Handler\+::edmonds\+Karp (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \&}]{g }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Perform the edmonds-\/karp algorithm to find the maximum flow of the water supply network. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & target graph \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+function is O(\+V \texorpdfstring{$\ast$}{*} E\texorpdfstring{$^\wedge$}{\string^}2) 
+\end{DoxyRemark}
+\begin{DoxyReturn}{Returns}
+max flow between source and sink 
+\end{DoxyReturn}
+\Hypertarget{class_data_handler_a580cce6c703af3a5e22736b8a7d611a5}\label{class_data_handler_a580cce6c703af3a5e22736b8a7d611a5} 
+\index{DataHandler@{DataHandler}!printToFile@{printToFile}}
+\index{printToFile@{printToFile}!DataHandler@{DataHandler}}
+\doxysubsubsection{\texorpdfstring{printToFile()}{printToFile()}}
+{\footnotesize\ttfamily std\+::string Data\+Handler\+::print\+To\+File (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_graph}{Graph}} \&}]{g }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Print water network supply status to a file. 
+
+\begin{DoxyRemark}{Remarks}
+function is O(c), c -\/\texorpdfstring{$>$}{>} no. of cities in the graph 
+\end{DoxyRemark}
+
+\begin{DoxyParams}{Parameters}
+{\em g} & target graph \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+file name 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_data_handler_8h}{Data\+Handler.\+h}}\item 
+src/\mbox{\hyperlink{_data_handler_8cpp}{Data\+Handler.\+cpp}}\end{DoxyCompactItemize}

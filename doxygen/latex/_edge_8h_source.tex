@@ -1,0 +1,33 @@
+\doxysection{Edge.\+h}
+\hypertarget{_edge_8h_source}{}\label{_edge_8h_source}\index{src/Edge.h@{src/Edge.h}}
+\mbox{\hyperlink{_edge_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ EDGE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ EDGE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_vertex_8h}{Vertex.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Edges\ represent\ pipelines}}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_edge}{Edge}}\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \mbox{\hyperlink{class_vertex}{Vertex}}*\ orig;}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_vertex}{Vertex}}*\ dest;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{int}\ capacity;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{int}\ flow\ =\ 0;}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{class_edge}{Edge}}*\ residual\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_edge_a2f37b72f044427961d6730943daf10e0}{\string~Edge}}();}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{class_edge_a3b7afbab561a77380ecdeff3fbd5562f}{Edge}}(\mbox{\hyperlink{class_vertex}{Vertex}}*\ orig,\ \mbox{\hyperlink{class_vertex}{Vertex}}*\ dest,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ cap);}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_vertex}{Vertex}}*\ \mbox{\hyperlink{class_edge_aa03ab4b10c33e0dbe62b092bb4f36384}{getOrigin}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_vertex}{Vertex}}*\ \mbox{\hyperlink{class_edge_a5cda44e9ba257b03963a1ac301371a59}{getDest}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_edge_a225e92785fb02e0e985e19fe3346686b}{getCapacity}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_edge_a7d4ea1360d5d2dc593f4daa772283e8f}{getFlow}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_edge_a9124de181fc56551d5bb217d2969b38f}{setFlow}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ flow);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ handle\ residual\ counterpart}}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_edge}{Edge}}*\ \mbox{\hyperlink{class_edge_a756d2d246aa5445d0f396626c7d4fd56}{getReverse}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_edge_af8f39def67364f76deeddd7dadb8f50c}{createResidual}}();}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_edge_ae47e5e2c301bbcc3a24306f46bbe1a5f}{destroyResidual}}();}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

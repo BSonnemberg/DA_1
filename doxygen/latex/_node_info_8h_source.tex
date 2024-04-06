@@ -1,0 +1,31 @@
+\doxysection{Node\+Info.\+h}
+\hypertarget{_node_info_8h_source}{}\label{_node_info_8h_source}\index{src/NodeInfo.h@{src/NodeInfo.h}}
+\mbox{\hyperlink{_node_info_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ NODEINFO\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ NODEINFO\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{_node_info_8h_acac9cbaeea226ed297804c012dc12b16}{NodeType}}\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \mbox{\hyperlink{_node_info_8h_acac9cbaeea226ed297804c012dc12b16a7c895d92cdcac1f1430efdb1572bf896}{WATER\_RESERVOIR}},}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{_node_info_8h_acac9cbaeea226ed297804c012dc12b16ac27c9fc7f90b58ea830cec5f7767a30a}{PUMPING\_STATION}},}
+\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{_node_info_8h_acac9cbaeea226ed297804c012dc12b16ac4637be08f54dd3348679e5ec5c1e88d}{DELIVERY\_SITE}}}
+\DoxyCodeLine{00011\ \};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_node_info}{NodeInfo}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ id;}
+\DoxyCodeLine{00017\ \ \ \ \ std::string\ code;}
+\DoxyCodeLine{00018\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_node_info_a096b26394488d8a9bee07df0ce6d52ff}{\string~NodeInfo}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_node_info_a43399a4216572b134271443b19cd1cbf}{NodeInfo}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ std::string\&\ code);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_node_info_a8a14ced0822f234b9974423fdd8f9b00}{getId}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{_node_info_8h_acac9cbaeea226ed297804c012dc12b16}{NodeType}}\ \mbox{\hyperlink{class_node_info_a717c1336e7ae7132936bfa4fe130dd77}{getType}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00023\ \ \ \ \ std::string\ \mbox{\hyperlink{class_node_info_ad4df5cf7616c197ae148af5a409c8c4e}{getCode}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_node_info_a7a8581a3b8150848f6838cf96bc47465}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_node_info}{NodeInfo}}\&\ i)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

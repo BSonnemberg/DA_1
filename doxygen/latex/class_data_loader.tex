@@ -1,0 +1,39 @@
+\doxysection{Data\+Loader Class Reference}
+\hypertarget{class_data_loader}{}\label{class_data_loader}\index{DataLoader@{DataLoader}}
+
+
+{\ttfamily \#include $<$Data\+Loader.\+h$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{class_data_loader_a2e654fcea065504d27a3bc0eaf1676c6}{load\+To\+Graph}} (\mbox{\hyperlink{class_graph}{Graph}} \&g, const std\+::string \&path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_data_loader_a2e654fcea065504d27a3bc0eaf1676c6}\label{class_data_loader_a2e654fcea065504d27a3bc0eaf1676c6} 
+\index{DataLoader@{DataLoader}!loadToGraph@{loadToGraph}}
+\index{loadToGraph@{loadToGraph}!DataLoader@{DataLoader}}
+\doxysubsubsection{\texorpdfstring{loadToGraph()}{loadToGraph()}}
+{\footnotesize\ttfamily bool Data\+Loader\+::load\+To\+Graph (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_graph}{Graph}} \&}]{g,  }\item[{const std\+::string \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Load dataset into a graph 
+\begin{DoxyParams}{Parameters}
+{\em g} & target graph \\
+\hline
+{\em path} & dataset path \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRemark}{Remarks}
+func. is O(n), n -\/\texorpdfstring{$>$}{>} no. lines of all dataset files 
+\end{DoxyRemark}
+\begin{DoxyReturn}{Returns}
+whether successful 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_data_loader_8h}{Data\+Loader.\+h}}\item 
+src/\mbox{\hyperlink{_data_loader_8cpp}{Data\+Loader.\+cpp}}\end{DoxyCompactItemize}

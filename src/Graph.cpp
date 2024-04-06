@@ -99,7 +99,11 @@ bool Graph::removeVertex(const NodeInfo& info) {
     return false;
 }
 
-// vertex itself, along with the City* object
+/**
+ * @brief Get all delivery sites in the graph
+ * @remark function is O(c), c -> no. of cities
+ * @return vector of pairs of Vertices + City* object
+ */
 std::vector<std::pair<Vertex*, City*>> Graph::getCities() const {
     std::vector<std::pair<Vertex*, City*>> res;
     for (int i = citiesIndex; i < nodes.size(); i++) {

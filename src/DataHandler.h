@@ -3,6 +3,10 @@
 
 #include "Graph.h"
 
+/**
+ * Stores metric data regarding the
+ * current state of the supply network
+ */
 struct Metrics {
     int maxPipeDiff;
     double pipeVariance;

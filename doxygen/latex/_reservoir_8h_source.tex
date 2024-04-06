@@ -1,0 +1,27 @@
+\doxysection{Reservoir.\+h}
+\hypertarget{_reservoir_8h_source}{}\label{_reservoir_8h_source}\index{src/Reservoir.h@{src/Reservoir.h}}
+\mbox{\hyperlink{_reservoir_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RESERVOIR\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ RESERVOIR\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_node_info_8h}{NodeInfo.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_reservoir}{Reservoir}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_node_info}{NodeInfo}}\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ std::string\ name;}
+\DoxyCodeLine{00008\ \ \ \ \ std::string\ municipality;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{int}\ maxDelivery;\ \textcolor{comment}{//\ m\string^3\ /\ sec}}
+\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{class_reservoir_a36dc4e9f87716ebbd6ea2d023c69d523}{Reservoir}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ \textcolor{keywordtype}{id},}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ code,}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ name,}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ munic,}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ maxDelivery);}
+\DoxyCodeLine{00016\ \ \ \ \ std::string\ \mbox{\hyperlink{class_reservoir_aa73308e734ce198e2217ce00205763ba}{getName}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00017\ \ \ \ \ std::string\ \mbox{\hyperlink{class_reservoir_a05b3ae3fe93212c1e5608cd5aeee1231}{getMunicipality}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_reservoir_a59a17dd56e7ed41778007f0b5e64e69d}{getMaxDelivery}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00019\ \};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

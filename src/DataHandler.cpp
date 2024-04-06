@@ -7,7 +7,7 @@
  * @param g target graph
  * @param s source node
  * @param t sink node
- * @re O(E)
+ * @remark function is O(E)
  * @return whether a path was found
  */
 bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
@@ -54,7 +54,7 @@ bool DataHandler::findAugmPath(Graph& g, Vertex* s, Vertex* t) {
  * maximum flow of the water supply network
  *
  * @param g target graph
- * @complexity O(V * E^2)
+ * @remark function is O(V * E^2)
  * @return max flow between source and sink
  */
 int DataHandler::edmondsKarp(Graph& g) {
@@ -93,7 +93,7 @@ int DataHandler::edmondsKarp(Graph& g) {
  * @param g target graph
  * @param s source node
  * @param t sink node
- * @complexity O(E)
+ * @remark function is O(E)
  * @return whether a path was found
  */
 bool DataHandler::findDrainPath(Graph& g, Vertex* s, Vertex* t) {
@@ -137,7 +137,7 @@ bool DataHandler::findDrainPath(Graph& g, Vertex* s, Vertex* t) {
  * @brief Drain a node by removing flow passing through it from the network
  * @param g target graph
  * @param v node to be drained
- * @complexity O(2*E*V)
+ * @remark function is O(2*E*V)
  * @return amount that was drained
  */
 int DataHandler::drainNode(Graph& g, Vertex* v) {
@@ -182,7 +182,7 @@ int DataHandler::drainNode(Graph& g, Vertex* v) {
  * @brief Drain an edge by removing flow going through it from the network
  * @param g target graph
  * @param e edge to be drained
- * @complexity O(2*E*V)
+ * @remark function is O(2*E*V)
  * @return amount that was drained
  */
 int DataHandler::drainEdge(Graph& g, Edge* e) {
@@ -227,7 +227,7 @@ int DataHandler::drainEdge(Graph& g, Edge* e) {
 
 /**
  * @brief Print water network supply status to a file
- * @complexity O(c), c -> no. of cities in the graph
+ * @remark function is O(c), c -> no. of cities in the graph
  * @param g target graph
  * @return file name
  */
@@ -273,7 +273,7 @@ std::string DataHandler::printToFile(const Graph& g) {
 
 /**
  * @brief Compute metrics to evaluate performance of the water supply network
- * @complexity O(2*c + 2*E), c -> no. of cities in the graph
+ * @remark function is O(2*c + 2*E), c -> no. of cities in the graph
  * @param g target graph
  */
 Metrics DataHandler::computeMetrics(const Graph& g) {
@@ -325,7 +325,7 @@ Metrics DataHandler::computeMetrics(const Graph& g) {
 /**
  * @brief Runs an iteration of a heuristics-based algorithm
  * for balancing flow of a water supply network graph
- * @complexity O(E^2 * 2*V)
+ * @remark function is O(E^2 * 2*V)
  * @param g target graph
  */
 void DataHandler::balanceNetworkIter(Graph& g) {
@@ -393,7 +393,7 @@ void DataHandler::balanceNetworkIter(Graph& g) {
  * @brief Balance network load by forcing flow to be
  * rerouted to different pipes using heuristics
  *
- * @complexity best case: O(E^2 * 2*V);
+ * @remark best case: O(E^2 * 2*V);
  * worst case: impossible to predict
  *
  * @param g target graph

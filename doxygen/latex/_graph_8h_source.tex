@@ -1,0 +1,31 @@
+\doxysection{Graph.\+h}
+\hypertarget{_graph_8h_source}{}\label{_graph_8h_source}\index{src/Graph.h@{src/Graph.h}}
+\mbox{\hyperlink{_graph_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GRAPH\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GRAPH\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_edge_8h}{Edge.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_graph}{Graph}}\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ std::vector<Vertex*>\ nodes;}
+\DoxyCodeLine{00008\ \ \ \ \ \mbox{\hyperlink{class_vertex}{Vertex}}*\ addVertex(\mbox{\hyperlink{class_node_info}{NodeInfo}}*\ i);}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{//\ starting\ index\ of\ city\ nodes}}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{int}\ citiesIndex\ =\ -\/1;}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \ \ \mbox{\hyperlink{class_graph_a902c5b3eacb66d60752525ab23297a95}{\string~Graph}}();}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_graph_ae4c72b8ac4d693c49800a4c7e273654f}{Graph}}();}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_graph_ae4c72b8ac4d693c49800a4c7e273654f}{Graph}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_graph}{Graph}}\&\ g);}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Vertex*>\&\ \mbox{\hyperlink{class_graph_a764bd5284bcdb50bdf7829155e3e2a52}{getNodes}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00016\ \ \ \ \ std::vector<std::pair<Vertex*,\ City*>>\ \mbox{\hyperlink{class_graph_ad457b5bd31d9c9713533e4b3d8477c0f}{getCities}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_vertex}{Vertex}}*\ \mbox{\hyperlink{class_graph_a04b6f7bf51526a60b0c071375a244774}{findVertex}}(\textcolor{keyword}{const}\ std::string\&\ code)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{class_vertex}{Vertex}}*\ \mbox{\hyperlink{class_graph_a04b6f7bf51526a60b0c071375a244774}{findVertex}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_node_info}{NodeInfo}}\&\ info)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_vertex}{Vertex}}*\ addVertex(\mbox{\hyperlink{class_reservoir}{Reservoir}}*\ i);}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_vertex}{Vertex}}*\ addVertex(\mbox{\hyperlink{class_station}{Station}}*\ i);}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_vertex}{Vertex}}*\ addVertex(\mbox{\hyperlink{class_city}{City}}*\ i);}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_graph_a1b7d4e6e27783e871b5b53f0159409e6}{removeVertex}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_node_info}{NodeInfo}}\&\ info);}
+\DoxyCodeLine{00023\ \};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

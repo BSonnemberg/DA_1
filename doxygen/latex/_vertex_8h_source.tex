@@ -1,0 +1,40 @@
+\doxysection{Vertex.\+h}
+\hypertarget{_vertex_8h_source}{}\label{_vertex_8h_source}\index{src/Vertex.h@{src/Vertex.h}}
+\mbox{\hyperlink{_vertex_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ VERTEX\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ VERTEX\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_reservoir_8h}{Reservoir.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_station_8h}{Station.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_city_8h}{City.h}}"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_edge}{Edge}};}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_vertex}{Vertex}}\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{class_node_info}{NodeInfo}}*\ info;}
+\DoxyCodeLine{00012\ \ \ \ \ std::vector<Edge*>\ out;}
+\DoxyCodeLine{00013\ \ \ \ \ std::vector<Edge*>\ in;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//\ keep\ track\ of\ copies\ of\ this\ Vertex\ to\ know}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ when\ to\ dealloc.\ memory\ for\ NodeInfo}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}*\ copies;}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_edge}{Edge}}*\ path;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ minFlow;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_vertex_ad7a0ce588b7f688dc4488a0f567d9155}{\string~Vertex}}();}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_vertex_a24625376661c4bc9723ce57293e448b9}{Vertex}}(\mbox{\hyperlink{class_node_info}{NodeInfo}}*\ info);}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_vertex_a24625376661c4bc9723ce57293e448b9}{Vertex}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vertex}{Vertex}}*\ v);}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_node_info}{NodeInfo}}*\ \mbox{\hyperlink{class_vertex_aa470b9bd06c0bd5048badbd7e5661319}{getInfo}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Edge*>\&\ \mbox{\hyperlink{class_vertex_a007873d90237bf329194a3cd73421476}{getOutEdges}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Edge*>\&\ \mbox{\hyperlink{class_vertex_a9b00488bc17a4fb188e67aa5a0f113b9}{getInEdges}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{//\ utility\ methods}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_vertex_a5ae3ba211ff32023b07886bb2c47e79b}{addOutEdge}}(\mbox{\hyperlink{class_edge}{Edge}}*\ e);}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_edge}{Edge}}*\ \mbox{\hyperlink{class_vertex_a063182470e438fe53e49a486d15752fc}{addEdgeTo}}(\mbox{\hyperlink{class_vertex}{Vertex}}*\ to,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\&\ weight);}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_vertex_a8889876b61820fae8c03ccfc62ac0e07}{removeEdgeTo}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vertex}{Vertex}}*\ v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\&\ freeMem\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_vertex_a481313ce4421d944f13d461d90156372}{removeOutEdge}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_edge}{Edge}}*\ e,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\&\ freeMem\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_data_handler}{DataHandler}};}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

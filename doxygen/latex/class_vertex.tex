@@ -1,0 +1,115 @@
+\doxysection{Vertex Class Reference}
+\hypertarget{class_vertex}{}\label{class_vertex}\index{Vertex@{Vertex}}
+
+
+{\ttfamily \#include $<$Vertex.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_vertex_ad7a0ce588b7f688dc4488a0f567d9155}{\texorpdfstring{$\sim$}{\string~}\+Vertex}} ()
+\item 
+\mbox{\hyperlink{class_vertex_a24625376661c4bc9723ce57293e448b9}{Vertex}} (\mbox{\hyperlink{class_node_info}{Node\+Info}} \texorpdfstring{$\ast$}{*}info)
+\item 
+\mbox{\hyperlink{class_vertex_a41743900c947ffcf5a20d9a7d710521b}{Vertex}} (const \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}v)
+\item 
+\mbox{\hyperlink{class_node_info}{Node\+Info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_vertex_aa470b9bd06c0bd5048badbd7e5661319}{get\+Info}} () const
+\item 
+const std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} $>$ \& \mbox{\hyperlink{class_vertex_a007873d90237bf329194a3cd73421476}{get\+Out\+Edges}} () const
+\item 
+const std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} $>$ \& \mbox{\hyperlink{class_vertex_a9b00488bc17a4fb188e67aa5a0f113b9}{get\+In\+Edges}} () const
+\item 
+bool \mbox{\hyperlink{class_vertex_a5ae3ba211ff32023b07886bb2c47e79b}{add\+Out\+Edge}} (\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*}e)
+\item 
+\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_vertex_a063182470e438fe53e49a486d15752fc}{add\+Edge\+To}} (\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}to, const int \&weight)
+\item 
+bool \mbox{\hyperlink{class_vertex_a8889876b61820fae8c03ccfc62ac0e07}{remove\+Edge\+To}} (const \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}v, const bool \&free\+Mem=true)
+\item 
+bool \mbox{\hyperlink{class_vertex_a481313ce4421d944f13d461d90156372}{remove\+Out\+Edge}} (const \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*}e, const bool \&free\+Mem=true)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_vertex_acfbbb99d8f86f75072ad052d09468fa7}{Data\+Handler}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_vertex_ad7a0ce588b7f688dc4488a0f567d9155}\label{class_vertex_ad7a0ce588b7f688dc4488a0f567d9155} 
+\index{Vertex@{Vertex}!````~Vertex@{\texorpdfstring{$\sim$}{\string~}Vertex}}
+\index{````~Vertex@{\texorpdfstring{$\sim$}{\string~}Vertex}!Vertex@{Vertex}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Vertex()}{\string~Vertex()}}
+{\footnotesize\ttfamily Vertex\+::\texorpdfstring{$\sim$}{\string~}\+Vertex (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{class_vertex_a24625376661c4bc9723ce57293e448b9}\label{class_vertex_a24625376661c4bc9723ce57293e448b9} 
+\index{Vertex@{Vertex}!Vertex@{Vertex}}
+\index{Vertex@{Vertex}!Vertex@{Vertex}}
+\doxysubsubsection{\texorpdfstring{Vertex()}{Vertex()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Vertex\+::\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node_info}{Node\+Info}} \texorpdfstring{$\ast$}{*}}]{info }\end{DoxyParamCaption})}
+
+\Hypertarget{class_vertex_a41743900c947ffcf5a20d9a7d710521b}\label{class_vertex_a41743900c947ffcf5a20d9a7d710521b} 
+\index{Vertex@{Vertex}!Vertex@{Vertex}}
+\index{Vertex@{Vertex}!Vertex@{Vertex}}
+\doxysubsubsection{\texorpdfstring{Vertex()}{Vertex()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Vertex\+::\+Vertex (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}}]{v }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_vertex_a063182470e438fe53e49a486d15752fc}\label{class_vertex_a063182470e438fe53e49a486d15752fc} 
+\index{Vertex@{Vertex}!addEdgeTo@{addEdgeTo}}
+\index{addEdgeTo@{addEdgeTo}!Vertex@{Vertex}}
+\doxysubsubsection{\texorpdfstring{addEdgeTo()}{addEdgeTo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} Vertex\+::add\+Edge\+To (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}}]{to,  }\item[{const int \&}]{weight }\end{DoxyParamCaption})}
+
+\Hypertarget{class_vertex_a5ae3ba211ff32023b07886bb2c47e79b}\label{class_vertex_a5ae3ba211ff32023b07886bb2c47e79b} 
+\index{Vertex@{Vertex}!addOutEdge@{addOutEdge}}
+\index{addOutEdge@{addOutEdge}!Vertex@{Vertex}}
+\doxysubsubsection{\texorpdfstring{addOutEdge()}{addOutEdge()}}
+{\footnotesize\ttfamily bool Vertex\+::add\+Out\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*}}]{e }\end{DoxyParamCaption})}
+
+\Hypertarget{class_vertex_a9b00488bc17a4fb188e67aa5a0f113b9}\label{class_vertex_a9b00488bc17a4fb188e67aa5a0f113b9} 
+\index{Vertex@{Vertex}!getInEdges@{getInEdges}}
+\index{getInEdges@{getInEdges}!Vertex@{Vertex}}
+\doxysubsubsection{\texorpdfstring{getInEdges()}{getInEdges()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} $>$ \& Vertex\+::get\+In\+Edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_vertex_aa470b9bd06c0bd5048badbd7e5661319}\label{class_vertex_aa470b9bd06c0bd5048badbd7e5661319} 
+\index{Vertex@{Vertex}!getInfo@{getInfo}}
+\index{getInfo@{getInfo}!Vertex@{Vertex}}
+\doxysubsubsection{\texorpdfstring{getInfo()}{getInfo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_node_info}{Node\+Info}} \texorpdfstring{$\ast$}{*} Vertex\+::get\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_vertex_a007873d90237bf329194a3cd73421476}\label{class_vertex_a007873d90237bf329194a3cd73421476} 
+\index{Vertex@{Vertex}!getOutEdges@{getOutEdges}}
+\index{getOutEdges@{getOutEdges}!Vertex@{Vertex}}
+\doxysubsubsection{\texorpdfstring{getOutEdges()}{getOutEdges()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*} $>$ \& Vertex\+::get\+Out\+Edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_vertex_a8889876b61820fae8c03ccfc62ac0e07}\label{class_vertex_a8889876b61820fae8c03ccfc62ac0e07} 
+\index{Vertex@{Vertex}!removeEdgeTo@{removeEdgeTo}}
+\index{removeEdgeTo@{removeEdgeTo}!Vertex@{Vertex}}
+\doxysubsubsection{\texorpdfstring{removeEdgeTo()}{removeEdgeTo()}}
+{\footnotesize\ttfamily bool Vertex\+::remove\+Edge\+To (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}}]{v,  }\item[{const bool \&}]{free\+Mem = {\ttfamily true} }\end{DoxyParamCaption})}
+
+\Hypertarget{class_vertex_a481313ce4421d944f13d461d90156372}\label{class_vertex_a481313ce4421d944f13d461d90156372} 
+\index{Vertex@{Vertex}!removeOutEdge@{removeOutEdge}}
+\index{removeOutEdge@{removeOutEdge}!Vertex@{Vertex}}
+\doxysubsubsection{\texorpdfstring{removeOutEdge()}{removeOutEdge()}}
+{\footnotesize\ttfamily bool Vertex\+::remove\+Out\+Edge (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_edge}{Edge}} \texorpdfstring{$\ast$}{*}}]{e,  }\item[{const bool \&}]{free\+Mem = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_vertex_acfbbb99d8f86f75072ad052d09468fa7}\label{class_vertex_acfbbb99d8f86f75072ad052d09468fa7} 
+\index{Vertex@{Vertex}!DataHandler@{DataHandler}}
+\index{DataHandler@{DataHandler}!Vertex@{Vertex}}
+\doxysubsubsection{\texorpdfstring{DataHandler}{DataHandler}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{class_data_handler}{Data\+Handler}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_vertex_8h}{Vertex.\+h}}\item 
+src/\mbox{\hyperlink{_vertex_8cpp}{Vertex.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,119 @@
+\doxysection{Graph Class Reference}
+\hypertarget{class_graph}{}\label{class_graph}\index{Graph@{Graph}}
+
+
+{\ttfamily \#include $<$Graph.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_graph_a902c5b3eacb66d60752525ab23297a95}{\texorpdfstring{$\sim$}{\string~}\+Graph}} ()
+\item 
+\mbox{\hyperlink{class_graph_ae4c72b8ac4d693c49800a4c7e273654f}{Graph}} ()
+\item 
+\mbox{\hyperlink{class_graph_a06e0f62ab24147de8830a5aad8fe4a78}{Graph}} (const \mbox{\hyperlink{class_graph}{Graph}} \&g)
+\item 
+const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \& \mbox{\hyperlink{class_graph_a764bd5284bcdb50bdf7829155e3e2a52}{get\+Nodes}} () const
+\item 
+std\+::vector$<$ std\+::pair$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{class_city}{City}} \texorpdfstring{$\ast$}{*} $>$ $>$ \mbox{\hyperlink{class_graph_ad457b5bd31d9c9713533e4b3d8477c0f}{get\+Cities}} () const
+\begin{DoxyCompactList}\small\item\em Get all delivery sites in the graph. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_graph_a04b6f7bf51526a60b0c071375a244774}{find\+Vertex}} (const std\+::string \&code) const
+\item 
+\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_graph_a895497a530027ca39e89aa5bb3f8743f}{find\+Vertex}} (const \mbox{\hyperlink{class_node_info}{Node\+Info}} \&info) const
+\item 
+\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_graph_a32f4120be42df9b883c6d9860eba1d41}{add\+Vertex}} (\mbox{\hyperlink{class_reservoir}{Reservoir}} \texorpdfstring{$\ast$}{*}i)
+\item 
+\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_graph_ae95b0e27ce155b90990e984a68f6e5df}{add\+Vertex}} (\mbox{\hyperlink{class_station}{Station}} \texorpdfstring{$\ast$}{*}i)
+\item 
+\mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_graph_ac7e225164494afea564084ef501ec94b}{add\+Vertex}} (\mbox{\hyperlink{class_city}{City}} \texorpdfstring{$\ast$}{*}i)
+\item 
+bool \mbox{\hyperlink{class_graph_a1b7d4e6e27783e871b5b53f0159409e6}{remove\+Vertex}} (const \mbox{\hyperlink{class_node_info}{Node\+Info}} \&info)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_graph_a902c5b3eacb66d60752525ab23297a95}\label{class_graph_a902c5b3eacb66d60752525ab23297a95} 
+\index{Graph@{Graph}!````~Graph@{\texorpdfstring{$\sim$}{\string~}Graph}}
+\index{````~Graph@{\texorpdfstring{$\sim$}{\string~}Graph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Graph()}{\string~Graph()}}
+{\footnotesize\ttfamily Graph\+::\texorpdfstring{$\sim$}{\string~}\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{class_graph_ae4c72b8ac4d693c49800a4c7e273654f}\label{class_graph_ae4c72b8ac4d693c49800a4c7e273654f} 
+\index{Graph@{Graph}!Graph@{Graph}}
+\index{Graph@{Graph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{Graph()}{Graph()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Graph\+::\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{class_graph_a06e0f62ab24147de8830a5aad8fe4a78}\label{class_graph_a06e0f62ab24147de8830a5aad8fe4a78} 
+\index{Graph@{Graph}!Graph@{Graph}}
+\index{Graph@{Graph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{Graph()}{Graph()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Graph\+::\+Graph (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_graph}{Graph}} \&}]{g }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_graph_ac7e225164494afea564084ef501ec94b}\label{class_graph_ac7e225164494afea564084ef501ec94b} 
+\index{Graph@{Graph}!addVertex@{addVertex}}
+\index{addVertex@{addVertex}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addVertex()}{addVertex()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} Graph\+::add\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_city}{City}} \texorpdfstring{$\ast$}{*}}]{i }\end{DoxyParamCaption})}
+
+\Hypertarget{class_graph_a32f4120be42df9b883c6d9860eba1d41}\label{class_graph_a32f4120be42df9b883c6d9860eba1d41} 
+\index{Graph@{Graph}!addVertex@{addVertex}}
+\index{addVertex@{addVertex}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addVertex()}{addVertex()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} Graph\+::add\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_reservoir}{Reservoir}} \texorpdfstring{$\ast$}{*}}]{i }\end{DoxyParamCaption})}
+
+\Hypertarget{class_graph_ae95b0e27ce155b90990e984a68f6e5df}\label{class_graph_ae95b0e27ce155b90990e984a68f6e5df} 
+\index{Graph@{Graph}!addVertex@{addVertex}}
+\index{addVertex@{addVertex}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addVertex()}{addVertex()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} Graph\+::add\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_station}{Station}} \texorpdfstring{$\ast$}{*}}]{i }\end{DoxyParamCaption})}
+
+\Hypertarget{class_graph_a895497a530027ca39e89aa5bb3f8743f}\label{class_graph_a895497a530027ca39e89aa5bb3f8743f} 
+\index{Graph@{Graph}!findVertex@{findVertex}}
+\index{findVertex@{findVertex}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{findVertex()}{findVertex()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} Graph\+::find\+Vertex (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_node_info}{Node\+Info}} \&}]{info }\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_graph_a04b6f7bf51526a60b0c071375a244774}\label{class_graph_a04b6f7bf51526a60b0c071375a244774} 
+\index{Graph@{Graph}!findVertex@{findVertex}}
+\index{findVertex@{findVertex}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{findVertex()}{findVertex()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} Graph\+::find\+Vertex (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{code }\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_graph_ad457b5bd31d9c9713533e4b3d8477c0f}\label{class_graph_ad457b5bd31d9c9713533e4b3d8477c0f} 
+\index{Graph@{Graph}!getCities@{getCities}}
+\index{getCities@{getCities}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getCities()}{getCities()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::pair$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{class_city}{City}} \texorpdfstring{$\ast$}{*} $>$ $>$ Graph\+::get\+Cities (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get all delivery sites in the graph. 
+
+\begin{DoxyRemark}{Remarks}
+function is O(c), c -\/\texorpdfstring{$>$}{>} no. of cities 
+\end{DoxyRemark}
+\begin{DoxyReturn}{Returns}
+vector of pairs of Vertices + City\texorpdfstring{$\ast$}{*} object 
+\end{DoxyReturn}
+\Hypertarget{class_graph_a764bd5284bcdb50bdf7829155e3e2a52}\label{class_graph_a764bd5284bcdb50bdf7829155e3e2a52} 
+\index{Graph@{Graph}!getNodes@{getNodes}}
+\index{getNodes@{getNodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{getNodes()}{getNodes()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}} \texorpdfstring{$\ast$}{*} $>$ \& Graph\+::get\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\Hypertarget{class_graph_a1b7d4e6e27783e871b5b53f0159409e6}\label{class_graph_a1b7d4e6e27783e871b5b53f0159409e6} 
+\index{Graph@{Graph}!removeVertex@{removeVertex}}
+\index{removeVertex@{removeVertex}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{removeVertex()}{removeVertex()}}
+{\footnotesize\ttfamily bool Graph\+::remove\+Vertex (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_node_info}{Node\+Info}} \&}]{info }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_graph_8h}{Graph.\+h}}\item 
+src/\mbox{\hyperlink{_graph_8cpp}{Graph.\+cpp}}\end{DoxyCompactItemize}
