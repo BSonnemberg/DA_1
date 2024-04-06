@@ -200,7 +200,7 @@ int DataHandler::drainEdge(Graph& g, Edge* e) {
         // first drain from e.dest -> sink
         while (findDrainPath(g, start, end)) {
 
-            int bneck = std::min(e->getFlow(), end->minFlow);
+            int bneck = std::min(e->getFlow()-drained, end->minFlow);
             const Vertex* v2 = end;
 
             while (v2 != start) {
