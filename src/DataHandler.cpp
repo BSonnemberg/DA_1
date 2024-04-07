@@ -92,8 +92,6 @@ int DataHandler::edmondsKarp(Graph& g) {
             e->destroyResidual();
         }
     }
-    // update cached value
-    g.maxFlow = maxFlow;
     return maxFlow;
 }
 
@@ -155,9 +153,6 @@ int DataHandler::drainNode(Graph& g, Vertex* v) {
         return 0;
     }
 
-    // just in case graph not at max flow
-    if (g.maxFlow == -1) edmondsKarp(g);
-
     int drained = 0;
     Vertex* src = g.getNodes()[0];
     Vertex* sink = g.getNodes()[1];
@@ -187,8 +182,6 @@ int DataHandler::drainNode(Graph& g, Vertex* v) {
             v2 = v2->path->getOrigin();
         }
     }
-    // invalidate cache
-    g.maxFlow = -1;
     return drained;
 }
 
@@ -204,9 +197,6 @@ int DataHandler::drainEdge(Graph& g, Edge* e) {
     if (e == nullptr) {
         return 0;
     }
-
-    // just in case graph not at max flow
-    if (g.maxFlow == -1) edmondsKarp(g);
 
     int drained = 0;
     Vertex* start = e->getDest();
@@ -239,14 +229,12 @@ int DataHandler::drainEdge(Graph& g, Edge* e) {
         }
     }
     e->setFlow(0);
-    // invalidate cache
-    g.maxFlow = -1;
     return drained;
 }
 
 /**
  * @brief Print water network supply status to a file
- * @remark function is O(c), c -> no. of cities in the graph
+ * @remark function is O(V)
  * @param g target graph
  * @return file name
  */
@@ -292,7 +280,7 @@ std::string DataHandler::printToFile(const Graph& g) {
 
 /**
  * @brief Compute metrics to evaluate performance of the water supply network
- * @remark function is O(2*c + 2*E), c -> no. of cities in the graph
+ * @remark function is O(2*V + 2*E)
  * @param g target graph
  */
 Metrics DataHandler::computeMetrics(const Graph& g) {
@@ -433,8 +421,105 @@ Metrics DataHandler::balanceNetwork(Graph& g) {
         metrics = computeMetrics(g);
         delta = prev - metrics.pipeVariance;
     }
-
-    // invalidate cache
-    g.maxFlow = -1;
     return metrics;
+}
+
+/**
+ * Test the effect of a pipe removal on the network supply.
+ * @param g target graph
+ * @param e target edge/ pipe
+ * @return city flow before v. after
+ *
+ * @remark function is, worse case: O(2*V + 2*V*E + E + V*E^2)
+ * @warning Make sure edmonds-karp was run before this,
+ * so that the flow can be drained from its max state
+ */
+std::vector<CityStat> DataHandler::testPipeRemoval(Graph& g, Edge* e) {
+
+    std::vector<CityStat> res;
+
+    // store old state
+    auto p = g.getCities();
+    for (auto & i : p) {
+        int oldFlow = i.first->getOutEdges()[0]->getFlow();
+        res.push_back({i.second, oldFlow, 0});
+    }
+
+    // drain edge first
+    drainEdge(g, e);
+    e->getOrigin()->removeOutEdge(e, false);
+
+    // put residual edges back
+    for (const Vertex* v : g.getNodes()) {
+        for (Edge* e_ : v->getOutEdges()) {
+            e_->createResidual();
+        }
+    }
+
+    // since the flow was only partially drained,
+    // edmonds karp will barely have any work to do
+    edmondsKarp(g);
+    e->getOrigin()->addOutEdge(e);
+
+    p = g.getCities();
+    for (int i = 0; i < p.size(); i++) {
+        res[i].newFlow = p[i].first->getOutEdges()[0]->getFlow();
+    }
+    return res;
+}
+
+/**
+ * Test the effect of a node removal on the network supply.
+ * @param g target graph
+ * @param v target node
+ * @return city flow before v. after
+ *
+ * @remark function is, worse case: O(2*V + 2*V*E + E + V*E^2)
+ * @warning Make sure edmonds-karp was run before this,
+ * so that the flow can be drained from its max state
+ */
+std::vector<CityStat> DataHandler::testNodeRemoval(Graph& g, Vertex* v) {
+
+    std::vector<CityStat> res;
+
+    auto p = g.getCities();
+    for (auto & i : p) {
+        int oldFlow = i.first->getOutEdges()[0]->getFlow();
+        res.push_back({i.second, oldFlow, 0});
+    }
+
+    drainNode(g, v);
+
+    // temporarily remove node and its edges,
+    // but save them to restore them afterward
+
+    std::vector<Edge*> edges;
+    for (Edge* e : v->getOutEdges()) {
+        edges.push_back(e);
+    }
+    for (Edge* e : v->getInEdges()) {
+        edges.push_back(e);
+    }
+    g.removeVertex(*v->getInfo(), false);
+
+    // put residual edges back
+    for (const Vertex* v_ : g.getNodes()) {
+        for (Edge* e_ : v_->getOutEdges()) {
+            e_->createResidual();
+        }
+    }
+
+    edmondsKarp(g); // only a fraction of work
+
+    // restore graph
+    g.addVertex(v);
+    for (Edge* e : edges) {
+        e->getOrigin()->addOutEdge(e);
+    }
+
+    p = g.getCities();
+    for (int i = 0; i < p.size(); i++) {
+        res[i].newFlow = p[i].first->getOutEdges()[0]->getFlow();
+    }
+    return res;
 }

@@ -63,11 +63,11 @@ void Menu::openDatasetMenu(Graph& g, std::string& dataset) {
             break;
         }
         case 0:{        //EXIT
-            exit(0);
+            return;
         }
         default:{
-            printf("Error! Invalid key, please try again.\n");
             goto label5;
+
         }
     }
 
@@ -75,7 +75,6 @@ void Menu::openDatasetMenu(Graph& g, std::string& dataset) {
 
 // main interface
 void Menu::openMainMenu(Graph& g) {
-
     clear();
     set_cursor(0,0);
     empty_line(2);
@@ -103,57 +102,56 @@ void Menu::openMainMenu(Graph& g) {
 
     label4:
 
-        int ctrl;
-        std::cin >> ctrl;
+    int ctrl;
+    std::cin >> ctrl;
 
-        switch (ctrl) {
-            case 1:{        // NODE REMOVAL
-                std::string node;
-                printf("Enter node code > ");
-                std::cin >> node;
-                for(auto a: g.getNodes()){
-                    if (a->getInfo()->getCode()==node){
-                        openNodeRemovalMenu(g, a);
-                    }
+    switch (ctrl) {
+        case 1:{        // NODE REMOVAL
+            std::string node;
+            printf("Enter node code > ");
+            std::cin >> node;
+            for(auto a: g.getNodes()){
+                if (a->getInfo()->getCode()==node){
+                    openNodeRemovalMenu(g, a);
                 }
-                printf("Invalid, retry > ");
-                break;
             }
-            case 2:{        //EDGE REMOVAL
-                std::string origin, dest;
-                printf("Enter pipe source > ");
-                std::cin >> origin;
-                printf("Enter pipe destination > ");
-                std::cin >> dest;
-                for(auto a: g.getNodes()){
-                    for (auto e: a->getOutEdges()){
-                        if (e->getOrigin()->getInfo()->getCode()==origin){
-                            for (auto d: e->getOrigin()->getOutEdges()){
-                                if(d->getDest()->getInfo()->getCode()==dest){
-                                    openPipeRemovalMenu(g, d);
-                                }
+            printf("Invalid, retry > ");
+            break;
+        }
+        case 2:{        //EDGE REMOVAL
+            std::string origin, dest;
+            printf("Enter pipe source > ");
+            std::cin >> origin;
+            printf("Enter pipe destination > ");
+            std::cin >> dest;
+            for(auto a: g.getNodes()){
+                for (auto e: a->getOutEdges()){
+                    if (e->getOrigin()->getInfo()->getCode()==origin){
+                        for (auto d: e->getOrigin()->getOutEdges()){
+                            if(d->getDest()->getInfo()->getCode()==dest){
+                                openPipeRemovalMenu(g, d);
                             }
                         }
                     }
-
                 }
-                printf("Invalid pipe, ");
-                break;
-            }
 
-
-            case 3:{        //MAX FLOW
-                openFlowMenu(g);
-                break;
             }
-            case 0:{        //EXIT
-                exit(0);
-            }
-            default:{
-                printf("Error! Invalid key, please try again.\n");
-                goto label4;
-            }
+            printf("Invalid pipe, ");
+            break;
         }
+
+
+        case 3:{        //MAX FLOW
+            openFlowMenu(g);
+            break;
+        }
+        case 0:{        //EXIT
+            return;
+        }
+        default:{
+            goto label4;
+        }
+    }
 }
 
 // menu used to display maximum flow
@@ -202,6 +200,7 @@ void Menu::openFlowMenu(Graph& g) {
     switch (ctrl) {
         case 1:{        //PRINT TO FILE
             DataHandler::printToFile(g);
+            
             std::cout << "File - " << DataHandler::printToFile(g) << " - created!\n";
             empty_line(2);
             printSelection("1", "Return to Main Menu", SEL);
@@ -238,7 +237,6 @@ void Menu::openFlowMenu(Graph& g) {
             break;
         }
         default:{
-            printf("Error! Invalid key, please try again.\n");
             goto label3;
         }
     }
@@ -318,52 +316,31 @@ void Menu::openBalanceMenu(Graph &g) {
 
 // menu used to show effect of removing a pipe
 void Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
+
     Graph gC = g;
-    int maxFlow = DataHandler::edmondsKarp(g);
-    std::vector<int> oldFlow;
 
-    // save old flow first
-    for (auto p : g.getCities()) {
-        int flow = p.first->getOutEdges()[0]->getFlow();
-        oldFlow.emplace_back(flow);
-    }
-
-    int removed = DataHandler::drainEdge(g, e);
-
-    // temporarily remove edge
-    e->getOrigin()->removeOutEdge(e, false);
-
-    // temporarily put back residual edges
-    for (Vertex* v : g.getNodes()) {
-        for (Edge* e : v->getOutEdges()) {
-            e->createResidual();
-        }
-    }
-
-    int added = DataHandler::edmondsKarp(g);
-    e->getOrigin()->addOutEdge(e);
-
-    int newFlow = maxFlow - removed + added;
+    DataHandler::edmondsKarp(g);
+    auto stats = DataHandler::testPipeRemoval(g, e);
 
     //-- start of actual interface
     std::string k1 = "...", k2 = "...";
     switch (e->getOrigin()->getInfo()->getType()) {
         case WATER_RESERVOIR:
             k1 = "Reservoir";
-        break;
+            break;
         case PUMPING_STATION:
             k1 = "Station";
-        break;
+            break;
         case DELIVERY_SITE:
             k1 = "City";
     }
     switch (e->getDest()->getInfo()->getType()) {
         case WATER_RESERVOIR:
             k2 = "Reservoir";
-        break;
+            break;
         case PUMPING_STATION:
             k2 = "Station";
-        break;
+            break;
         case DELIVERY_SITE:
             k2 = "City";
     }
@@ -381,10 +358,10 @@ void Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
     int a = 0;
     auto p= g.getCities();
 
-    for (int i=0; i<p.size(); i++) {
-        City* c = p[i].second;
-        int flowAfter = p[i].first->getOutEdges()[0]->getFlow();
-        int flowBefore = oldFlow[i];
+    for (CityStat stat : stats) {
+        City* c = stat.city;
+        int flowAfter = stat.newFlow;
+        int flowBefore = stat.oldFlow;
         int demand = c->getDemand();
         if (flowBefore != flowAfter) {
             print << newl;
@@ -406,7 +383,7 @@ void Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
             spaces = 9 - y.size();
             print << std::string(spaces, ' ');
 
-            print << GRAY << BOLD " " << c->getCode() << " aka. " << c->getName();
+            print << GRAY << BOLD << " " << c->getCode() << " aka. " << c->getName();
             print << RESET << GRAY << " now gets " << flowAfter << "/" << demand;
             a++;
         }
@@ -438,41 +415,10 @@ void Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
 // menu used to show effect of removing a node
 void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
     Graph gC = g;
-    int maxFlow = DataHandler::edmondsKarp(g);
-    std::vector<int> oldFlow;
 
-    // save old flow first
-    for (auto p : g.getCities()) {
-        int flow = p.first->getOutEdges()[0]->getFlow();
-        oldFlow.emplace_back(flow);
-    }
+    DataHandler::edmondsKarp(g);
 
-    int removed = DataHandler::drainNode(g, v);
-
-    // temporarily remove node and associated edges
-    std::vector<Edge*> edges;
-    for (Edge* e : v->getOutEdges()) {
-        edges.push_back(e);
-    }
-    for (Edge* e : v->getInEdges()) {
-        edges.push_back(e);
-    }
-    g.removeVertex(*v->getInfo(), false);
-
-    // temporarily put back residual edges
-    for (Vertex* v : g.getNodes()) {
-        for (Edge* e : v->getOutEdges()) {
-            e->createResidual();
-        }
-    }
-
-    int added = DataHandler::edmondsKarp(g);
-
-    // put back node and edges (restore graph)
-    g.addVertex(v);
-    for (Edge* e : edges) {
-        e->getOrigin()->addOutEdge(e);
-    }
+    auto stats = DataHandler::testNodeRemoval(g, v);
 
     //-- actual start of interface
     std::string k = "...";
@@ -500,10 +446,10 @@ void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
     int a = 0;
     auto p= g.getCities();
 
-    for (int i=0; i<p.size(); i++) {
-        City* c = p[i].second;
-        int flowAfter = p[i].first->getOutEdges()[0]->getFlow();
-        int flowBefore = oldFlow[i];
+    for (CityStat stat : stats) {
+        City* c = stat.city;
+        int flowAfter = stat.newFlow;
+        int flowBefore = stat.oldFlow;
         int demand = c->getDemand();
         if (flowBefore != flowAfter) {
             print << newl;
@@ -525,12 +471,11 @@ void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
             spaces = 9 - y.size();
             print << std::string(spaces, ' ');
 
-            print << GRAY << BOLD " " << c->getCode() << " aka. " << c->getName();
+            print << GRAY << BOLD << " " << c->getCode() << " aka. " << c->getName();
             print << RESET << GRAY << " now gets " << flowAfter << "/" << demand;
             a++;
         }
     }
-
 
     if (a == 0) {
         print << newl;
@@ -548,12 +493,13 @@ void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
     std::cin>>ctrl;
     switch (ctrl) {
         case 0:{        //RETURN TO MAIN MENU
+
             openMainMenu(gC);
             break;
         }
         default:{
-            printf("Error! Invalid key, please try again.\n");
             goto label0;
         }
     }
+
 }
