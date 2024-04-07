@@ -6,6 +6,11 @@
 class Graph {
     std::vector<Vertex*> nodes;
     Vertex* addVertex(NodeInfo* i);
+    /* since all operations are meant to be executed directly
+     * on the original graph, without a need for copies, the
+     * max flow is cached and can be invalidated */
+    int maxFlow = -1;
+    friend class DataHandler;
 public:
     ~Graph();
     Graph();

@@ -139,7 +139,7 @@ void Menu::openMainMenu(Graph& g) {
             exit(0);
         }
         default:{break;}
-    }a
+    }
 }
 
 // menu used to display maximum flow

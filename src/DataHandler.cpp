@@ -92,6 +92,8 @@ int DataHandler::edmondsKarp(Graph& g) {
             e->destroyResidual();
         }
     }
+    // update cached value
+    g.maxFlow = maxFlow;
     return maxFlow;
 }
 
@@ -153,6 +155,9 @@ int DataHandler::drainNode(Graph& g, Vertex* v) {
         return 0;
     }
 
+    // just in case graph not at max flow
+    if (g.maxFlow == -1) edmondsKarp(g);
+
     int drained = 0;
     Vertex* src = g.getNodes()[0];
     Vertex* sink = g.getNodes()[1];
@@ -182,6 +187,8 @@ int DataHandler::drainNode(Graph& g, Vertex* v) {
             v2 = v2->path->getOrigin();
         }
     }
+    // invalidate cache
+    g.maxFlow = -1;
     return drained;
 }
 
@@ -197,6 +204,9 @@ int DataHandler::drainEdge(Graph& g, Edge* e) {
     if (e == nullptr) {
         return 0;
     }
+
+    // just in case graph not at max flow
+    if (g.maxFlow == -1) edmondsKarp(g);
 
     int drained = 0;
     Vertex* start = e->getDest();
@@ -229,6 +239,8 @@ int DataHandler::drainEdge(Graph& g, Edge* e) {
         }
     }
     e->setFlow(0);
+    // invalidate cache
+    g.maxFlow = -1;
     return drained;
 }
 
@@ -421,5 +433,8 @@ Metrics DataHandler::balanceNetwork(Graph& g) {
         metrics = computeMetrics(g);
         delta = prev - metrics.pipeVariance;
     }
+
+    // invalidate cache
+    g.maxFlow = -1;
     return metrics;
 }
