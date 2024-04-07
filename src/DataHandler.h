@@ -3,14 +3,6 @@
 
 #include "Graph.h"
 
-#ifdef WIN_32
-#define BASE_PATH std::string("..\\..\\")
-#define HSEP std::string("-")
-#else
-#define BASE_PATH std::string("../")
-#define HSEP std::string(":")
-#endif
-
 /**
  * Stores metric data regarding the
  * current state of the supply network
