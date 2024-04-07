@@ -6,18 +6,6 @@
 #include "color.h"
 
 /**
- * Enable terminal raw mode, where characters
- * are processed one at a time as they're typed
- */
-void raw();
-
-/**
- * Enable terminal cooked mode, where the buffer
- * is processed only when a '\n' char is typed
- */
-void cooked();
-
-/**
  * "Clear" the terminal screen
  * (more of a fake clear)
  */
