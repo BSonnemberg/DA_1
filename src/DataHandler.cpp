@@ -2,6 +2,12 @@
 #include <fstream>
 #include <queue>
 
+#ifdef WIN_32
+const std::string basePath = "..\\..";
+#else
+const std::string basePath = "../";
+#endif
+
 /**
  * @brief Find an augmenting path from a source to a sink node
  * @param g target graph
@@ -251,7 +257,7 @@ std::string DataHandler::printToFile(const Graph& g) {
 
     std::string file = "log-"+y+"-"+m+"-"+d+"-"+h+":"+min+":"+s+".txt";
 
-    std::ofstream out("../"+file);
+    std::ofstream out(basePath + file);
     out << "Code / Name / Supply / Demand / % of demand met\n";
     out << "----------------------------------------------\n";
     out << std::fixed << std::setprecision(1);

@@ -3,6 +3,9 @@
 
 #include "Graph.h"
 
+// main directory
+extern const std::string basePath;
+
 /**
  * Stores metric data regarding the
  * current state of the supply network
