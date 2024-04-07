@@ -6,7 +6,7 @@
 
 class Menu {
 public:
-    static void openDatasetMenu();
+    static void openDatasetMenu(Graph& g, std::string& dataset);
     static void openMainMenu(Graph& g);
     static void openFlowMenu(Graph& g);
     static void openBalanceMenu(Graph& g);

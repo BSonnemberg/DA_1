@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include <iomanip>
+#include <iostream>
 
 #define SEL (FGROUND(238) + BGROUND(248))
 #define SEL_ALT BGROUND(210)
@@ -12,11 +13,13 @@ void printSelection(const std::string& idx, const std::string& text, const std::
 }
 
 // menu used to select dataset
-void  Menu::openDatasetMenu() {
+void Menu::openDatasetMenu(Graph& g, std::string& dataset) {
 
     clear();
     set_cursor(0,0);
     empty_line(2);
+
+    int control;
 
     print << GRAY;
     print << "   🌊 Welcome to the ";
@@ -34,10 +37,32 @@ void  Menu::openDatasetMenu() {
     printSelection("3", "Select alternative dataset", SEL);
 
     empty_line(3);
-    printSelection("Q", " Quit program", SEL_ALT);
+    printSelection("0", " Quit program", SEL_ALT);
     empty_line(3);
 
-    // todo: add controls
+    std::cin >> control;
+
+    switch(control){
+        case 1:{        //DATASET-SMALL
+            dataset = "dataset-small";
+
+            break;
+        }
+        case 2:{        //DATASET-LARGE
+            dataset = "dataset-large";
+            break;
+        }
+        case 3:{        //CUSTOM DATASET
+            std::cout << "Please type the desired dataset for analysis: ";
+            std::cin >> dataset;
+            break;
+        }
+        case 0:{        //EXIT
+            exit(0);
+        }
+        default:{break;}
+    }
+
 }
 
 // main interface
@@ -47,6 +72,8 @@ void Menu::openMainMenu(Graph& g) {
     set_cursor(0,0);
     empty_line(2);
 
+    int ctrl;
+
     print << GRAY;
     print << "   Your dataset has been loaded!" << newl;
     print << "   Choose one of the options below.";
@@ -55,22 +82,68 @@ void Menu::openMainMenu(Graph& g) {
     printSelection("1,<node>", "Effect of node removal", SEL);
 
     empty_line(2);
-    printSelection("1,<pipe>", "Effect of pipe removal", SEL);
+    printSelection("2,<pipe>", "Effect of pipe removal", SEL);
 
     empty_line(2);
-    printSelection("F", "Calculate maximum flow", SEL);
+    printSelection("3", "Calculate maximum flow", SEL);
 
     empty_line(3);
-    printSelection("Q", "Quit program", SEL_ALT);
+    printSelection("0", "Quit program", SEL_ALT);
     empty_line(3);
 
-    // todo: add controls
+    std::cin >> ctrl;
+
+    switch (ctrl) {
+        case 1:{        // NODE REMOVAL
+            std::string node;
+            printf("Type the node you want to remove: ");
+            std::cin >> node;
+            for(auto a: g.getNodes()){
+                if (a->getInfo()->getCode()==node){
+                    openNodeRemovalMenu(g, a);
+                }
+            }
+            printf("Error! Please type a valid node");
+            break;
+        }
+        case 2:{        //EDGE REMOVAL
+            std::string origin, dest;
+            printf("Type the edge you want to remove: ");
+            std::cin >> origin;
+            std::cin >> dest;
+            for(auto a: g.getNodes()){
+                for (auto e: a->getOutEdges()){
+                    if (e->getOrigin()->getInfo()->getCode()==origin){
+                        for (auto d: e->getOrigin()->getOutEdges()){
+                            if(d->getDest()->getInfo()->getCode()==dest){
+                                openPipeRemovalMenu(g, d);
+                            }
+                        }
+                    }
+                }
+
+            }
+            printf("Error! Please type a valid pipe");
+            break;
+        }
+
+
+        case 3:{        //MAX FLOW
+            openFlowMenu(g);
+            break;
+        }
+        case 0:{        //EXIT
+            exit(0);
+        }
+        default:{break;}
+    }
 }
 
 // menu used to display maximum flow
 void Menu::openFlowMenu(Graph& g) {
-
+    Graph gC = g;
     int maxFlow = DataHandler::edmondsKarp(g);
+    int ctrl;
 
     clear();
     empty_line(100);
@@ -82,7 +155,7 @@ void Menu::openFlowMenu(Graph& g) {
         int demand = c->getDemand();
         int flow = p.first->getOutEdges()[0]->getFlow();
         // print flow and demand for all cities
-        print << GRAY << BOLD << "   " << c->getCode() << " aka. " << c->getName();
+        print << GRAY << BOLD "   " << c->getCode() << " aka. " << c->getName();
         print << RESET << GRAY << " gets " << flow << "/" << demand;
         if (flow < demand) {
             print << FGROUND(25) << ITALIC << " (Δ=" << demand-flow << ")";
@@ -95,22 +168,38 @@ void Menu::openFlowMenu(Graph& g) {
     print << "   Maximum network flow -> " << maxFlow << " (m³/s)";
 
     empty_line(2);
-    printSelection("P", "Print to file", SEL);
+    printSelection("1", "Print to file", SEL);
 
     print << " ";
-    printSelection("B", "Balance the flow", SEL);
+    printSelection("2", "Balance the flow", SEL);
 
     print << " ";
-    printSelection("Q", "Back to Main Menu", SEL_ALT);
+    printSelection("0", "Back to Main Menu", SEL_ALT);
 
     empty_line(3);
 
-    // todo: add controls
+    std::cin >> ctrl;
+
+    switch (ctrl) {
+        case 1:{        //PRINT TO FILE
+            DataHandler::printToFile(g);
+            break;
+        }
+        case 2:{        //BALANCE FLOW
+            openBalanceMenu(g);
+            break;
+        }
+        case 0:{    //RETURN TO MAIN MENU
+            openMainMenu(gC);
+            break;
+        }
+        default:{break;}
+    }
 }
 
 // menu used to show before/after balancing metrics
 void Menu::openBalanceMenu(Graph &g) {
-
+    Graph gC = g;
     Metrics oldMetrics = DataHandler::computeMetrics(g);
     Metrics newMetrics = DataHandler::balanceNetwork(g);
 
@@ -160,15 +249,24 @@ void Menu::openBalanceMenu(Graph &g) {
     print << BOLD << 100*avg1 << "% -> " << 100*avg2 << "%";
 
     empty_line(3);
-    printSelection("Q", "Back to Main Menu", SEL_ALT);
+    printSelection("0", "Back to Main Menu", SEL_ALT);
     empty_line(3);
 
-    // todo: add controls
+    int ctrl;
+    std::cin >> ctrl;
+
+    switch (ctrl) {
+        case 0:{        //RETURN TO MAIN MENU
+            openMainMenu(gC);
+            break;
+        }
+        default:{break;}
+    }
 }
 
 // menu used to show effect of removing a pipe
 void Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
-
+    Graph gC = g;
     int maxFlow = DataHandler::edmondsKarp(g);
     std::vector<int> oldFlow;
 
@@ -256,22 +354,30 @@ void Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
             spaces = 9 - y.size();
             print << std::string(spaces, ' ');
 
-            print << GRAY << BOLD << " " << c->getCode() << " aka. " << c->getName();
+            print << GRAY << BOLD " " << c->getCode() << " aka. " << c->getName();
             print << RESET << GRAY << " now gets " << flowAfter << "/" << demand;
             a++;
         }
     }
 
     empty_line(3);
-    printSelection("Q", "Back to Main Menu", SEL_ALT);
+    printSelection("0", "Back to Main Menu", SEL_ALT);
     empty_line(3);
 
-    // todo: add controls
+    int ctrl;
+    std::cin >> ctrl;
+
+    switch (ctrl) {
+        case 0:{        //RETURN TO MAIN MENUU
+            openMainMenu(gC);
+        }
+        default:{break;}
+    }
 }
 
 // menu used to show effect of removing a node
 void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
-
+    Graph gC = g;
     int maxFlow = DataHandler::edmondsKarp(g);
     std::vector<int> oldFlow;
 
@@ -359,7 +465,7 @@ void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
             spaces = 9 - y.size();
             print << std::string(spaces, ' ');
 
-            print << GRAY << BOLD << " " << c->getCode() << " aka. " << c->getName();
+            print << GRAY << BOLD " " << c->getCode() << " aka. " << c->getName();
             print << RESET << GRAY << " now gets " << flowAfter << "/" << demand;
             a++;
         }
@@ -372,8 +478,16 @@ void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
     }
 
     empty_line(3);
-    printSelection("Q", "Back to Main Menu", SEL_ALT);
+    printSelection("0", "Back to Main Menu", SEL_ALT);
     empty_line(3);
 
-    // todo: add controls
+    int ctrl;
+    std::cin>>ctrl;
+
+    switch (ctrl) {
+        case 0:{        //RETURN TO MAIN MENU
+            openMainMenu(gC);
+        }
+        default:{break;}
+    }
 }

@@ -5,34 +5,16 @@
 
 int main() {
     Graph g;
+    std::string dataset;
+    Menu::openDatasetMenu(g, dataset);
 
-    // Menu::openDatasetMenu();
 
-
-    if (!DataLoader::loadToGraph(g, "../dataset-large/")) {
+    if (!DataLoader::loadToGraph(g, "../"+dataset+"/")) {
         printf("Error loading dataset!");
         return 1;
     }
 
-    // Menu::openMainMenu(g);
+    Menu::openMainMenu(g);
 
-    Vertex* v1 = g.findVertex("R_3");
-    // Vertex* v2 = g.findVertex("PS_6");
-    // Edge* e = nullptr;
-    //
-    // for (Edge* e_ : v1->getOutEdges()) {
-    //     if (e_->getDest() == v2) {
-    //         e = e_;
-    //         break;
-    //     }
-    // }
-    //
-    // menu.openPipeRemovalMenu(g, e);
-
-Menu::openNodeRemovalMenu(g, v1);
-
-
-    // pritf("Dataset loaded!\n");
-    // printf("Max flow > %d\n", DataHandler::edmondsKarp(g));
     return 0;
 }
