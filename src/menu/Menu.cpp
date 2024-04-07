@@ -12,7 +12,7 @@ void printSelection(const std::string& idx, const std::string& text, const std::
 }
 
 // menu used to select dataset
-int Menu::openDatasetMenu() {
+void  Menu::openDatasetMenu() {
 
     clear();
     set_cursor(0,0);
@@ -35,13 +35,40 @@ int Menu::openDatasetMenu() {
 
     empty_line(3);
     printSelection("Q", " Quit program", SEL_ALT);
+    empty_line(3);
+
+    // todo: add controls
+}
+
+// main interface
+void Menu::openMainMenu(Graph& g) {
+
+    clear();
+    set_cursor(0,0);
+    empty_line(2);
+
+    print << GRAY;
+    print << "   Your dataset has been loaded!" << newl;
+    print << "   Choose one of the options below.";
+
+    empty_line(2);
+    printSelection("1,<node>", "Effect of node removal", SEL);
+
+    empty_line(2);
+    printSelection("1,<pipe>", "Effect of pipe removal", SEL);
+
+    empty_line(2);
+    printSelection("F", "Calculate maximum flow", SEL);
 
     empty_line(3);
-    return 0;
+    printSelection("Q", "Quit program", SEL_ALT);
+    empty_line(3);
+
+    // todo: add controls
 }
 
 // menu used to display maximum flow
-int Menu::openFlowMenu(Graph& g) {
+void Menu::openFlowMenu(Graph& g) {
 
     int maxFlow = DataHandler::edmondsKarp(g);
 
@@ -77,11 +104,12 @@ int Menu::openFlowMenu(Graph& g) {
     printSelection("Q", "Back to Main Menu", SEL_ALT);
 
     empty_line(3);
-    return 0;
+
+    // todo: add controls
 }
 
 // menu used to show before/after balancing metrics
-int Menu::openBalanceMenu(Graph &g) {
+void Menu::openBalanceMenu(Graph &g) {
 
     Metrics oldMetrics = DataHandler::computeMetrics(g);
     Metrics newMetrics = DataHandler::balanceNetwork(g);
@@ -133,13 +161,13 @@ int Menu::openBalanceMenu(Graph &g) {
 
     empty_line(3);
     printSelection("Q", "Back to Main Menu", SEL_ALT);
-
     empty_line(3);
-    return 0;
+
+    // todo: add controls
 }
 
 // menu used to show effect of removing a pipe
-int Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
+void Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
 
     int maxFlow = DataHandler::edmondsKarp(g);
     std::vector<int> oldFlow;
@@ -168,42 +196,81 @@ int Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
     int newFlow = maxFlow - removed + added;
 
     //-- start of actual interface
+    std::string k1 = "...", k2 = "...";
+    switch (e->getOrigin()->getInfo()->getType()) {
+        case WATER_RESERVOIR:
+            k1 = "Reservoir";
+        break;
+        case PUMPING_STATION:
+            k1 = "Station";
+        break;
+        case DELIVERY_SITE:
+            k1 = "City";
+    }
+    switch (e->getDest()->getInfo()->getType()) {
+        case WATER_RESERVOIR:
+            k2 = "Reservoir";
+        break;
+        case PUMPING_STATION:
+            k2 = "Station";
+        break;
+        case DELIVERY_SITE:
+            k2 = "City";
+    }
+
     clear();
     set_cursor(0,0);
     empty_line(2);
 
     print << GRAY;
-    print << "   By removing a pipe from " << BOLD;
-    print << e->getOrigin()->getInfo()->getCode() << RESET << GRAY;
-    print << " -> " << BOLD << e->getDest()->getInfo()->getCode();
-    print << RESET << GRAY << ":";
+    print << "   After removing pipe from " << BOLD;
+    print << k1 << " #" << e->getOrigin()->getInfo()->getId() << RESET << GRAY;
+    print << " -> " << BOLD << k2 << " #" << e->getDest()->getInfo()->getId();
+    print << RESET << GRAY << ":" << newl;
 
-    empty_line(2);
     int a = 0;
-
     auto p= g.getCities();
+
     for (int i=0; i<p.size(); i++) {
-        int flowN = p[i].first->getOutEdges()[0]->getFlow();
-        int flowO = oldFlow[i];
-        if (flowN != flowO) {
-            print << "   📉 Flow of " << p[i].second->getName() << " changed from " << flowO << " to " << flowN << "!";
-            print << newl << newl;
+        City* c = p[i].second;
+        int flowAfter = p[i].first->getOutEdges()[0]->getFlow();
+        int flowBefore = oldFlow[i];
+        int demand = c->getDemand();
+        if (flowBefore != flowAfter) {
+            print << newl;
+            std::string color = (flowBefore > flowAfter) ? RED : (flowAfter==flowBefore) ? LIGHT_WHITE : GREEN;
+            print << color << "   ";
+            std::string x = std::to_string(flowAfter-flowBefore);
+            int spaces = 13- (3+x.size());
+            if (flowAfter > flowBefore) {
+                print << "+";
+                spaces--;
+            }
+            print << x;
+            print << std::string(spaces, ' ');
+
+            std::string y = "Δ=" + std::to_string(demand-flowAfter) + "";
+            if (flowAfter < demand) {
+                print << FGROUND(25) << ITALIC << "Δ=" << demand-flowAfter << "";
+            } else print << LIGHT_WHITE << ITALIC << "Δ=0";
+            spaces = 9 - y.size();
+            print << std::string(spaces, ' ');
+
+            print << GRAY << BOLD " " << c->getCode() << " aka. " << c->getName();
+            print << RESET << GRAY << " now gets " << flowAfter << "/" << demand;
             a++;
         }
-    }
-
-    if (a == 0) {
-        print << ITALIC << "   No cities affected by this change!";
     }
 
     empty_line(3);
     printSelection("Q", "Back to Main Menu", SEL_ALT);
     empty_line(3);
-    return 0;
+
+    // todo: add controls
 }
 
 // menu used to show effect of removing a node
-int Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
+void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
 
     int maxFlow = DataHandler::edmondsKarp(g);
     std::vector<int> oldFlow;
@@ -254,21 +321,59 @@ int Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
             k = "Delivery Site";
     }
 
+    clear();
+    set_cursor(0,0);
+    empty_line(2);
+
+    print << GRAY;
+    print << "   After removing " << BOLD << k << " #";
+    print << v->getInfo()->getId() << RESET << GRAY << ":";
+
+    empty_line(1);
+
     int a = 0;
     auto p= g.getCities();
+
     for (int i=0; i<p.size(); i++) {
-        int flowN = p[i].first->getOutEdges()[0]->getFlow();
-        int flowO = oldFlow[i];
-        if (flowN != flowO) {
-            print << " Flow of " << p[i].second->getName() << " changed from " << flowO << " to " << flowN << "!";
+        City* c = p[i].second;
+        int flowAfter = p[i].first->getOutEdges()[0]->getFlow();
+        int flowBefore = oldFlow[i];
+        int demand = c->getDemand();
+        if (flowBefore != flowAfter) {
             print << newl;
+            std::string color = (flowBefore > flowAfter) ? RED : (flowAfter==flowBefore) ? LIGHT_WHITE : GREEN;
+            print << color << "   ";
+            std::string x = std::to_string(flowAfter-flowBefore);
+            int spaces = 13 - (3+x.size());
+            if (flowAfter > flowBefore) {
+                print << "+";
+                spaces--;
+            }
+            print << x;
+            print << std::string(spaces, ' ');
+
+            std::string y = "Δ=" + std::to_string(demand-flowAfter) + "";
+            if (flowAfter < demand) {
+                print << FGROUND(25) << ITALIC << "Δ=" << demand-flowAfter << "";
+            } else print << LIGHT_WHITE << ITALIC << "Δ=0";
+            spaces = 9 - y.size();
+            print << std::string(spaces, ' ');
+
+            print << GRAY << BOLD " " << c->getCode() << " aka. " << c->getName();
+            print << RESET << GRAY << " now gets " << flowAfter << "/" << demand;
             a++;
         }
+    }
+
+
+    if (a == 0) {
+        print << newl;
+        print << ITALIC << "   No cities were affected by this change!";
     }
 
     empty_line(3);
     printSelection("Q", "Back to Main Menu", SEL_ALT);
     empty_line(3);
-    return 0;
-}
 
+    // todo: add controls
+}

@@ -6,17 +6,17 @@
 int main() {
     Graph g;
 
-    Menu menu;
-    //  int a = menu.openDatasetMenu();
+    Menu::openDatasetMenu();
+
 
     if (!DataLoader::loadToGraph(g, "../dataset-large/")) {
         printf("Error loading dataset!");
         return 1;
     }
 
+    // Menu::openMainMenu(g);
 
-
-    Vertex* v1 = g.findVertex("R_6");
+    // Vertex* v1 = g.findVertex("R_6");
     // Vertex* v2 = g.findVertex("PS_6");
     // Edge* e = nullptr;
     //
@@ -28,7 +28,8 @@ int main() {
     // }
     //
     // menu.openPipeRemovalMenu(g, e);
-    menu.openNodeRemovalMenu(g, v1);
+
+
 
     // pritf("Dataset loaded!\n");
     // printf("Max flow > %d\n", DataHandler::edmondsKarp(g));
