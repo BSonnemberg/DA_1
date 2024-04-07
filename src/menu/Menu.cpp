@@ -40,12 +40,12 @@ void Menu::openDatasetMenu(Graph& g, std::string& dataset) {
     printSelection("0", " Quit program", SEL_ALT);
     empty_line(3);
 
+    print << GRAY << ITALIC;
     std::cin >> control;
 
     switch(control){
         case 1:{        //DATASET-SMALL
             dataset = "dataset-small";
-
             break;
         }
         case 2:{        //DATASET-LARGE
@@ -53,8 +53,9 @@ void Menu::openDatasetMenu(Graph& g, std::string& dataset) {
             break;
         }
         case 3:{        //CUSTOM DATASET
-            std::cout << "Please type the desired dataset for analysis: ";
+            print << "Enter path > ";
             std::cin >> dataset;
+            print << RESET;
             break;
         }
         case 0:{        //EXIT
@@ -91,25 +92,27 @@ void Menu::openMainMenu(Graph& g) {
     printSelection("0", "Quit program", SEL_ALT);
     empty_line(3);
 
+    print << GRAY << ITALIC;
     std::cin >> ctrl;
 
     switch (ctrl) {
         case 1:{        // NODE REMOVAL
             std::string node;
-            printf("Type the node you want to remove: ");
+            printf("Enter node code > ");
             std::cin >> node;
             for(auto a: g.getNodes()){
                 if (a->getInfo()->getCode()==node){
                     openNodeRemovalMenu(g, a);
                 }
             }
-            printf("Error! Please type a valid node");
+            printf("Invalid, retry > ");
             break;
         }
         case 2:{        //EDGE REMOVAL
             std::string origin, dest;
-            printf("Type the edge you want to remove: ");
+            printf("Enter pipe source > ");
             std::cin >> origin;
+            printf("Enter pipe destination > ");
             std::cin >> dest;
             for(auto a: g.getNodes()){
                 for (auto e: a->getOutEdges()){
@@ -123,7 +126,7 @@ void Menu::openMainMenu(Graph& g) {
                 }
 
             }
-            printf("Error! Please type a valid pipe");
+            printf("Invalid pipe, ");
             break;
         }
 
@@ -136,7 +139,7 @@ void Menu::openMainMenu(Graph& g) {
             exit(0);
         }
         default:{break;}
-    }
+    }a
 }
 
 // menu used to display maximum flow
@@ -178,6 +181,7 @@ void Menu::openFlowMenu(Graph& g) {
 
     empty_line(3);
 
+    print << GRAY << ITALIC;
     std::cin >> ctrl;
 
     switch (ctrl) {
@@ -252,6 +256,7 @@ void Menu::openBalanceMenu(Graph &g) {
     printSelection("0", "Back to Main Menu", SEL_ALT);
     empty_line(3);
 
+    print << GRAY << ITALIC;
     int ctrl;
     std::cin >> ctrl;
 
@@ -364,6 +369,7 @@ void Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
     printSelection("0", "Back to Main Menu", SEL_ALT);
     empty_line(3);
 
+    print << GRAY << ITALIC;
     int ctrl;
     std::cin >> ctrl;
 
@@ -481,6 +487,7 @@ void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
     printSelection("0", "Back to Main Menu", SEL_ALT);
     empty_line(3);
 
+    print << GRAY << ITALIC;
     int ctrl;
     std::cin>>ctrl;
 
