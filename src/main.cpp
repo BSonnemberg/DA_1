@@ -16,7 +16,7 @@ int main() {
 
     // Menu::openMainMenu(g);
 
-    Vertex* v1 = g.findVertex("R_18");
+    Vertex* v1 = g.findVertex("R_3");
     // Vertex* v2 = g.findVertex("PS_6");
     // Edge* e = nullptr;
     //
