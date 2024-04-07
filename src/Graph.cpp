@@ -43,6 +43,14 @@ Vertex* Graph::findVertex(const std::string& code) const {
     return nullptr;
 }
 
+bool Graph::addVertex(Vertex *v) {
+    if (findVertex(*v->getInfo()) != nullptr) {
+        return false;
+    }
+    this->nodes.push_back(v);
+    return true;
+}
+
 Vertex* Graph::addVertex(NodeInfo* i) {
     if (i == nullptr) {
         return nullptr;
@@ -78,7 +86,7 @@ Vertex *Graph::addVertex(City *i) {
     return vtx;
 }
 
-bool Graph::removeVertex(const NodeInfo& info) {
+bool Graph::removeVertex(const NodeInfo& info, const bool& freeMem) {
     for (auto it = nodes.begin(); it != nodes.end(); ++it) {
         Vertex* v = *it;
         // found target
@@ -86,13 +94,13 @@ bool Graph::removeVertex(const NodeInfo& info) {
             nodes.erase(it);
             for (Edge* e : v->getOutEdges()) {
                 // remove edge from target > ...
-                v->removeOutEdge(e);
+                v->removeOutEdge(e, freeMem);
             }
             for (Vertex* u : this->nodes) {
                 // remove edges > to target
-                u->removeEdgeTo(v);
+                u->removeEdgeTo(v, freeMem);
             }
-            delete v;
+            if (freeMem) delete v;
             return true;
         }
     }

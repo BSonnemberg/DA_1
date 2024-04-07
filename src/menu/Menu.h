@@ -6,10 +6,11 @@
 
 class Menu {
 public:
-    int open();
-    int open2(Graph& g);
-    int open3(Graph& g);
-    int open4(Graph& g, Edge* e);
+    static int openDatasetMenu();
+    static int openFlowMenu(Graph& g);
+    static int openBalanceMenu(Graph& g);
+    static int openPipeRemovalMenu(Graph& g, Edge* e);
+    static int openNodeRemovalMenu(Graph& g, Vertex* v);
 };
 
 #endif
