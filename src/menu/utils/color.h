@@ -60,7 +60,7 @@
 #define LIGHT_CYAN std::string("")
 #define LIGHT_WHITE std::string("")
 #define RESET std::string("")
-#define BOLD std::string("")
+#define BOLD "\x1B[1m"
 #define ITALIC std::string("")
 #define UNDERLINED std::string("")
 #define REVERSE std::string("")

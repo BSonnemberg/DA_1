@@ -41,9 +41,13 @@ void Menu::openDatasetMenu(Graph& g, std::string& dataset) {
     empty_line(3);
 
     print << GRAY << ITALIC;
-    std::cin >> control;
 
-    switch(control){
+    label5:
+    int ctrl;
+    std::cin >> ctrl;
+
+
+    switch(ctrl){
         case 1:{        //DATASET-SMALL
             dataset = "dataset-small";
             break;
@@ -61,7 +65,10 @@ void Menu::openDatasetMenu(Graph& g, std::string& dataset) {
         case 0:{        //EXIT
             exit(0);
         }
-        default:{break;}
+        default:{
+            printf("Error! Invalid key, please try again.\n");
+            goto label5;
+        }
     }
 
 }
@@ -73,7 +80,7 @@ void Menu::openMainMenu(Graph& g) {
     set_cursor(0,0);
     empty_line(2);
 
-    int ctrl;
+
 
     print << GRAY;
     print << "   Your dataset has been loaded!" << newl;
@@ -93,53 +100,60 @@ void Menu::openMainMenu(Graph& g) {
     empty_line(3);
 
     print << GRAY << ITALIC;
-    std::cin >> ctrl;
 
-    switch (ctrl) {
-        case 1:{        // NODE REMOVAL
-            std::string node;
-            printf("Enter node code > ");
-            std::cin >> node;
-            for(auto a: g.getNodes()){
-                if (a->getInfo()->getCode()==node){
-                    openNodeRemovalMenu(g, a);
+    label4:
+
+        int ctrl;
+        std::cin >> ctrl;
+
+        switch (ctrl) {
+            case 1:{        // NODE REMOVAL
+                std::string node;
+                printf("Enter node code > ");
+                std::cin >> node;
+                for(auto a: g.getNodes()){
+                    if (a->getInfo()->getCode()==node){
+                        openNodeRemovalMenu(g, a);
+                    }
                 }
+                printf("Invalid, retry > ");
+                break;
             }
-            printf("Invalid, retry > ");
-            break;
-        }
-        case 2:{        //EDGE REMOVAL
-            std::string origin, dest;
-            printf("Enter pipe source > ");
-            std::cin >> origin;
-            printf("Enter pipe destination > ");
-            std::cin >> dest;
-            for(auto a: g.getNodes()){
-                for (auto e: a->getOutEdges()){
-                    if (e->getOrigin()->getInfo()->getCode()==origin){
-                        for (auto d: e->getOrigin()->getOutEdges()){
-                            if(d->getDest()->getInfo()->getCode()==dest){
-                                openPipeRemovalMenu(g, d);
+            case 2:{        //EDGE REMOVAL
+                std::string origin, dest;
+                printf("Enter pipe source > ");
+                std::cin >> origin;
+                printf("Enter pipe destination > ");
+                std::cin >> dest;
+                for(auto a: g.getNodes()){
+                    for (auto e: a->getOutEdges()){
+                        if (e->getOrigin()->getInfo()->getCode()==origin){
+                            for (auto d: e->getOrigin()->getOutEdges()){
+                                if(d->getDest()->getInfo()->getCode()==dest){
+                                    openPipeRemovalMenu(g, d);
+                                }
                             }
                         }
                     }
+
                 }
-
+                printf("Invalid pipe, ");
+                break;
             }
-            printf("Invalid pipe, ");
-            break;
-        }
 
 
-        case 3:{        //MAX FLOW
-            openFlowMenu(g);
-            break;
+            case 3:{        //MAX FLOW
+                openFlowMenu(g);
+                break;
+            }
+            case 0:{        //EXIT
+                exit(0);
+            }
+            default:{
+                printf("Error! Invalid key, please try again.\n");
+                goto label4;
+            }
         }
-        case 0:{        //EXIT
-            exit(0);
-        }
-        default:{break;}
-    }
 }
 
 // menu used to display maximum flow
@@ -182,23 +196,28 @@ void Menu::openFlowMenu(Graph& g) {
     empty_line(3);
 
     print << GRAY << ITALIC;
-    std::cin >> ctrl;
+    label3:
+        std::cin >> ctrl;
 
-    switch (ctrl) {
-        case 1:{        //PRINT TO FILE
-            DataHandler::printToFile(g);
-            break;
+        switch (ctrl) {
+            case 1:{        //PRINT TO FILE
+                DataHandler::printToFile(g);
+                openFlowMenu(gC);
+
+            }
+            case 2:{        //BALANCE FLOW
+                openBalanceMenu(g);
+                break;
+            }
+            case 0:{    //RETURN TO MAIN MENU
+                openMainMenu(gC);
+                break;
+            }
+            default:{
+                printf("Error! Invalid key, please try again.\n");
+                goto label3;
+            }
         }
-        case 2:{        //BALANCE FLOW
-            openBalanceMenu(g);
-            break;
-        }
-        case 0:{    //RETURN TO MAIN MENU
-            openMainMenu(gC);
-            break;
-        }
-        default:{break;}
-    }
 }
 
 // menu used to show before/after balancing metrics
@@ -257,16 +276,20 @@ void Menu::openBalanceMenu(Graph &g) {
     empty_line(3);
 
     print << GRAY << ITALIC;
-    int ctrl;
-    std::cin >> ctrl;
+    label2:
+        int ctrl;
+        std::cin >> ctrl;
 
-    switch (ctrl) {
-        case 0:{        //RETURN TO MAIN MENU
-            openMainMenu(gC);
-            break;
+        switch (ctrl) {
+            case 0:{        //RETURN TO MAIN MENU
+                openMainMenu(gC);
+                break;
+            }
+            default:{
+                printf("Error! Invalid key, please try again.\n");
+                goto label2;
+            }
         }
-        default:{break;}
-    }
 }
 
 // menu used to show effect of removing a pipe
@@ -370,15 +393,21 @@ void Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
     empty_line(3);
 
     print << GRAY << ITALIC;
-    int ctrl;
-    std::cin >> ctrl;
+    label1:
+        int ctrl;
+        std::cin >> ctrl;
 
-    switch (ctrl) {
-        case 0:{        //RETURN TO MAIN MENUU
-            openMainMenu(gC);
+        switch (ctrl) {
+            case 0:{        //RETURN TO MAIN MENUU
+                openMainMenu(gC);
+            }
+            default:{
+
+                printf("Error! Invalid key, please try again.\n");
+                goto label1;
+
+            }
         }
-        default:{break;}
-    }
 }
 
 // menu used to show effect of removing a node
@@ -488,13 +517,17 @@ void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
     empty_line(3);
 
     print << GRAY << ITALIC;
-    int ctrl;
-    std::cin>>ctrl;
 
-    switch (ctrl) {
-        case 0:{        //RETURN TO MAIN MENU
-            openMainMenu(gC);
+    label0:
+        int ctrl;
+        std::cin>>ctrl;
+        switch (ctrl) {
+            case 0:{        //RETURN TO MAIN MENU
+                openMainMenu(gC);
+            }
+            default:{
+                printf("Error! Invalid key, please try again.\n");
+                goto label0;
+            }
         }
-        default:{break;}
-    }
 }
