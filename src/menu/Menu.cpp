@@ -197,27 +197,51 @@ void Menu::openFlowMenu(Graph& g) {
 
     print << GRAY << ITALIC;
     label3:
-        std::cin >> ctrl;
+    std::cin >> ctrl;
 
-        switch (ctrl) {
-            case 1:{        //PRINT TO FILE
-                DataHandler::printToFile(g);
-                openFlowMenu(gC);
+    switch (ctrl) {
+        case 1:{        //PRINT TO FILE
+            DataHandler::printToFile(g);
+            std::cout << "File - " << DataHandler::printToFile(g) << " - created!\n";
+            empty_line(2);
+            printSelection("1", "Return to Main Menu", SEL);
+            empty_line(2);
+            printSelection("0", "Quit program", SEL);
+            std::cout<< std::endl;
+            //openFlowMenu(gC);
+            label9:
+            int ctrl;
+            std::cin >> ctrl;
+            switch (ctrl) {
+                case 1:{
+                    openMainMenu(gC);
+                    break;
+                }
+                case 0:{
+                    exit(0);
+                }
+                default:{
+                    printf("Error! Invalid key, please try again.\n");
+                    goto label9;
+                }
+
 
             }
-            case 2:{        //BALANCE FLOW
-                openBalanceMenu(g);
-                break;
-            }
-            case 0:{    //RETURN TO MAIN MENU
-                openMainMenu(gC);
-                break;
-            }
-            default:{
-                printf("Error! Invalid key, please try again.\n");
-                goto label3;
-            }
+
         }
+        case 2:{        //BALANCE FLOW
+            openBalanceMenu(g);
+            break;
+        }
+        case 0:{    //RETURN TO MAIN MENU
+            openMainMenu(gC);
+            break;
+        }
+        default:{
+            printf("Error! Invalid key, please try again.\n");
+            goto label3;
+        }
+    }
 }
 
 // menu used to show before/after balancing metrics
@@ -277,19 +301,19 @@ void Menu::openBalanceMenu(Graph &g) {
 
     print << GRAY << ITALIC;
     label2:
-        int ctrl;
-        std::cin >> ctrl;
+    int ctrl;
+    std::cin >> ctrl;
 
-        switch (ctrl) {
-            case 0:{        //RETURN TO MAIN MENU
-                openMainMenu(gC);
-                break;
-            }
-            default:{
-                printf("Error! Invalid key, please try again.\n");
-                goto label2;
-            }
+    switch (ctrl) {
+        case 0:{        //RETURN TO MAIN MENU
+            openMainMenu(gC);
+            break;
         }
+        default:{
+            printf("Error! Invalid key, please try again.\n");
+            goto label2;
+        }
+    }
 }
 
 // menu used to show effect of removing a pipe
@@ -394,20 +418,21 @@ void Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
 
     print << GRAY << ITALIC;
     label1:
-        int ctrl;
-        std::cin >> ctrl;
+    int ctrl;
+    std::cin >> ctrl;
 
-        switch (ctrl) {
-            case 0:{        //RETURN TO MAIN MENUU
-                openMainMenu(gC);
-            }
-            default:{
-
-                printf("Error! Invalid key, please try again.\n");
-                goto label1;
-
-            }
+    switch (ctrl) {
+        case 0:{        //RETURN TO MAIN MENUU
+            openMainMenu(gC);
+            break;
         }
+        default:{
+
+            printf("Error! Invalid key, please try again.\n");
+            goto label1;
+
+        }
+    }
 }
 
 // menu used to show effect of removing a node
@@ -519,15 +544,16 @@ void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
     print << GRAY << ITALIC;
 
     label0:
-        int ctrl;
-        std::cin>>ctrl;
-        switch (ctrl) {
-            case 0:{        //RETURN TO MAIN MENU
-                openMainMenu(gC);
-            }
-            default:{
-                printf("Error! Invalid key, please try again.\n");
-                goto label0;
-            }
+    int ctrl;
+    std::cin>>ctrl;
+    switch (ctrl) {
+        case 0:{        //RETURN TO MAIN MENU
+            openMainMenu(gC);
+            break;
         }
+        default:{
+            printf("Error! Invalid key, please try again.\n");
+            goto label0;
+        }
+    }
 }
