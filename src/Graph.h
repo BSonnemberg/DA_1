@@ -6,8 +6,6 @@
 class Graph {
     std::vector<Vertex*> nodes;
     Vertex* addVertex(NodeInfo* i);
-    // starting index of city nodes
-    int citiesIndex = -1;
 public:
     ~Graph();
     Graph();

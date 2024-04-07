@@ -6,7 +6,7 @@
 int main() {
     Graph g;
 
-    Menu::openDatasetMenu();
+    // Menu::openDatasetMenu();
 
 
     if (!DataLoader::loadToGraph(g, "../dataset-large/")) {
@@ -16,7 +16,7 @@ int main() {
 
     // Menu::openMainMenu(g);
 
-    // Vertex* v1 = g.findVertex("R_6");
+    Vertex* v1 = g.findVertex("R_18");
     // Vertex* v2 = g.findVertex("PS_6");
     // Edge* e = nullptr;
     //
@@ -29,6 +29,7 @@ int main() {
     //
     // menu.openPipeRemovalMenu(g, e);
 
+Menu::openNodeRemovalMenu(g, v1);
 
 
     // pritf("Dataset loaded!\n");

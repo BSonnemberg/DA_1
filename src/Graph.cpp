@@ -79,9 +79,6 @@ Vertex *Graph::addVertex(City *i) {
     if (vtx != nullptr) {
         // connect to master sink
         vtx->addEdgeTo(nodes[1], i->getDemand());
-        if (this->citiesIndex == -1) {
-            this->citiesIndex = nodes.size()-1;
-        }
     }
     return vtx;
 }
@@ -109,18 +106,18 @@ bool Graph::removeVertex(const NodeInfo& info, const bool& freeMem) {
 
 /**
  * @brief Get all delivery sites in the graph
- * @remark function is O(c), c -> no. of cities
+ * @remark function is O(n), c -> no. of nodes in the graph
  * @return vector of pairs of Vertices + City* object
  */
 std::vector<std::pair<Vertex*, City*>> Graph::getCities() const {
     std::vector<std::pair<Vertex*, City*>> res;
-    for (int i = citiesIndex; i < nodes.size(); i++) {
-        Vertex* v = this->nodes[i];
-        auto* c = dynamic_cast<City*>(v->getInfo());
-        if (c != nullptr) {
-            res.emplace_back(v, c);
+    for (Vertex* v : nodes) {
+        if (v->getInfo()->getType() == DELIVERY_SITE) {
+            auto* c = dynamic_cast<City*>(v->getInfo());
+            if (c != nullptr) {
+                res.emplace_back(v, c);
+            }
         }
     }
     return res;
 }
-
