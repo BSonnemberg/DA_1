@@ -1,7 +1,6 @@
 #ifndef TERMUTILS_H
 #define TERMUTILS_H
 
-
 #include "scannable.h"
 #include "printable.h"
 #include "color.h"

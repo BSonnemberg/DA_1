@@ -82,7 +82,7 @@ void Menu::openFlowMenu(Graph& g) {
         int demand = c->getDemand();
         int flow = p.first->getOutEdges()[0]->getFlow();
         // print flow and demand for all cities
-        print << GRAY << BOLD "   " << c->getCode() << " aka. " << c->getName();
+        print << GRAY << BOLD << "   " << c->getCode() << " aka. " << c->getName();
         print << RESET << GRAY << " gets " << flow << "/" << demand;
         if (flow < demand) {
             print << FGROUND(25) << ITALIC << " (Δ=" << demand-flow << ")";
@@ -256,7 +256,7 @@ void Menu::openPipeRemovalMenu(Graph& g, Edge* e) {
             spaces = 9 - y.size();
             print << std::string(spaces, ' ');
 
-            print << GRAY << BOLD " " << c->getCode() << " aka. " << c->getName();
+            print << GRAY << BOLD << " " << c->getCode() << " aka. " << c->getName();
             print << RESET << GRAY << " now gets " << flowAfter << "/" << demand;
             a++;
         }
@@ -359,7 +359,7 @@ void Menu::openNodeRemovalMenu(Graph& g, Vertex* v) {
             spaces = 9 - y.size();
             print << std::string(spaces, ' ');
 
-            print << GRAY << BOLD " " << c->getCode() << " aka. " << c->getName();
+            print << GRAY << BOLD << " " << c->getCode() << " aka. " << c->getName();
             print << RESET << GRAY << " now gets " << flowAfter << "/" << demand;
             a++;
         }

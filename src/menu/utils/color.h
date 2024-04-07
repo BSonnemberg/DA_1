@@ -1,5 +1,8 @@
 #pragma once
 
+// unix only
+#ifndef WIN32
+
 #define GRAY "\x1B[38;5;248m"
 
 // foreground only
@@ -35,3 +38,34 @@
  ids -> https://user-images.githubusercontent.com/995050/47952855-ecb12480-df75-11e8-89d4-ac26c50e80b9.png*/
 #define BGROUND(color_id) ("\x1B[48;5;" + std::to_string(color_id) + "m")
 #define FGROUND(color_id) ("\x1B[38;5;" + std::to_string(color_id) + "m")
+
+#else
+
+// placefolders for windows os
+#define GRAY std::string("")
+#define BLACK std::string("")
+#define RED std::string("")
+#define GREEN std::string("")
+#define YELLOW std::string("")
+#define BLUE std::string("")
+#define PURPLE std::string("")
+#define CYAN std::string("")
+#define WHITE std::string("")
+#define LIGHT_BLACK std::string("")
+#define LIGHT_RED std::string("")
+#define LIGHT_GREEN std::string("")
+#define LIGHT_YELLOW std::string("")
+#define LIGHT_BLUE std::string("")
+#define LIGHT_PURPLE std::string("")
+#define LIGHT_CYAN std::string("")
+#define LIGHT_WHITE std::string("")
+#define RESET std::string("")
+#define BOLD std::string("")
+#define ITALIC std::string("")
+#define UNDERLINED std::string("")
+#define REVERSE std::string("")
+#define STRIKETHOUGH std::string("")
+#define BGROUND(color_id) std::string("")
+#define FGROUND(color_id) std::string("")
+
+#endif
